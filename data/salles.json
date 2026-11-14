@@ -1,0 +1,392 @@
+[
+  {
+    "id": "fer",
+    "numero": 1,
+    "titre": "Le fer et les premiers peuples",
+    "periode": "De la fin du Ier millénaire av. J.-C. au XVe siècle",
+    "texte": "Le nord du Togo est une terre de forgerons. Dans la région de Bassar, riche en minerai de fer, les fouilles datent les premiers travaux du fer de la fin du Ier millénaire av. J.-C. Cette production, d'abord locale, s'interrompt au début du IIe siècle de notre ère, reprend au XIIIe siècle, puis croît fortement après le milieu du XVIe siècle, jusqu'à son apogée à la fin du XIXe siècle. À l'époque allemande, les hauts fourneaux de Bandjeli fonctionnent encore. Plus au nord, le Koutammakou est le pays des Batammariba et de leurs maisons-tours de terre crue, les takienta.",
+    "jalons": [
+      {
+        "date": "Fin du Ier millénaire av. J.-C.",
+        "libelle": "Débuts de la production de fer dans la région de Bassar ; elle sert d'abord les besoins locaux, jusqu'au début du IIe siècle de notre ère.",
+        "source": "P. de Barros, L. Iles, L. D. Frame et D. Killick, « The early iron metallurgy of Bassar, Togo », Azania: Archaeological Research in Africa, 55 (1), 2020, p. 3-43 ; manuscrit accepté, eprints.whiterose.ac.uk/158986, introduction",
+        "verifie": true
+      },
+      {
+        "date": "XIIIe siècle",
+        "libelle": "Après une longue interruption, le travail du fer reprend en pays bassar.",
+        "source": "P. de Barros, L. Iles, L. D. Frame et D. Killick, « The early iron metallurgy of Bassar, Togo », Azania: Archaeological Research in Africa, 55 (1), 2020, p. 3-43 ; manuscrit accepté, eprints.whiterose.ac.uk/158986, introduction",
+        "verifie": true
+      },
+      {
+        "date": "Après le milieu du XVIe siècle",
+        "libelle": "La production de fer de Bassar croît rapidement et alimente des échanges régionaux et lointains.",
+        "source": "P. de Barros, L. Iles, L. D. Frame et D. Killick, « The early iron metallurgy of Bassar, Togo », Azania: Archaeological Research in Africa, 55 (1), 2020, p. 3-43 ; manuscrit accepté, eprints.whiterose.ac.uk/158986, introduction",
+        "verifie": true
+      },
+      {
+        "date": "Fin du XIXe siècle",
+        "libelle": "Apogée de l'industrie du fer de Bassar, d'après les récits ethnohistoriques et les traditions orales analysés par P. de Barros.",
+        "source": "P. de Barros, L. Iles, L. D. Frame et D. Killick, « The early iron metallurgy of Bassar, Togo », Azania: Archaeological Research in Africa, 55 (1), 2020, p. 3-43 ; manuscrit accepté, eprints.whiterose.ac.uk/158986, introduction",
+        "verifie": true
+      },
+      {
+        "date": "Époque allemande (1884 à 1914)",
+        "libelle": "Les hauts fourneaux de Bandjeli sont photographiés en activité.",
+        "source": "Carte postale « Hochöfen in Banjeli (Nord-Togo) im Betrieb », légende allemande imprimée, Wikimedia Commons (archive bandjeli-hauts-fourneaux)",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "À Bassar, dans le nord du Togo, on produit du fer dès la fin du premier millénaire avant notre ère, selon les fouilles de l'archéologue Philip de Barros et de ses collègues. Après une longue interruption, les fourneaux se rallument au XIIIe siècle, et la production s'envole après le milieu du XVIe siècle. Sur cette carte postale de l'époque allemande, les hauts fourneaux de terre de Bandjeli fonctionnent encore.",
+      "dit": "À Bassar, dans le nord du Togo, on produit du fer dès la fin du premier millénaire avant notre ère, selon les fouilles de l'archéologue Philip de Barros et de ses collègues. Après une longue interruption, les fourneaux se rallument au treizième siècle, et la production s'envole après le milieu du seizième siècle. Sur cette carte postale de l'époque allemande, les hauts fourneaux de terre de Bandjéli fonctionnent encore.",
+      "duree_estimee_s": 34
+    },
+    "archives": [
+      "bandjeli-hauts-fourneaux",
+      "bandjeli-konkomba",
+      "sprigade-b2-bassari",
+      "takienta-nadoba",
+      "takienta-tamberma",
+      "koutammakou-2006",
+      "cloche-kabre"
+    ]
+  },
+  {
+    "id": "royaumes",
+    "numero": 2,
+    "titre": "Royaumes et migrations",
+    "periode": "Du XVe au XVIIe siècle",
+    "texte": "Avant la colonisation, des royaumes et des chefferies se forment ou se déplacent sur le territoire du futur Togo. Dans le Sud, des populations venues de l'Est, comme les Ewe, s'installent par vagues successives entre le XVe et le XVIIe siècle. Selon la tradition, les Ewe se dispersent depuis Notsé, ville ceinte du mur d'Agbogbo, pour échapper au règne oppressif du roi Agokoli ; les récits ne s'accordent pas sur la date. Sur la côte, les Guin et les Mina d'Aného, l'ancien Petit-Popo, descendent de migrations venues de l'actuel Ghana. Au centre, la chefferie de Tchaoudjo s'organise autour de Sokodé.",
+    "jalons": [
+      {
+        "date": "Du XVe au XVIIe siècle",
+        "libelle": "Dans le Sud, des populations venues de l'Est, comme les Ewe, s'installent par vagues successives.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563, note 4",
+        "verifie": true
+      },
+      {
+        "date": "XVe ou XVIIe siècle selon les sources",
+        "libelle": "Notsé, ville ceinte du mur d'Agbogbo ; selon la tradition, les Ewe la quittent pour échapper au règne oppressif du roi Agokoli.",
+        "source": "en.wikipedia.org, « Notsé », révision 1377792758 ; fr.wikipedia.org, « Notsé », révision 240213086",
+        "verifie": false
+      },
+      {
+        "date": "XVIIe siècle",
+        "libelle": "Les Adjigo, des Mina venus d'Elmina, sur la côte de l'actuel Ghana, s'installent à Aného, l'ancien Petit-Popo, qui devient un centre de peuplement et de commerce dès la fin du siècle.",
+        "source": "fr.wikipedia.org, « Aného », révision 239514167",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Au sud, les récits des Ewe parlent de Tado, puis de Notsé, une ville protégée par un grand mur de terre, l'Agbogbo, dont des pans subsistent encore. La tradition raconte que les Ewe ont quitté Notsé pour échapper au règne oppressif du roi Agokoli, puis se sont dispersés. Sur la côte, Glidji garde ses rites ; au centre, les cavaliers de la chefferie de Tchaoudjo défilent à Sokodé.",
+      "dit": "Au sud, les récits des Éwé parlent de Tado, puis de Notsé, une ville protégée par un grand mur de terre, l'Agbogbo, dont des pans subsistent encore. La tradition raconte que les Éwé ont quitté Notsé pour échapper au règne oppressif du roi Agokoli, puis se sont dispersés. Sur la côte, Glidji garde ses rites ; au centre, les cavaliers de la chefferie de Tchaoudjo défilent à Sokodé.",
+      "duree_estimee_s": 34
+    },
+    "archives": [
+      "notse-agbogbo-1",
+      "notse-agbogbo-2",
+      "ewe-carte-1888",
+      "glidji-pierre-sacree",
+      "sokode-cavaliers",
+      "gardienne-exode"
+    ]
+  },
+  {
+    "id": "cote",
+    "numero": 3,
+    "titre": "La côte et la traite",
+    "periode": "XVIIe siècle à 1884",
+    "texte": "Sur les cartes européennes, du XVIIIe au XIXe siècle, le littoral entre la Volta et le golfe du Bénin s'appelle la côte des Esclaves. Porto-Seguro, aujourd'hui Agbodrafo, est un haut lieu de la traite négrière du XVIIe au début du XIXe siècle. Petit-Popo, aujourd'hui Aného, d'abord marché portugais aux esclaves, devient un centre de peuplement et de commerce dès la fin du XVIIe siècle. À Agbodrafo, la Maison Wood a servi, selon la plaque du programme « La route de l'esclave », de casernement aux esclaves de la traite clandestine, dans la seconde moitié du XIXe siècle. Les manilles, anneaux de métal, servaient de monnaie d'échange en Afrique de l'Ouest.",
+    "jalons": [
+      {
+        "date": "Entre 1740 et 1749",
+        "libelle": "Jacques-Nicolas Bellin dresse la « Carte du golfe de Bénin et partie de la côte de Guinée depuis la rivière de Volta jusqu'au cap Formosa ».",
+        "source": "BnF, Gallica, ark:/12148/btv1b85955855, notice datée « entre 1740 et 1749 », via Wikimedia Commons (archive bellin-golfe-benin)",
+        "verifie": true
+      },
+      {
+        "date": "1865",
+        "libelle": "Le missionnaire Francesco Borghero dresse une « Carte de la côte des Esclaves », imprimée à Paris en 1866.",
+        "source": "BnF, Gallica, ark:/12148/btv1b84467095, titre et notice, via Wikimedia Commons (archive borghero-cote-esclaves-1865)",
+        "verifie": true
+      },
+      {
+        "date": "Du XVIIe au début du XIXe siècle",
+        "libelle": "Porto-Seguro (Agbodrafo) est un haut lieu de la traite négrière et un port stratégique.",
+        "source": "fr.wikipedia.org, « Agbodrafo », révision 240264446",
+        "verifie": true
+      },
+      {
+        "date": "Fin du XVIIe siècle",
+        "libelle": "Petit-Popo (Aného), à l'origine un marché portugais aux esclaves, est devenu un centre de peuplement, de commerce et de culture.",
+        "source": "fr.wikipedia.org, « Aného », révision 239514167",
+        "verifie": true
+      },
+      {
+        "date": "Seconde moitié du XIXe siècle",
+        "libelle": "À Agbodrafo (Porto-Seguro), la Maison Wood sert de casernement aux esclaves pendant la traite clandestine, dans l'attente de leur embarquement.",
+        "source": "Plaque « Wood Home ou Maison Wood », programme « La route de l'esclave – Togo » (UNESCO), photographiée en 2022 (Wikimedia Commons, « Wood home 5.jpg », archive agbodrafo-plaque-wood)",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Sur les cartes européennes, ce rivage porte un nom terrible : la côte des Esclaves. En 1865 encore, un missionnaire le dessine sous ce nom. Aného, l'ancien Petit-Popo, fut d'abord un marché portugais aux esclaves. À Agbodrafo, l'ancien Porto-Seguro, la Maison Wood a servi, dit la plaque de l'UNESCO, de casernement aux esclaves de la traite clandestine, dans la seconde moitié du XIXe siècle. Ils y attendaient leur embarquement.",
+      "dit": "Sur les cartes européennes, ce rivage porte un nom terrible : la côte des Esclaves. En mille huit cent soixante-cinq encore, un missionnaire le dessine sous ce nom. Aného, l'ancien Petit Popo, fut d'abord un marché portugais aux esclaves. À Agbodrafo, l'ancien Porto Ségouro, la Maison Wood a servi, dit la plaque de l'UNESCO, de casernement aux esclaves de la traite clandestine, dans la seconde moitié du dix-neuvième siècle. Ils y attendaient leur embarquement.",
+      "duree_estimee_s": 36
+    },
+    "archives": [
+      "bellin-golfe-benin",
+      "porris-cote-afrique",
+      "carte-anglaise-cote-esclaves",
+      "borghero-cote-esclaves-1865",
+      "klein-popo-1897",
+      "agbodrafo-maison-wood",
+      "agbodrafo-plaque-wood",
+      "manilles"
+    ]
+  },
+  {
+    "id": "protectorat",
+    "numero": 4,
+    "titre": "Le protectorat allemand",
+    "periode": "1884 à 1914",
+    "texte": "Le 5 juillet 1884, à Baguida, Gustav Nachtigal signe un traité de protectorat avec Mlapa III, chef de Togoville. La colonie allemande prend le nom de Togo. En 1897, Lomé en devient le chef-lieu. Le 27 janvier 1904, un wharf, la Landungsbrücke, y est inauguré pour recevoir les navires malgré la barre. Des voies ferrées relient Lomé à Aného en 1905 et à Kpalimé en 1907, puis s'avancent vers Atakpamé. De 1911 à 1914, Telefunken construit près d'Atakpamé la grande station radio de Kamina. Les photographies de ces années sont celles du colonisateur : elles montrent ses rues, ses gares et ses chargements, rarement ceux qui les ont bâtis.",
+    "jalons": [
+      {
+        "date": "5 juillet 1884",
+        "libelle": "À Baguida, Gustav Nachtigal signe un traité de protectorat avec Mlapa III, chef de Togoville.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563, note 10 (Le Monde, 13 juin 1985)",
+        "verifie": true
+      },
+      {
+        "date": "1897",
+        "libelle": "Lomé devient le chef-lieu de la colonie.",
+        "source": "fr.wikipedia.org, « Lomé », révision 241222924, note 5 (qui donne le 6 mars 1897)",
+        "verifie": true
+      },
+      {
+        "date": "27 janvier 1904",
+        "libelle": "Inauguration de la Landungsbrücke, le wharf de Lomé, long de plus de 300 mètres, par lequel passe ensuite l'essentiel du trafic maritime de la colonie.",
+        "source": "de.wikipedia.org, « Alte Landungsbrücke (Lomé) », révision 271322522",
+        "verifie": true
+      },
+      {
+        "date": "18 juillet 1905 et 27 janvier 1907",
+        "libelle": "Ouverture des voies ferrées de Lomé à Aného (1905), puis de Lomé à Kpalimé (1907).",
+        "source": "de.wikipedia.org, « Bahnstrecke Lomé–Aného », révision 270404213 ; de.wikipedia.org, « Bahnstrecke Lomé–Kpalimé », révision 263197454",
+        "verifie": true
+      },
+      {
+        "date": "2 mai 1913",
+        "libelle": "La ligne de l'intérieur atteint Atakpamé, après Agbonou en avril 1911.",
+        "source": "en.wikipedia.org, « Lomé–Blitta railway », révision 1353224678 ; de.wikipedia.org, « Bahnstrecke Lomé–Blitta », révision 264505416 (1913)",
+        "verifie": false
+      },
+      {
+        "date": "1911",
+        "libelle": "Pour la station d'essai installée dans la région d'Atakpamé, 120 ouvriers africains et 150 porteurs sont recrutés de force pour Telefunken, avec l'aide du gouvernement local.",
+        "source": "de.wikipedia.org, « Funkstation Kamina », révision 271161582, section sur la station d'essai (« Mit Hilfe des örtlichen Gouvernements wurden 120 afrikanische Arbeiter und 150 Träger für Telefunken zwangsrekrutiert »), note 1 : R. Klein-Arendt, « Kamina ruft Nauen! », 1995, p. 113 et suivantes",
+        "verifie": true
+      },
+      {
+        "date": "1911 à 1914",
+        "libelle": "Telefunken construit la station radio de Kamina, près d'Atakpamé.",
+        "source": "de.wikipedia.org, « Funkstation Kamina », révision 271161582 ; album « Togo » d'Anton von Codelli, daté de 1911 à 1914 (dLib)",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Le 5 juillet 1884, à Baguida, l'Allemand Gustav Nachtigal signe un traité de protectorat avec Togoville, dont le chef est Mlapa III. Treize ans plus tard, en 1897, Lomé devient le chef-lieu de la colonie. En 1904, un long wharf y reçoit les navires, puis des voies ferrées partent vers l'intérieur. Les photographies de ces années montrent la colonie vue par ses maîtres : des rues, des gares, des balles de coton.",
+      "dit": "Le cinq juillet mille huit cent quatre-vingt-quatre, à Baguida, l'Allemand Gustav Nartigal signe un traité de protectorat avec Togoville, dont le chef est Mlapa trois. Treize ans plus tard, en mille huit cent quatre-vingt-dix-sept, Lomé devient le chef-lieu de la colonie. En mille neuf cent quatre, un long wharf y reçoit les navires, puis des voies ferrées partent vers l'intérieur. Les photographies de ces années montrent la colonie vue par ses maîtres : des rues, des gares, des balles de coton.",
+      "duree_estimee_s": 40
+    },
+    "archives": [
+      "nachtigal-ludwig",
+      "sklavenkueste-1885",
+      "lome-allee-1904",
+      "lome-landungsbruecke",
+      "lome-coton-bundesarchiv",
+      "lome-gare",
+      "agbonu-gare",
+      "lome-marktstrasse",
+      "aneho-hopital-1904",
+      "masque-amonikoyi",
+      "sprigade-e2-lome"
+    ]
+  },
+  {
+    "id": "guerre",
+    "numero": 5,
+    "titre": "La guerre et le partage",
+    "periode": "1914 à 1922",
+    "texte": "En août 1914, Britanniques et Français envahissent la colonie allemande. Les Allemands détruisent la station radio de Kamina et capitulent le 26 août 1914. Le pays est alors partagé en deux zones d'occupation, l'une britannique, l'autre française. Le 10 juillet 1919, à Londres, le vicomte Milner et Henry Simon signent une déclaration qui trace la frontière sur la carte allemande de Sprigade. Le 20 juillet 1922, la Société des Nations confie à la France, sous mandat, la partie située à l'est de cette ligne ; l'ouest revient au Royaume-Uni. Le Togo, colonie allemande d'un seul tenant, devient ainsi deux territoires.",
+    "jalons": [
+      {
+        "date": "26 août 1914",
+        "libelle": "Les forces allemandes capitulent à Kamina, dont la station radio vient d'être détruite.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563, note 10 ; en.wikipedia.org, « Togoland campaign », révision 1370751123",
+        "verifie": true
+      },
+      {
+        "date": "27 août 1914",
+        "libelle": "Partage provisoire du pays entre Britanniques et Français.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563 ; en.wikipedia.org, « British Togoland », révision 1385000337",
+        "verifie": false
+      },
+      {
+        "date": "27 décembre 1916",
+        "libelle": "Nouveau tracé des zones d'occupation britannique et française.",
+        "source": "en.wikipedia.org, « British Togoland », révision 1385000337",
+        "verifie": false
+      },
+      {
+        "date": "10 juillet 1919",
+        "libelle": "À Londres, le vicomte Milner et Henry Simon signent la déclaration franco-britannique qui fixe la frontière entre les deux Togo sur la carte de Sprigade au 1/200 000.",
+        "source": "Société des Nations, « Mandat français sur le Togo », document C. 449 (1) d. M. 345 (d). 1922. VI, Genève, 1er août 1922, numérisé par la World Digital Library (Commons, « French Mandate for Togoland WDL11571.pdf »), appendice, p. 6 (« Londres, le 10 juillet 1919 »)",
+        "verifie": true
+      },
+      {
+        "date": "20 juillet 1922",
+        "libelle": "La Société des Nations définit les termes du mandat français sur la partie du Togo située à l'est de la ligne de 1919.",
+        "source": "Société des Nations, « Mandat français sur le Togo », document C. 449 (1) d. M. 345 (d). 1922. VI, Genève, 1er août 1922, numérisé par la World Digital Library (Commons, « French Mandate for Togoland WDL11571.pdf »), p. 5 (« Fait à Londres, le vingtième jour de juillet mil neuf cent vingt-deux »)",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "En août 1914, la guerre atteint le Togo. Britanniques et Français entrent dans la colonie. Les Allemands détruisent leur station radio de Kamina, puis capitulent le 26 août 1914. Le 10 juillet 1919, à Londres, une déclaration franco-britannique trace sur une carte allemande la ligne qui partage le pays. Le 20 juillet 1922, la Société des Nations confie à la France la partie située à l'est ; l'ouest revient au Royaume-Uni.",
+      "dit": "En août mille neuf cent quatorze, la guerre atteint le Togo. Britanniques et Français entrent dans la colonie. Les Allemands détruisent leur station radio de Kamina, puis capitulent le vingt-six août mille neuf cent quatorze. Le dix juillet mille neuf cent dix-neuf, à Londres, une déclaration franco-britannique trace sur une carte allemande la ligne qui partage le pays. Le vingt juillet mille neuf cent vingt-deux, la Société des Nations confie à la France la partie située à l'est ; l'ouest revient au Royaume-Uni.",
+      "duree_estimee_s": 41
+    },
+    "archives": [
+      "kamina-antennes",
+      "kamina-degats",
+      "troupes-britanniques-1914",
+      "timbre-occupation-1914",
+      "carte-gold-coast-1921",
+      "mandat-francais-1922"
+    ]
+  },
+  {
+    "id": "tutelle",
+    "numero": 6,
+    "titre": "Mandats, tutelle et plébiscite",
+    "periode": "1922 à 1958",
+    "texte": "Pendant près de quarante ans, deux Togo vivent côte à côte : l'un sous mandat français, l'autre sous mandat britannique, puis tous deux sous la tutelle des Nations unies. Les 24 et 25 janvier 1933, les femmes des marchés de Lomé se soulèvent contre de nouvelles taxes. Le 9 mai 1956, le Togo britannique vote : 93 095 voix pour l'union avec la Gold Coast, 67 492 pour le maintien sous tutelle ; dans le Sud, 55 % des votants choisissent pourtant de rester séparés. La même année, le Togo français devient république autonome, statut approuvé par référendum le 28 octobre 1956. Le 6 mars 1957, le Togo britannique entre dans le Ghana indépendant.",
+    "jalons": [
+      {
+        "date": "24 et 25 janvier 1933",
+        "libelle": "Révolte des femmes des marchés de Lomé contre une nouvelle taxe sur les marchés et l'arrestation de deux dirigeants du Duawo.",
+        "source": "fr.wikipedia.org, « Révolte des femmes de Lomé », révision 223357742, qui cite M. A. Aduayom, « Un prélude au nationalisme togolais : la révolte de Lomé, 24-25 janvier 1933 », Cahiers d'études africaines, 24 (93), 1984, p. 39-50",
+        "verifie": true
+      },
+      {
+        "date": "13 décembre 1946",
+        "libelle": "Par sa résolution 63 (I), l'Assemblée générale des Nations unies approuve l'accord de tutelle du Togo sous administration britannique.",
+        "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf »), résolution 1044 (XI), paragraphe 2",
+        "verifie": true
+      },
+      {
+        "date": "9 mai 1956",
+        "libelle": "Plébiscite au Togo britannique : 93 095 voix (environ 58 %) pour l'union avec une Gold Coast indépendante, 67 492 pour le maintien sous tutelle.",
+        "source": "en.wikipedia.org, « 1956 British Togoland status plebiscite », révision 1322457185 (résultats de l'ONU)",
+        "verifie": true
+      },
+      {
+        "date": "9 mai 1956",
+        "libelle": "Dans le sud du Togo britannique, où le Togoland Congress a fait campagne, 55 % des votants choisissent de rester séparés de la Gold Coast.",
+        "source": "en.wikipedia.org, « 1956 British Togoland status plebiscite », révision 1322457185, qui cite P. Tsagli, Commission nationale de réconciliation du Ghana, « The Historical Context », chapitre 3, 3.1.2.4, 2011, et E. Espinosa y Prieto, rapport du commissaire des Nations unies au plébiscite, 5 septembre 1956, p. 183-184",
+        "verifie": true
+      },
+      {
+        "date": "24 août 1956",
+        "libelle": "Le décret n° 56-847 fixe le statut du Togo sous administration française, qui devient la République autonome du Togo.",
+        "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf »), résolution 1046 (XI)",
+        "verifie": true
+      },
+      {
+        "date": "28 octobre 1956",
+        "libelle": "Référendum au Togo sous administration française : une large majorité approuve le nouveau statut.",
+        "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf »), résolution 1046 (XI)",
+        "verifie": true
+      },
+      {
+        "date": "13 décembre 1956",
+        "libelle": "L'Assemblée générale des Nations unies approuve l'union du Togo britannique avec une Gold Coast indépendante.",
+        "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf »), résolution 1044 (XI), paragraphe 1",
+        "verifie": true
+      },
+      {
+        "date": "6 mars 1957",
+        "libelle": "Le Togo britannique est uni au Ghana indépendant ; la ligne de 1919 sépare désormais le Ghana du Togo sous tutelle française.",
+        "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf ») (date annoncée) ; en.wikipedia.org, « British Togoland », révision 1385000337 (lettre britannique du 6 mars 1957)",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Sous mandat, puis sous la tutelle des Nations unies, deux Togo vivent côte à côte. En janvier 1933, les femmes des marchés de Lomé se soulèvent contre de nouvelles taxes. Le 9 mai 1956, le Togo britannique vote : une majorité choisit l'union avec la Gold Coast, qui deviendra le Ghana, mais le Sud vote contre. Le 6 mars 1957, cette union est faite. La ligne tracée en 1919 sépare désormais le Ghana du Togo sous tutelle française.",
+      "dit": "Sous mandat, puis sous la tutelle des Nations unies, deux Togo vivent côte à côte. En janvier mille neuf cent trente-trois, les femmes des marchés de Lomé se soulèvent contre de nouvelles taxes. Le neuf mai mille neuf cent cinquante-six, le Togo britannique vote : une majorité choisit l'union avec la Gold Coast, qui deviendra le Ghana, mais le Sud vote contre. Le six mars mille neuf cent cinquante-sept, cette union est faite. La ligne tracée en mille neuf cent dix-neuf sépare désormais le Ghana du Togo sous tutelle française.",
+      "duree_estimee_s": 44
+    },
+    "archives": [
+      "lome-mairie-1925",
+      "lome-palais-justice-1928",
+      "lome-wharf-1928",
+      "pavillon-exposition-1931",
+      "chemin-de-fer-blitta-1931",
+      "kapok-annees-1930",
+      "timbre-1921"
+    ]
+  },
+  {
+    "id": "independance",
+    "numero": 7,
+    "titre": "L'indépendance",
+    "periode": "1958 à 1960",
+    "texte": "Le 27 avril 1958, des élections législatives se tiennent au Togo sous la surveillance des Nations unies. Le Comité de l'unité togolaise (CUT) l'emporte, et son chef, Sylvanus Olympio, prend ses fonctions de Premier ministre le 16 mai 1958. Le 27 avril 1960, le Togo devient indépendant et adopte son drapeau : cinq bandes horizontales, vertes et jaunes, et une étoile blanche sur un canton rouge. République autonome depuis 1956, le Togo sous tutelle française devient ainsi un État souverain. Le récit de cette bibliothèque s'arrête ici, à l'indépendance.",
+    "jalons": [
+      {
+        "date": "27 avril 1958",
+        "libelle": "Élections législatives sous contrôle de l'ONU ; le Comité de l'unité togolaise (CUT) l'emporte.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563, note 9 (Le Monde, 13 janvier 1983)",
+        "verifie": true
+      },
+      {
+        "date": "16 mai 1958",
+        "libelle": "Sylvanus Olympio, chef du CUT, prend ses fonctions de Premier ministre lors d'une cérémonie à la Chambre des représentants.",
+        "source": "fr.wikipedia.org, « Sylvanus Olympio », révision 241226616, notes 1 et 2",
+        "verifie": true
+      },
+      {
+        "date": "Novembre 1959",
+        "libelle": "L'Assemblée générale des Nations unies approuve la date du 27 avril 1960 pour l'indépendance.",
+        "source": "Le Monde, 20 novembre 1959, « L'O.N.U. approuve la date du 27 avril 1960 », titre cité par fr.wikipedia.org, « Histoire du Togo », révision 240350563, note 22",
+        "verifie": false
+      },
+      {
+        "date": "27 avril 1960",
+        "libelle": "Indépendance du Togo.",
+        "source": "fr.wikipedia.org, « Histoire du Togo », révision 240350563, notes 21 et 22",
+        "verifie": true
+      },
+      {
+        "date": "27 avril 1960",
+        "libelle": "Adoption du drapeau : cinq bandes vertes et jaunes, étoile blanche sur canton rouge.",
+        "source": "fr.wikipedia.org, « Drapeau du Togo », révision 241046060",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Le 27 avril 1958, sous le regard des Nations unies, les Togolais élisent leurs députés. Le Comité de l'unité togolaise l'emporte, et son chef, Sylvanus Olympio, devient Premier ministre le 16 mai suivant. Deux ans jour pour jour après ce vote, le 27 avril 1960, le Togo, République autonome depuis 1956, devient un État indépendant.",
+      "dit": "Le vingt-sept avril mille neuf cent cinquante-huit, sous le regard des Nations unies, les Togolais élisent leurs députés. Le Comité de l'unité togolaise l'emporte, et son chef, Silvanus Olympio, devient Premier ministre le seize mai suivant. Deux ans jour pour jour après ce vote, le vingt-sept avril mille neuf cent soixante, le Togo, République autonome depuis mille neuf cent cinquante-six, devient un État indépendant.",
+      "duree_estimee_s": 32
+    },
+    "archives": [
+      "drapeau-1957",
+      "drapeau-1958",
+      "carte-elections-1958",
+      "sieges-1958",
+      "togoland-carte"
+    ]
+  }
+]
