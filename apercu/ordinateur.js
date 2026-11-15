@@ -84,13 +84,16 @@
   const cliches = () => FILM.map((id) => decor(parId.get(id))).filter(Boolean);
   let masquer = 0;
 
-  function ouverture(demande = false) {
+  function ouverture(demande = false, bouton = null) {
     const liste = cliches();
     if (liste.length < 2 || !(demande || veutFilm())) return;
     const film = $('#film'), boite = $('#film-images'), legendeFilm = $('#film-legende'), segs = $('#film-segments');
     // Le film couvre toute la page : derrière lui, rien ne se lit au lecteur d'écran ni ne prend le focus.
     const derriere = [$('.evitement'), $('main')];
     const DUREE = 3400, TITRE = 2200;
+    // Rejouée par un bouton « Revoir l'ouverture » : le focus y reviendra ; celui de l'index, refermé, cède au bouton de
+    // l'index. Le bouton vient du clic lui-même : Safari ne donne pas le focus à un bouton cliqué à la souris.
+    const retour = demande ? bouton : null;
     clearTimeout(masquer);
     boite.innerHTML = liste.map((a) => `<div class="film-image"><img src="${IMAGES}${a.id}-${plusGrande(a)}.webp" alt="" decoding="async" style="object-position:${esc(D.mise?.cadrages?.[a.id] ?? '50% 50%')}"></div>`).join('');
     segs.innerHTML = liste.map(() => '<li><span></span></li>').join('');
@@ -126,7 +129,11 @@
       if (vite) film.classList.add('vite');
       racine.classList.remove('film-actif');
       derriere.forEach((el) => { el.inert = false; });
-      if (focusDedans) $('#titre').focus({ preventScroll: true });
+      if (focusDedans) {
+        const cible = !retour ? $('#titre') : retour.closest('#index') ? $('#bouton-index') : retour;
+        if (cible !== $('#titre')) cible.scrollIntoView({ block: 'center', behavior: 'instant' });
+        cible.focus({ preventScroll: true });
+      }
       masquer = setTimeout(() => { film.hidden = true; boite.innerHTML = ''; }, vite ? 750 : 1200);
     }
     function interrompre(e) {
@@ -280,10 +287,10 @@
   }
 
   // ---------- 3. La galerie et le pied : chargés à l'approche ----------
-  // galerie.js (la galerie, ses films, sa visionneuse, le formulaire de réclamation) et ses données ne se demandent qu'à
-  // une hauteur d'écran de la galerie ou du pied : rien de la galerie ne se charge à l'arrivée sur la page.
+  // galerie.js (la galerie, ses films, sa visionneuse, les formulaires de réclamation et de contribution) et ses données
+  // ne se demandent qu'à une hauteur d'écran de la galerie ou du pied : rien de la galerie ne se charge à l'arrivée.
   function galerieAuBesoin() {
-    $('#formulaire').addEventListener('submit', (e) => e.preventDefault());   // tant que galerie.js n'est pas là
+    $$('.formulaire').forEach((f) => f.addEventListener('submit', (e) => e.preventDefault()));   // tant que galerie.js n'est pas là
     const io = new IntersectionObserver((entrees) => {
       if (!entrees.some((e) => e.isIntersecting)) return;
       io.disconnect();
@@ -308,7 +315,7 @@
     planche();
     defilement();
     racine.classList.add('pret');
-    if (cliches().length >= 2) $$('[data-revoir]').forEach((b) => { b.hidden = false; b.addEventListener('click', () => ouverture(true)); });
+    if (cliches().length >= 2) $$('[data-revoir]').forEach((b) => { b.hidden = false; b.addEventListener('click', () => ouverture(true, b)); });
     // Commencer la visite : le geste est fait ici, la visite démarre dans un autre document (index.html). Ce drapeau,
     // lu une fois là-bas, y lance la voix ; un navigateur qui refuse le son garde la visite muette et montre le bouton Voix.
     document.addEventListener('click', (e) => { if (e.target.closest('a[href*="#/tableau/"]')) memoire('togo-son', '1'); });

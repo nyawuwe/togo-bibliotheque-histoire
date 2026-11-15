@@ -179,6 +179,60 @@
     </div>
   </section>
 
+  <section class="reclamation contribution" id="contribution" aria-labelledby="titre-contribution">
+    <div class="reclamation-tete">
+      <h2 class="reclamation-titre" id="titre-contribution">Proposer une contribution</h2>
+      <p>Une photographie, un document, un témoignage, une erreur à corriger&nbsp;: proposez-les au musée.</p>
+      <p>Comme pour un signalement, le formulaire prépare un courriel dans votre messagerie&nbsp;: rien ne passe par un service tiers.</p>
+    </div>
+    <form class="formulaire" id="contribution-formulaire" novalidate>
+      <div class="champ">
+        <label for="c-nom">Nom <span class="facultatif">(facultatif)</span></label>
+        <input id="c-nom" name="nom" type="text" autocomplete="name">
+      </div>
+      <div class="champ">
+        <label for="c-courriel">Courriel</label>
+        <input id="c-courriel" name="courriel" type="email" autocomplete="email" spellcheck="false" required aria-describedby="ce-courriel">
+        <p class="erreur" id="ce-courriel" hidden></p>
+      </div>
+      <fieldset class="champ large" aria-describedby="ce-nature">
+        <legend>Type de contribution</legend>
+        <div class="choix"><label><input type="radio" name="nature" value="photo ou image" required> Photo ou image</label><label><input type="radio" name="nature" value="document ou archive"> Document ou archive</label><label><input type="radio" name="nature" value="témoignage"> Témoignage</label><label><input type="radio" name="nature" value="correction"> Correction</label><label><input type="radio" name="nature" value="autre"> Autre</label></div>
+        <p class="erreur" id="ce-nature" hidden></p>
+      </fieldset>
+      <div class="champ">
+        <label for="c-sujet">Salle ou sujet concerné</label>
+        <input id="c-sujet" name="sujet" type="text" required aria-describedby="ce-sujet">
+        <p class="erreur" id="ce-sujet" hidden></p>
+      </div>
+      <div class="champ">
+        <label for="c-lien">Lien <span class="facultatif">(facultatif)</span></label>
+        <input id="c-lien" name="lien" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://" aria-describedby="ce-lien">
+        <p class="erreur" id="ce-lien" hidden></p>
+      </div>
+      <div class="champ large">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" name="message" rows="5" required aria-describedby="ca-message ce-message"></textarea>
+        <p class="aide" id="ca-message">Ce que vous proposez, d'où cela vient, qui en est l'auteur. Pour une photographie ou un document, joignez le fichier au courriel une fois votre messagerie ouverte.</p>
+        <p class="erreur" id="ce-message" hidden></p>
+      </div>
+      <div class="champ large">
+        <label class="case"><input type="checkbox" id="c-droits" name="droits" required aria-describedby="ce-droits"> Je détiens les droits sur ce que je propose, ou j'en indique la source.</label>
+        <p class="erreur" id="ce-droits" hidden></p>
+      </div>
+      <div class="envoi large">
+        <button type="submit" class="bouton-envoi">Préparer le courriel</button>
+        <p class="aide">Votre messagerie s'ouvre avec le message prêt à partir.</p>
+      </div>
+    </form>
+    <div class="repli" id="c-repli" tabindex="-1" role="region" aria-labelledby="c-repli-titre" hidden>
+      <p class="repli-titre" id="c-repli-titre">Votre messagerie devrait s'ouvrir avec ce message.</p>
+      <p>Si elle ne s'ouvre pas, copiez-le et envoyez-le à <span id="c-repli-adresse"></span>.</p>
+      <textarea id="c-repli-texte" rows="14" readonly aria-label="Message préparé"></textarea>
+      <p class="repli-actions"><button type="button" class="bouton-envoi" id="c-repli-copier">Copier le message</button><span class="repli-etat" id="c-repli-etat" role="status"></span></p>
+    </div>
+  </section>
+
   <details class="credits-galerie" id="credits-galerie">
     <summary>Crédits de la galerie <span id="credits-galerie-compte"></span></summary>
     <ol class="credits-galerie-liste" id="credits-galerie-liste"></ol>

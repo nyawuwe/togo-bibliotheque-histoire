@@ -1,5 +1,5 @@
-// Togo, musée d'art et d'histoire : la galerie de l'accueil pour ordinateur, ses deux films et le formulaire de
-// réclamation de droits du pied de page. ordinateur.js ne charge ce script que lorsque la galerie ou le pied approche
+// Togo, musée d'art et d'histoire : la galerie de l'accueil pour ordinateur, ses deux films et les deux formulaires du
+// pied de page (réclamation de droits, contribution). ordinateur.js ne charge ce script que lorsque la galerie ou le pied approche
 // de l'écran : ni ce code, ni data/galerie.json, ni aucune image de la galerie ne se chargent à l'arrivée.
 // Une seule source de données, data/galerie.json ; « masques » y cache un groupe (« lifetour », « enfants ») ou une
 // image par son identifiant (contenu/LISEZMOI.md).
@@ -122,59 +122,176 @@
   }
 
   // ---------- Visionneuse : <dialog> natif, Échap, flèches, focus rendu ----------
+  // L'image grandit depuis sa vignette jusqu'à sa place (FLIP en Web Animations : seule une transformation bouge, aux
+  // proportions de l'image, donc rien n'est rogné ni ne saute) et y retourne à la fermeture. D'une image à l'autre, elle
+  // s'efface en glissant pendant que la suivante se charge, puis celle-ci entre. Sous mouvement réduit, tout change d'un coup.
+  const calme = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const attendre = (ms) => new Promise((ok) => setTimeout(ok, ms));
+  const ALLER = { duration: 560, easing: 'cubic-bezier(.22, .8, .16, 1)' };
+  const RETOUR = { duration: 460, easing: 'cubic-bezier(.45, 0, .2, 1)' };
+  // La transformation qui pose le rectangle r1 (l'image dans la fenêtre) sur r0 (la vignette) ; origine en haut à gauche.
+  const depuis = (r0, r1) => `translate(${r0.left - r1.left}px, ${r0.top - r1.top}px) scale(${r0.width / r1.width}, ${r0.height / r1.height})`;
+
   function visionneuse(liste, numero, tousThemes) {
     const d = $('#visionneuse'), im = $('#v-img'), zone = $('.v-image', d);
+    const habillage = $$('.v-compte, .v-fermer, .v-fleche, .v-texte', d);
+    const fond = getComputedStyle(document.documentElement).getPropertyValue('--fond').trim() || '#fff';
     const titre = new Map(tousThemes.map((t) => [t.id, t.titre]));
     const boutons = new Map($$('.piece-ouvrir').map((b) => [b.dataset.id, b]));
-    let k = 0, versFormulaire = false;
+    // k : l'image annoncée (compteur, légende, crédit) ; affiche : celle que montre <img>, en retard pendant un passage.
+    let k = 0, affiche = 0, sens = 1, versFormulaire = false, passage = false, fermeture = false, cachee = null;
+    // seance : numéro de l'ouverture en cours (un passage resté en route ne touche pas à la suivante) ; ouverte : son morph.
+    let seance = 0, ouverte = Promise.resolve();
     // La taille affichée : la place disponible, jamais plus que la largeur réelle de l'image ; sizes suit, au pixel.
-    const ajuster = () => {
+    const largeur = (i) => Math.max(1, Math.floor(Math.min(i.largeur, zone.clientWidth, (zone.clientHeight * i.largeur) / i.hauteur)));
+    const ajuster = () => { const w = largeur(liste[affiche]); im.style.width = `${w}px`; im.sizes = `${w}px`; };
+    const textes = () => {
       const i = liste[k];
-      const w = Math.max(1, Math.floor(Math.min(i.largeur, zone.clientWidth, (zone.clientHeight * i.largeur) / i.hauteur)));
-      im.style.width = `${w}px`;
-      im.sizes = `${w}px`;
+      $('#v-compte').textContent = `${numero.get(i.id)} sur ${liste.length}, ${titre.get(i.theme) ?? ''}`;
+      $('#v-legende').textContent = i.alt;
+      $('#v-credit').innerHTML = credit(i);
     };
-    const montrer = (n) => {
-      k = (n + liste.length) % liste.length;
-      const i = liste[k];
+    // src : le fichier de la vignette, déjà en mémoire, pour que l'image soit là dès la première image du morph.
+    const poser = (n, src) => {
+      affiche = n;
+      const i = liste[n];
       im.removeAttribute('srcset');
       im.removeAttribute('src');
       Object.assign(im, { width: i.largeur, height: i.hauteur, alt: i.alt });
       im.style.backgroundColor = i.couleur ?? '';
-      $('#v-compte').textContent = `${numero.get(i.id)} sur ${liste.length}, ${titre.get(i.theme) ?? ''}`;
-      $('#v-legende').textContent = i.alt;
-      $('#v-credit').innerHTML = credit(i);
       ajuster();
+      if (src) { im.src = src; return; }
       im.srcset = srcset(i);
       im.src = `${DOSSIER}${i.id}-${i.tailles[0]}.webp`;
     };
+    const precharger = (i) => {
+      const p = new Image();
+      Object.assign(p, { sizes: `${largeur(i)}px`, srcset: srcset(i), src: `${DOSSIER}${i.id}-${i.tailles[0]}.webp` });
+      return Promise.race([p.decode().catch(() => {}), attendre(1200)]);
+    };
+    const finir = (anims) => Promise.all(anims.map((a) => a.finished)).catch(() => {});
+    const montrerVignette = () => { if (cachee) cachee.style.visibility = ''; cachee = null; };
+    const cacherVignette = (img) => { montrerVignette(); cachee = img; img.style.visibility = 'hidden'; };
+
+    async function ouvrir(b) {
+      const ici = ++seance, vivante = () => seance === ici && d.open && !fermeture;
+      const vignette = $('img', b), n = liste.findIndex((i) => i.id === b.dataset.id);
+      const morph = !calme() && vignette.complete && vignette.naturalWidth > 0;
+      const r0 = vignette.getBoundingClientRect(), teinte = getComputedStyle(vignette).opacity;   // .88 sous la souris
+      if (morph) d.classList.add('ouvre', 'anime');   // fenêtre transparente, image et commandes invisibles
+      // Largeur de la barre de défilement, remplacée par une marge tant que la fenêtre est ouverte (ordinateur.css) ; avec
+      // scrollbar-gutter, la mise en page changeait et le retour ne tombait plus sur la vignette.
+      document.documentElement.style.setProperty('--barre', `${innerWidth - document.documentElement.clientWidth}px`);
+      d.showModal();
+      k = n;
+      textes();
+      $('.v-fermer', d).focus();
+      if (!morph) { poser(n); return; }
+      poser(n, vignette.currentSrc);
+      await Promise.race([im.decode().catch(() => {}), attendre(300)]);
+      if (!vivante()) return;
+      const r1 = im.getBoundingClientRect();
+      d.classList.remove('ouvre');
+      cacherVignette(vignette);
+      const anims = [
+        im.animate([{ transform: depuis(r0, r1), opacity: teinte }, { transform: 'none', opacity: 1 }], ALLER),
+        d.animate([{ backgroundColor: 'transparent' }, { backgroundColor: fond }], { duration: ALLER.duration * 0.8, easing: 'ease-out' }),
+        ...habillage.map((el) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 240, easing: 'ease-out', fill: 'backwards' })),
+      ];
+      // Le fichier à la taille de la fenêtre remplace la vignette dès qu'il est chargé ; d'ici là, elle reste affichée.
+      im.srcset = srcset(liste[n]);
+      await finir(anims);
+      if (!vivante()) return;
+      d.classList.remove('anime');
+      montrerVignette();
+    }
+
+    // Les demandes rapprochées ne s'empilent pas : un seul passage à la fois, qui va droit à la dernière image demandée.
+    // Demandé pendant le morph d'ouverture, il attend que l'image soit à sa place.
+    async function passer() {
+      const ici = seance, vivant = () => seance === ici && d.open && !fermeture;
+      passage = true;
+      await ouverte;
+      if (vivant()) d.classList.add('passe');
+      while (affiche !== k && vivant()) {
+        let cible = k, pret = precharger(liste[cible]);
+        await finir([im.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-sens * 26}px)` }], { duration: 170, easing: 'ease-in', fill: 'forwards' })]);
+        await pret;
+        while (cible !== k && vivant()) { cible = k; await precharger(liste[cible]); }
+        if (!vivant()) break;
+        im.getAnimations().forEach((a) => a.cancel());
+        poser(cible);
+        await finir([im.animate([{ opacity: 0, transform: `translateX(${sens * 26}px)` }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2, .7, .2, 1)' })]);
+      }
+      if (seance !== ici) return;   // fenêtre fermée (et peut-être rouverte) entre-temps : rien à rendre
+      passage = false;
+      d.classList.remove('passe');
+    }
+    function aller(n, s) {
+      if (fermeture) return;
+      k = (n + liste.length) % liste.length;
+      sens = s;
+      textes();
+      if (calme()) { poser(k); return; }
+      if (!passage) passer();
+    }
+
+    async function fermer() {
+      if (fermeture || !d.open) return;
+      const b = boutons.get(liste[affiche].id), vignette = b && $('img', b);
+      // Morph d'ouverture pas encore parti (fenêtre transparente, vignette encore à sa place) : rien n'a bougé, on ferme.
+      if (calme() || !vignette || versFormulaire || d.classList.contains('ouvre')) { d.close(); return; }
+      fermeture = true;
+      k = affiche;   // fermé pendant un passage : on revient à l'image que l'on voyait
+      // Le retour part de ce qui est à l'écran à cet instant (morph d'ouverture ou glissement en cours compris) : rien ne saute.
+      const vu = (el, p) => getComputedStyle(el)[p];
+      const depart = { tr: vu(im, 'transform'), op: vu(im, 'opacity'), fond: vu(d, 'backgroundColor'), habits: habillage.map((el) => vu(el, 'opacity')) };
+      d.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      d.classList.add('anime');
+      b.scrollIntoView({ block: 'nearest', behavior: 'instant' });   // la vignette, à l'écran ; la page ne bouge que si besoin
+      const r1 = im.getBoundingClientRect(), r0 = vignette.getBoundingClientRect();
+      cacherVignette(vignette);
+      await finir([
+        im.animate([{ transform: depart.tr, opacity: depart.op }, { transform: depuis(r0, r1), opacity: 1 }], { ...RETOUR, fill: 'forwards' }),
+        d.animate([{ backgroundColor: depart.fond }, { backgroundColor: 'transparent' }], { duration: RETOUR.duration, easing: 'ease-in', fill: 'forwards' }),
+        ...habillage.map((el, i) => el.animate([{ opacity: depart.habits[i] }, { opacity: 0 }], { duration: 160, fill: 'forwards' })),
+      ]);
+      if (d.open) d.close();
+    }
+
     $('#galerie-themes').addEventListener('click', (e) => {
       const b = e.target.closest('.piece-ouvrir');
-      if (!b) return;
-      d.showModal();
-      montrer(liste.findIndex((i) => i.id === b.dataset.id));
-      $('.v-fermer', d).focus();
+      if (b && !d.open) ouverte = ouvrir(b).catch(() => {});
     });
-    $('.v-prec', d).addEventListener('click', () => montrer(k - 1));
-    $('.v-suiv', d).addEventListener('click', () => montrer(k + 1));
-    $('.v-fermer', d).addEventListener('click', () => d.close());
+    $('.v-prec', d).addEventListener('click', () => aller(k - 1, -1));
+    $('.v-suiv', d).addEventListener('click', () => aller(k + 1, 1));
+    $('.v-fermer', d).addEventListener('click', fermer);
     d.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); montrer(k + (e.key === 'ArrowRight' ? 1 : -1)); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); aller(k + (e.key === 'ArrowRight' ? 1 : -1), e.key === 'ArrowRight' ? 1 : -1); }
     });
+    // Échap : le navigateur annonce la fermeture ; on la joue en morph. S'il ne la laisse pas différer, elle se fait d'un coup.
+    d.addEventListener('cancel', (e) => { if (e.cancelable) { e.preventDefault(); fermer(); } });
     // Un clic dans le vide autour de l'image ferme, comme Échap.
-    d.addEventListener('click', (e) => { if (e.target === d || e.target.classList.contains('v-scene') || e.target === zone) d.close(); });
+    d.addEventListener('click', (e) => { if (e.target === d || e.target.classList.contains('v-scene') || e.target === zone) fermer(); });
     addEventListener('resize', () => { if (d.open) ajuster(); });
     // Le focus revient sur l'image de la page que l'on regardait en dernier (celle qui a ouvert, si l'on n'a pas navigué).
     d.addEventListener('close', () => {
+      d.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      d.classList.remove('ouvre', 'anime', 'passe');
+      document.documentElement.style.removeProperty('--barre');
+      montrerVignette();
+      seance++;
+      passage = false;
+      fermeture = false;
       im.removeAttribute('srcset');
       im.removeAttribute('src');
       if (versFormulaire) { versFormulaire = false; return; }
-      boutons.get(liste[k].id)?.focus();
+      boutons.get(liste[affiche].id)?.focus({ preventScroll: true });
     });
     $('.v-signaler', d).addEventListener('click', (e) => {
       e.preventDefault();
       versFormulaire = true;
-      const id = liste[k].id;
+      const id = liste[affiche].id;
       d.close();
       $('#f-image').value = id;
       $('#reclamation').scrollIntoView({ behavior: 'instant' });
@@ -218,11 +335,55 @@
     });
   }
 
-  // ---------- Réclamation de droits : un courriel préparé, aucun service tiers ----------
+  // ---------- Formulaires du pied : un courriel préparé, aucun service tiers ----------
   // L'adresse n'est écrite en clair ni dans la page ni dans ce script : elle se compose au moment de l'envoi.
   const MORCEAUX = [[115, 126, 102, 124, 122, 124, 106, 112, 116, 114, 113, 102, 112, 106, 123, 110, 115], [108, 114, 102, 110, 113, 51, 104, 116, 114]];
   const destinataire = () => MORCEAUX.map((m) => String.fromCharCode(...m.map((c) => c - 5))).join(String.fromCharCode(64));
+  const COURRIEL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const LIEN = /^https?:\/\/[^\s/]+\.[^\s]+$/i;
 
+  // Commun aux deux formulaires : erreurs à l'envoi puis corrigées à la saisie, courriel ouvert par mailto:, et repli
+  // (le message à copier, l'adresse révélée seulement alors). e : préfixe des messages d'erreur ; r : identifiant du repli ;
+  // groupes : les champs à plusieurs boutons ; rediger() rend l'objet et le corps du message.
+  function courriel(f, e, r, TESTS, groupes, rediger) {
+    const champs = (cle) => (groupes.includes(cle) ? $$(`input[name="${cle}"]`, f) : [f.elements[cle]]);
+    const marquer = (cle) => {
+      const msg = TESTS[cle](), el = $(`#${e}${cle}`);
+      el.textContent = msg;
+      el.hidden = !msg;
+      champs(cle).forEach((c) => (msg ? c.setAttribute('aria-invalid', 'true') : c.removeAttribute('aria-invalid')));
+      return msg;
+    };
+    // Une erreur affichée se corrige à la saisie ; les autres n'apparaissent qu'à l'envoi.
+    const corriger = (ev) => { const cle = ev.target.name; if (TESTS[cle] && !$(`#${e}${cle}`).hidden) marquer(cle); };
+    f.addEventListener('input', corriger);
+    f.addEventListener('change', corriger);
+    f.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const fautes = Object.keys(TESTS).filter((cle) => marquer(cle));
+      if (fautes.length) { champs(fautes[0])[0].focus(); return; }
+      const { sujet, corps } = rediger(), dest = destinataire();
+      const a = document.createElement('a');
+      a.href = `mailto:${dest}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps.replace(/\n/g, '\r\n'))}`;
+      a.click();
+      $(`#${r}-adresse`).innerHTML = `<a href="mailto:${dest}">${dest}</a>`;
+      $(`#${r}-texte`).value = `À : ${dest}\nObjet : ${sujet}\n\n${corps}`;
+      $(`#${r}-etat`).textContent = '';
+      $(`#${r}`).hidden = false;
+      $(`#${r}`).focus();
+    });
+    $(`#${r}-copier`).addEventListener('click', async () => {
+      const t = $(`#${r}-texte`);
+      let ok = false;
+      try { await navigator.clipboard.writeText(t.value); ok = true; } catch {
+        t.select();
+        try { ok = document.execCommand('copy'); } catch { ok = false; }
+      }
+      $(`#${r}-etat`).textContent = ok ? 'Message copié.' : 'Copie impossible ici : sélectionnez le texte, puis Ctrl+C.';
+    });
+  }
+
+  // Réclamation de droits sur une image de la galerie.
   function reclamation(themes, numero) {
     const f = $('#formulaire'), choix = $('#f-image');
     const avant = choix.value;
@@ -230,63 +391,58 @@
     choix.value = avant;
     const parId = new Map(themes.flatMap((t) => t.images).map((i) => [i.id, i]));
     const val = (n) => (f.elements[n].value ?? '').trim();
-    const TESTS = {
+    courriel(f, 'e-', 'repli', {
       nom: () => (val('nom') ? '' : 'Indiquez votre nom.'),
-      courriel: () => (!val('courriel') ? 'Indiquez votre adresse électronique.' : f.elements.courriel.validity.typeMismatch || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('courriel')) ? 'Cette adresse électronique n\'est pas valide (exemple : nom@exemple.org).' : ''),
+      courriel: () => (!val('courriel') ? 'Indiquez votre adresse électronique.' : f.elements.courriel.validity.typeMismatch || !COURRIEL.test(val('courriel')) ? 'Cette adresse électronique n\'est pas valide (exemple : nom@exemple.org).' : ''),
       image: () => (val('image') ? '' : 'Choisissez l\'image concernée, ou « Autre image ».'),
       demande: () => (val('demande') ? '' : 'Choisissez : créditer ou retirer l\'image.'),
-      lien: () => (!val('lien') || /^https?:\/\/[^\s/]+\.[^\s]+$/i.test(val('lien')) ? '' : 'Ce lien n\'est pas une adresse web complète : elle commence par https://.'),
+      lien: () => (!val('lien') || LIEN.test(val('lien')) ? '' : 'Ce lien n\'est pas une adresse web complète : elle commence par https://.'),
       message: () => (val('message') ? '' : 'Écrivez quelques mots sur votre demande.'),
-    };
-    const champs = (cle) => (cle === 'demande' ? $$('input[name="demande"]', f) : [f.elements[cle]]);
-    const marquer = (cle) => {
-      const msg = TESTS[cle](), e = $(`#e-${cle}`);
-      e.textContent = msg;
-      e.hidden = !msg;
-      champs(cle).forEach((el) => (msg ? el.setAttribute('aria-invalid', 'true') : el.removeAttribute('aria-invalid')));
-      return msg;
-    };
-    // Une erreur affichée se corrige à la saisie ; les autres n'apparaissent qu'à l'envoi.
-    const corriger = (e) => { const cle = e.target.name; if (TESTS[cle] && !$(`#e-${cle}`).hidden) marquer(cle); };
-    f.addEventListener('input', corriger);
-    f.addEventListener('change', corriger);
-    f.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const fautes = Object.keys(TESTS).filter((cle) => marquer(cle));
-      if (fautes.length) { champs(fautes[0])[0].focus(); return; }
-      const id = val('image'), i = parId.get(id), dest = destinataire();
-      const nomImage = i ? `${i.legende} (${i.id})` : 'autre image';
-      const sujet = `Réclamation de droits : ${nomImage}`;
-      const corps = [
-        'Bonjour,', '',
-        'Je vous écris au sujet d\'une image de la galerie de « Togo, musée d\'art et d\'histoire ».', '',
-        `Image concernée : ${i ? `n° ${numero.get(i.id)}, ${i.legende} (${i.id}), source indiquée : ${SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
-        `Demande : ${val('demande') === 'retirer' ? 'retirer l\'image' : 'créditer l\'image'}`,
-        `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
-        'Message :', val('message'), '',
-        val('nom'), val('courriel'), '',
-        `Page : ${location.origin}${location.pathname}#galerie`,
-      ].join('\n');
-      const a = document.createElement('a');
-      a.href = `mailto:${dest}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps.replace(/\n/g, '\r\n'))}`;
-      a.click();
-      // Repli : le message préparé, à copier, et l'adresse, révélée seulement maintenant.
-      $('#repli-adresse').innerHTML = `<a href="mailto:${dest}">${dest}</a>`;
-      $('#repli-texte').value = `À : ${dest}\nObjet : ${sujet}\n\n${corps}`;
-      $('#repli-etat').textContent = '';
-      $('#repli').hidden = false;
-      $('#repli').focus();
-    });
-    $('#repli-copier').addEventListener('click', async () => {
-      const t = $('#repli-texte');
-      let ok = false;
-      try { await navigator.clipboard.writeText(t.value); ok = true; } catch {
-        t.select();
-        try { ok = document.execCommand('copy'); } catch { ok = false; }
-      }
-      $('#repli-etat').textContent = ok ? 'Message copié.' : 'Copie impossible ici : sélectionnez le texte, puis Ctrl+C.';
+    }, ['demande'], () => {
+      const i = parId.get(val('image'));
+      return {
+        sujet: `Réclamation de droits : ${i ? `${i.legende} (${i.id})` : 'autre image'}`,
+        corps: [
+          'Bonjour,', '',
+          'Je vous écris au sujet d\'une image de la galerie de « Togo, musée d\'art et d\'histoire ».', '',
+          `Image concernée : ${i ? `n° ${numero.get(i.id)}, ${i.legende} (${i.id}), source indiquée : ${SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
+          `Demande : ${val('demande') === 'retirer' ? 'retirer l\'image' : 'créditer l\'image'}`,
+          `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
+          'Message :', val('message'), '',
+          val('nom'), val('courriel'), '',
+          `Page : ${location.origin}${location.pathname}#galerie`,
+        ].join('\n'),
+      };
     });
   }
 
+  // Contribution au musée : une image, un document, un témoignage, une correction. Ne dépend pas de la galerie.
+  function contribution() {
+    const f = $('#contribution-formulaire');
+    const val = (n) => (f.elements[n].value ?? '').trim();
+    courriel(f, 'ce-', 'c-repli', {
+      courriel: () => (!val('courriel') ? 'Indiquez votre adresse électronique, pour qu\'on puisse vous répondre.' : f.elements.courriel.validity.typeMismatch || !COURRIEL.test(val('courriel')) ? 'Cette adresse électronique n\'est pas valide (exemple : nom@exemple.org).' : ''),
+      nature: () => (val('nature') ? '' : 'Choisissez le type de contribution.'),
+      sujet: () => (val('sujet') ? '' : 'Indiquez la salle ou le sujet concerné.'),
+      lien: () => (!val('lien') || LIEN.test(val('lien')) ? '' : 'Ce lien n\'est pas une adresse web complète : elle commence par https://.'),
+      message: () => (val('message') ? '' : 'Décrivez votre contribution en quelques mots.'),
+      droits: () => (f.elements.droits.checked ? '' : 'Cochez cette case : sans droits ni source, la contribution ne peut pas être publiée.'),
+    }, ['nature'], () => ({
+      sujet: `Contribution : ${val('nature')}`,
+      corps: [
+        'Bonjour,', '',
+        'Je propose une contribution à « Togo, musée d\'art et d\'histoire ».', '',
+        `Type : ${val('nature')}`,
+        `Salle ou sujet concerné : ${val('sujet')}`,
+        `Lien : ${val('lien') || 'non fourni'}`, '',
+        'Message :', val('message'), '',
+        'Je détiens les droits sur ce que je propose, ou j\'en indique la source.', '',
+        val('nom') || '(nom non indiqué)', val('courriel'), '',
+        `Page : ${location.origin}${location.pathname}#contribution`,
+      ].join('\n'),
+    }));
+  }
+
+  contribution();
   demarrer();
 })();
