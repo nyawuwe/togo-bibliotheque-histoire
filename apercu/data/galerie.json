@@ -1,0 +1,1845 @@
+{
+ "masques": [],
+ "themes": [
+  {
+   "id": "paysages",
+   "titre": "Paysages"
+  },
+  {
+   "id": "cote",
+   "titre": "La côte"
+  },
+  {
+   "id": "villes",
+   "titre": "Villes et monuments"
+  },
+  {
+   "id": "villages",
+   "titre": "Villages"
+  },
+  {
+   "id": "gens",
+   "titre": "Gens, marchés et fêtes"
+  },
+  {
+   "id": "musees",
+   "titre": "Musées et œuvres"
+  },
+  {
+   "id": "affiches",
+   "titre": "Affiches et timbres"
+  }
+ ],
+ "videos": [
+  {
+   "id": "FiYMWzliio0",
+   "titre": "PART 1 THE HISTORY OF TOGO STARTS AT THE MUSEUM OF LOME. DISCOVERY TOGO'S CULTURES & TRADITIONS",
+   "langue": "en",
+   "chaine": "ALL IN AFRICA",
+   "chaine_url": "https://www.youtube.com/@allinafrica",
+   "vignette": "foaa-01"
+  },
+  {
+   "id": "YA3e6pNPzeg",
+   "titre": "Lomé sur les traces de Paul Ahyi",
+   "chaine": "New World TV",
+   "chaine_url": "https://www.youtube.com/@NewWorldTVofficiel",
+   "vignette": "foaa-23"
+  }
+ ],
+ "images": [
+  {
+   "id": "ov-01",
+   "theme": "paysages",
+   "alt": "Le mont Agou dans la brume de l'aube, au-dessus de champs et d'un arbre mort",
+   "legende": "Le mont Agou dans la brume de l'aube",
+   "largeur": 1024,
+   "hauteur": 766,
+   "couleur": "#808378",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "Jeff Attaway",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/33398364@N08/3329602767",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/33398364@N08",
+   "lieu": "Mont Agou"
+  },
+  {
+   "id": "galerie-03",
+   "theme": "paysages",
+   "alt": "Haute cascade en deux chutes sur une falaise boisée",
+   "legende": "Haute cascade en deux chutes sur une falaise boisée",
+   "largeur": 736,
+   "hauteur": 1111,
+   "couleur": "#606c5f",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-22",
+   "theme": "paysages",
+   "alt": "Colline boisée dominant la savane, à Fazao",
+   "legende": "Colline boisée dominant la savane, à Fazao",
+   "largeur": 1600,
+   "hauteur": 1060,
+   "couleur": "#919476",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Zayneb Dhahbi",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AVue_de_la_montagne_%C3%A0_Fazao.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-09",
+   "theme": "paysages",
+   "alt": "Piste de terre entre des montagnes boisées",
+   "legende": "Piste de terre entre des montagnes boisées",
+   "largeur": 666,
+   "hauteur": 400,
+   "couleur": "#657a68",
+   "tailles": [
+    480,
+    666
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-08",
+   "theme": "paysages",
+   "alt": "Silhouette d'un baobab noueux à contre-jour sur un ciel nuageux",
+   "legende": "Silhouette d'un baobab noueux à contre-jour sur un ciel nuageux",
+   "largeur": 960,
+   "hauteur": 1280,
+   "couleur": "#7a7b7a",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "flickr",
+   "auteur": "Äpfel X",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+   "lien": "https://www.flickr.com/photos/58233631@N00/56459483",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/58233631@N00",
+   "lieu": "Korbongou"
+  },
+  {
+   "id": "commons-01",
+   "theme": "paysages",
+   "alt": "Cascade de Womé tombant dans un bassin au milieu de la forêt",
+   "legende": "Cascade de Womé tombant dans un bassin au milieu de la forêt",
+   "largeur": 960,
+   "hauteur": 1280,
+   "couleur": "#5d5e43",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "commons",
+   "auteur": "Archideus",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ACascade_de_Wom%C3%A9.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-36",
+   "theme": "paysages",
+   "alt": "Coucher de soleil sur des collines, palmiers et rochers",
+   "legende": "Coucher de soleil sur des collines, palmiers et rochers",
+   "largeur": 736,
+   "hauteur": 585,
+   "couleur": "#888379",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-02",
+   "theme": "paysages",
+   "alt": "Mer de nuages vue des hauteurs, la plaine apparaissant entre les nuées",
+   "legende": "Mer de nuages vue des hauteurs",
+   "largeur": 1024,
+   "hauteur": 766,
+   "couleur": "#8b9491",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "Jeff Attaway",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/33398364@N08/3330438430",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/33398364@N08",
+   "lieu": "Mont Agou"
+  },
+  {
+   "id": "galerie-20",
+   "theme": "paysages",
+   "alt": "Cascade tombant dans un bassin où se baignent des promeneurs",
+   "legende": "Cascade tombant dans un bassin où se baignent des promeneurs",
+   "largeur": 736,
+   "hauteur": 981,
+   "couleur": "#5f5f50",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-07",
+   "theme": "paysages",
+   "alt": "Route en lacets entre des collines verdoyantes noyées de brume, un motocycliste au loin",
+   "legende": "Route en lacets entre des collines verdoyantes noyées de brume",
+   "largeur": 1600,
+   "hauteur": 1060,
+   "couleur": "#a0a596",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "jbdodane",
+   "licence": "CC BY-NC 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "lien": "https://www.flickr.com/photos/27998473@N02/10027337345",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/27998473@N02",
+   "lieu": "Collines de l'ouest du Togo"
+  },
+  {
+   "id": "galerie-04",
+   "theme": "paysages",
+   "alt": "Maison basse parmi les cocotiers au pied d'une colline boisée",
+   "legende": "Maison basse parmi les cocotiers au pied d'une colline boisée",
+   "largeur": 736,
+   "hauteur": 490,
+   "couleur": "#7e7350",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-03",
+   "theme": "paysages",
+   "alt": "Cascade d'Avloto en paliers dans la végétation, à Agomé-Yoh",
+   "legende": "Cascade d'Avloto en paliers dans la végétation, à Agomé-Yoh",
+   "largeur": 960,
+   "hauteur": 1440,
+   "couleur": "#4b513f",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "commons",
+   "auteur": "Visitezkpalimetg",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ACASCADE_D%27AVLOTO_-_AGOME_YOH.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-30",
+   "theme": "paysages",
+   "alt": "Deux grands arbres aux racines apparentes, troncs ceints de tissu blanc",
+   "legende": "Deux grands arbres aux racines apparentes",
+   "largeur": 736,
+   "hauteur": 981,
+   "couleur": "#746b54",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-03",
+   "theme": "paysages",
+   "alt": "Collines boisées et ville au fond de la vallée, sous un ciel voilé",
+   "legende": "Collines boisées et ville au fond de la vallée",
+   "largeur": 1024,
+   "hauteur": 766,
+   "couleur": "#a3a088",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "Jeff Attaway",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/33398364@N08/3329622289",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/33398364@N08",
+   "lieu": "Kpalimé"
+  },
+  {
+   "id": "commons-06",
+   "theme": "cote",
+   "alt": "Soleil couchant orangé sur la mer, grues du port en silhouette, à Lomé",
+   "legende": "Soleil couchant orangé sur la mer",
+   "largeur": 1600,
+   "hauteur": 1064,
+   "couleur": "#6d3e18",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Philip Nalangan",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ALome_Beach_Togo_2.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-28",
+   "theme": "cote",
+   "alt": "Hauts cocotiers penchés sur une plage de sable",
+   "legende": "Hauts cocotiers penchés sur une plage de sable",
+   "largeur": 736,
+   "hauteur": 1104,
+   "couleur": "#7a7e86",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-11",
+   "theme": "cote",
+   "alt": "Pirogues amarrées à Aného, où le lac rejoint la mer",
+   "legende": "Pirogues amarrées à Aného, où le lac rejoint la mer",
+   "largeur": 1600,
+   "hauteur": 1067,
+   "couleur": "#93908b",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Alfrednadjere",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AAneho_Miadjo%C3%A9_04.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-34",
+   "theme": "cote",
+   "alt": "Plage de sable orangé et vagues, pirogues au loin",
+   "legende": "Plage de sable orangé et vagues, pirogues au loin",
+   "largeur": 333,
+   "hauteur": 499,
+   "couleur": "#b39f8f",
+   "tailles": [
+    333
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-14",
+   "theme": "cote",
+   "alt": "Ancien wharf : piliers métalliques rouillés s'avançant dans les vagues",
+   "legende": "Ancien wharf : piliers métalliques rouillés s'avançant dans les vagues",
+   "largeur": 1600,
+   "hauteur": 1071,
+   "couleur": "#907b69",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "Julius!",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/68964414@N00/499616455",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/68964414@N00",
+   "lieu": "Lomé"
+  },
+  {
+   "id": "commons-10",
+   "theme": "cote",
+   "alt": "Pirogue à contre-jour sur le lac au coucher du soleil, à Togoville",
+   "legende": "Pirogue à contre-jour sur le lac au coucher du soleil",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#9c6f40",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "David Bacon",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ATogoville_sunset2.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-10",
+   "theme": "cote",
+   "alt": "Plage de sable sous les cocotiers, une pirogue au bord de l'eau",
+   "legende": "Plage de sable sous les cocotiers, une pirogue au bord de l'eau",
+   "largeur": 720,
+   "hauteur": 540,
+   "couleur": "#615240",
+   "tailles": [
+    480,
+    720
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-09",
+   "theme": "cote",
+   "alt": "Lagune de Bè couverte de jacinthes d'eau, à Lomé",
+   "legende": "Lagune de Bè couverte de jacinthes d'eau, à Lomé",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#757b6d",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Essowoe",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ALagune_de_B%C3%A8_%C3%A0_Lom%C3%A9_%28Togo%29.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "ov-12",
+   "theme": "cote",
+   "alt": "Pêcheur endormi sur des filets bleus étalés sur le sable",
+   "legende": "Pêcheur endormi sur des filets bleus étalés sur le sable",
+   "largeur": 1600,
+   "hauteur": 1066,
+   "couleur": "#556d78",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "andryn2006",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+   "lien": "https://www.flickr.com/photos/84985982@N00/30036578284",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/84985982@N00",
+   "lieu": "Lomé"
+  },
+  {
+   "id": "galerie-16",
+   "theme": "cote",
+   "alt": "Pirogues colorées le long d'une digue d'enrochements",
+   "legende": "Pirogues colorées le long d'une digue d'enrochements",
+   "largeur": 736,
+   "hauteur": 552,
+   "couleur": "#84a49f",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-12",
+   "theme": "cote",
+   "alt": "Pirogue abandonnée sur une plage de sable devant une mer agitée",
+   "legende": "Pirogue abandonnée sur une plage de sable devant une mer agitée",
+   "largeur": 1600,
+   "hauteur": 1067,
+   "couleur": "#786c6c",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Lukesavadogo",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ATogo_Aveposso_Abonned_Beach_Boat.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "ov-10",
+   "theme": "cote",
+   "alt": "Rive vue depuis le lac : église et arbres sur la berge, pirogue sur l'eau",
+   "legende": "Rive vue depuis le lac",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#837e6c",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "samurai_dave",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/88657298@N00/6717772441",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/88657298@N00",
+   "lieu": "Togoville"
+  },
+  {
+   "id": "commons-08",
+   "theme": "cote",
+   "alt": "Route du bord de mer de Lomé bordée de cocotiers, à contre-jour",
+   "legende": "Route du bord de mer de Lomé bordée de cocotiers, à contre-jour",
+   "largeur": 1600,
+   "hauteur": 1064,
+   "couleur": "#635844",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Philip Nalangan",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ALome_Togo_Beach_Road.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "commons-18",
+   "theme": "villes",
+   "alt": "Façade blanche du Palais de Lomé au-dessus de son escalier et de ses jardins",
+   "legende": "Façade blanche du Palais de Lomé au-dessus de son escalier et de ses jardins",
+   "largeur": 1600,
+   "hauteur": 1058,
+   "couleur": "#869087",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Lome2023",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3APalais_de_Lom%C3%A9_4.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-11",
+   "theme": "villes",
+   "alt": "Cathédrale néogothique rouge et blanc à deux flèches",
+   "legende": "Cathédrale néogothique rouge et blanc à deux flèches",
+   "largeur": 550,
+   "hauteur": 733,
+   "couleur": "#857574",
+   "tailles": [
+    480,
+    550
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-15",
+   "theme": "villes",
+   "alt": "Façade rose et blanche de la cathédrale et ses deux flèches, parasols du marché à son pied",
+   "legende": "Façade rose et blanche de la cathédrale et ses deux flèches",
+   "largeur": 1600,
+   "hauteur": 1126,
+   "couleur": "#c4c8ca",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "Francisco Anzola",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/10345599@N03/32566714717",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/10345599@N03",
+   "lieu": "Lomé"
+  },
+  {
+   "id": "galerie-02",
+   "theme": "villes",
+   "alt": "Bâtiment de béton blanc à proue recourbée et façade colorée, entouré de cocotiers",
+   "legende": "Bâtiment de béton blanc à proue recourbée et façade colorée",
+   "largeur": 736,
+   "hauteur": 920,
+   "couleur": "#7e8b85",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-16",
+   "theme": "villes",
+   "alt": "Monument de l'Indépendance à Lomé : deux hautes stèles encadrant une sculpture",
+   "legende": "Monument de l'Indépendance à Lomé",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#7b7969",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Bamouzou",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AMonument_de_l%27ind%C3%A9pendance_du_Togo_%C3%A0_Lom%C3%A9_16.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-15",
+   "theme": "villes",
+   "alt": "Esplanade circulaire vue du ciel, un bassin dessine le drapeau togolais",
+   "legende": "Esplanade circulaire vue du ciel",
+   "largeur": 736,
+   "hauteur": 736,
+   "couleur": "#8d8a72",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-24",
+   "theme": "villes",
+   "alt": "Deux tours vitrées reliées par une arche au-dessus d'une coupole",
+   "legende": "Deux tours vitrées reliées par une arche au-dessus d'une coupole",
+   "largeur": 600,
+   "hauteur": 424,
+   "couleur": "#766b5d",
+   "tailles": [
+    480,
+    600
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-21",
+   "theme": "villes",
+   "alt": "Palais des congrès de Lomé et son auvent en forme d'aile",
+   "legende": "Palais des congrès de Lomé et son auvent en forme d'aile",
+   "largeur": 768,
+   "hauteur": 1024,
+   "couleur": "#767673",
+   "tailles": [
+    480,
+    768
+   ],
+   "source": "commons",
+   "auteur": "twohundred 2010",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ALom%C3%A9-Palais_des_Congr%C3%A8s.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-17",
+   "theme": "villes",
+   "alt": "Immeuble moderniste à tours cylindriques, en noir et blanc",
+   "legende": "Immeuble moderniste à tours cylindriques, en noir et blanc",
+   "largeur": 488,
+   "hauteur": 288,
+   "couleur": "#adadad",
+   "tailles": [
+    480,
+    488
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-17",
+   "theme": "villes",
+   "alt": "Bâtiment colonial blanc à arcades et balcons, devant une pelouse et une haie taillée",
+   "legende": "Bâtiment colonial blanc à arcades et balcons",
+   "largeur": 1600,
+   "hauteur": 962,
+   "couleur": "#808480",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "andryn2006",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+   "lien": "https://www.flickr.com/photos/84985982@N00/30668258326",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/84985982@N00",
+   "lieu": "Lomé"
+  },
+  {
+   "id": "galerie-18",
+   "theme": "villes",
+   "alt": "Sculpture carrelée aux couleurs du drapeau togolais sur un rond-point",
+   "legende": "Sculpture carrelée aux couleurs du drapeau togolais sur un rond-point",
+   "largeur": 736,
+   "hauteur": 981,
+   "couleur": "#9a978f",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-29",
+   "theme": "villes",
+   "alt": "Bâtiment moderniste aux toitures plissées devant une pelouse",
+   "legende": "Bâtiment moderniste aux toitures plissées devant une pelouse",
+   "largeur": 736,
+   "hauteur": 552,
+   "couleur": "#8bada7",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-24",
+   "theme": "villes",
+   "alt": "Monument du centenaire de Togoville, sculpture à personnages sur un socle à degrés",
+   "legende": "Monument du centenaire de Togoville",
+   "largeur": 960,
+   "hauteur": 1280,
+   "couleur": "#8f827a",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "commons",
+   "auteur": "Le bon Sos",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AMonument_du_centenaire_de_Togoville.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-14",
+   "theme": "villes",
+   "alt": "Monument blanc surmonté d'une colombe au centre d'un rond-point",
+   "legende": "Monument blanc surmonté d'une colombe au centre d'un rond-point",
+   "largeur": 736,
+   "hauteur": 518,
+   "couleur": "#889fa5",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-15",
+   "theme": "villes",
+   "alt": "Façade du palais royal de Bassar peinte de lions",
+   "legende": "Façade du palais royal de Bassar peinte de lions",
+   "largeur": 1600,
+   "hauteur": 1198,
+   "couleur": "#9b928e",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Grete Howard",
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ABassarRoyalPalace.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-08",
+   "theme": "villes",
+   "alt": "Drapeau togolais au-dessus d'une ville côtière, monument et halles de marché",
+   "legende": "Drapeau togolais au-dessus d'une ville côtière",
+   "largeur": 640,
+   "hauteur": 482,
+   "couleur": "#828f97",
+   "tailles": [
+    480,
+    640
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-27",
+   "theme": "villes",
+   "alt": "Monument de deux hautes stèles encadrant une sculpture",
+   "legende": "Monument de deux hautes stèles encadrant une sculpture",
+   "largeur": 735,
+   "hauteur": 491,
+   "couleur": "#3e6978",
+   "tailles": [
+    480,
+    735
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-04",
+   "theme": "villages",
+   "alt": "Maison-tour en terre du Koutammakou devant des collines boisées",
+   "legende": "Maison-tour en terre du Koutammakou devant des collines boisées",
+   "largeur": 1600,
+   "hauteur": 962,
+   "couleur": "#796d59",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Kalyss",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AAlyssa_K._Barry_Koutammakou%2CTogo.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-13",
+   "theme": "villages",
+   "alt": "Maison-tour en terre coiffée de toits de chaume coniques",
+   "legende": "Maison-tour en terre coiffée de toits de chaume coniques",
+   "largeur": 736,
+   "hauteur": 912,
+   "couleur": "#89928e",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-18",
+   "theme": "villages",
+   "alt": "Takienta, maison-forteresse en terre aux greniers coiffés de chaume",
+   "legende": "Takienta, maison-forteresse en terre aux greniers coiffés de chaume",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#93836d",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "samurai_dave",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/88657298@N00/6717426541",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/88657298@N00",
+   "lieu": "Koutammakou"
+  },
+  {
+   "id": "galerie-31",
+   "theme": "villages",
+   "alt": "Champ moissonné, cases de terre et baobab au pied des collines",
+   "legende": "Champ moissonné, cases de terre et baobab au pied des collines",
+   "largeur": 736,
+   "hauteur": 736,
+   "couleur": "#bc9f6a",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-05",
+   "theme": "villages",
+   "alt": "Village de maisons-tours en terre dans une vallée verdoyante",
+   "legende": "Village de maisons-tours en terre dans une vallée verdoyante",
+   "largeur": 1600,
+   "hauteur": 1200,
+   "couleur": "#8f8d6c",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Magnim Kennedy",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3APaysage_tata_01.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "galerie-33",
+   "theme": "villages",
+   "alt": "Bâtiment blanc à contreforts coniques, une fillette passe avec une bassine",
+   "legende": "Bâtiment blanc à contreforts coniques",
+   "largeur": 736,
+   "hauteur": 920,
+   "couleur": "#aaa8a3",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié",
+   "groupe": "enfants"
+  },
+  {
+   "id": "galerie-37",
+   "theme": "villages",
+   "alt": "Cases à toits de chaume sous les cocotiers, lumière du soir",
+   "legende": "Cases à toits de chaume sous les cocotiers, lumière du soir",
+   "largeur": 512,
+   "hauteur": 384,
+   "couleur": "#756a5e",
+   "tailles": [
+    480,
+    512
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-16",
+   "theme": "gens",
+   "alt": "Mer de parasols colorés au-dessus des étals d'un grand marché",
+   "legende": "Mer de parasols colorés au-dessus des étals d'un grand marché",
+   "largeur": 1600,
+   "hauteur": 1064,
+   "couleur": "#9f9c98",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "Francisco Anzola",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/10345599@N03/33632332578",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/10345599@N03",
+   "lieu": "Grand Marché, Lomé"
+  },
+  {
+   "id": "galerie-19",
+   "theme": "gens",
+   "alt": "Étal de fruits et légumes, deux vendeuses debout",
+   "legende": "Étal de fruits et légumes, deux vendeuses debout",
+   "largeur": 736,
+   "hauteur": 736,
+   "couleur": "#62413d",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-20",
+   "theme": "gens",
+   "alt": "Femme coiffée de cornes, vêtue d'un pagne, portant un plateau devant une maison en terre",
+   "legende": "Femme coiffée de cornes",
+   "largeur": 960,
+   "hauteur": 1280,
+   "couleur": "#917e6b",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "flickr",
+   "auteur": "samurai_dave",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/88657298@N00/6717357155",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/88657298@N00",
+   "lieu": "Koutammakou"
+  },
+  {
+   "id": "galerie-12",
+   "theme": "gens",
+   "alt": "Homme portant sur la tête une haute pile de tissus imprimés",
+   "legende": "Homme portant sur la tête une haute pile de tissus imprimés",
+   "largeur": 736,
+   "hauteur": 1123,
+   "couleur": "#4e4034",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "commons-13",
+   "theme": "gens",
+   "alt": "Pêcheurs tirant un filet sur une plage",
+   "legende": "Pêcheurs tirant un filet sur une plage",
+   "largeur": 1600,
+   "hauteur": 737,
+   "couleur": "#bba694",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "commons",
+   "auteur": "Ferdinand Reus from Arnhem, Holland",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3AFishing_net%2C_Togo.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "ov-23",
+   "theme": "gens",
+   "alt": "Danseuses en pagnes colorés, pieds nus sur un sol de pierre, devant un public",
+   "legende": "Danseuses en pagnes colorés",
+   "largeur": 1024,
+   "hauteur": 768,
+   "couleur": "#93857c",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "D-Stanley",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/79721788@N00/21745218591",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/79721788@N00",
+   "lieu": "Kpalimé",
+   "groupe": "enfants"
+  },
+  {
+   "id": "galerie-07",
+   "theme": "gens",
+   "alt": "Supporters sous des fumigènes vert et jaune, drapeau togolais de football levé",
+   "legende": "Supporters sous des fumigènes vert et jaune",
+   "largeur": 736,
+   "hauteur": 1308,
+   "couleur": "#797c4a",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-25",
+   "theme": "gens",
+   "alt": "Danseur souriant en costume à franges rouges, jaunes et vertes, orné de plumes blanches",
+   "legende": "Danseur souriant en costume à franges rouges",
+   "largeur": 1024,
+   "hauteur": 768,
+   "couleur": "#ada5ae",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "D-Stanley",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/79721788@N00/21906442441",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/79721788@N00",
+   "lieu": "Lomé"
+  },
+  {
+   "id": "galerie-26",
+   "theme": "gens",
+   "alt": "Deux femmes en pagnes imprimés devant un mur de terre rouge",
+   "legende": "Deux femmes en pagnes imprimés devant un mur de terre rouge",
+   "largeur": 469,
+   "hauteur": 704,
+   "couleur": "#704f3f",
+   "tailles": [
+    469
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié",
+   "groupe": "enfants"
+  },
+  {
+   "id": "ov-24",
+   "theme": "gens",
+   "alt": "Musiciens assis derrière de grands tambours peints, en tenues traditionnelles",
+   "legende": "Musiciens assis derrière de grands tambours peints",
+   "largeur": 1024,
+   "hauteur": 768,
+   "couleur": "#726861",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "D-Stanley",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/79721788@N00/21121587843",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/79721788@N00",
+   "lieu": "Kpalimé"
+  },
+  {
+   "id": "galerie-22",
+   "theme": "gens",
+   "alt": "Étals sous auvents de paille au bord d'une route",
+   "legende": "Étals sous auvents de paille au bord d'une route",
+   "largeur": 736,
+   "hauteur": 981,
+   "couleur": "#727585",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "ov-21",
+   "theme": "gens",
+   "alt": "Statuettes noires ornées de cauris alignées sur un étal",
+   "legende": "Statuettes noires ornées de cauris alignées sur un étal",
+   "largeur": 1600,
+   "hauteur": 1098,
+   "couleur": "#5f5a54",
+   "tailles": [
+    480,
+    960,
+    1600
+   ],
+   "source": "flickr",
+   "auteur": "Francisco Anzola",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/10345599@N03/47508900451",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/10345599@N03",
+   "lieu": "Marché des fétiches d'Akodessawa, Lomé"
+  },
+  {
+   "id": "galerie-32",
+   "theme": "gens",
+   "alt": "Jeune vendeuse debout devant des légumes posés sur un pagne",
+   "legende": "Jeune vendeuse debout devant des légumes posés sur un pagne",
+   "largeur": 736,
+   "hauteur": 847,
+   "couleur": "#917055",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié",
+   "groupe": "enfants"
+  },
+  {
+   "id": "ov-22",
+   "theme": "gens",
+   "alt": "Étal de souvenirs : tableaux colorés, sculptures et objets d'artisanat, deux vendeurs debout",
+   "legende": "Étal de souvenirs : tableaux colorés",
+   "largeur": 1024,
+   "hauteur": 768,
+   "couleur": "#7f6351",
+   "tailles": [
+    480,
+    960,
+    1024
+   ],
+   "source": "flickr",
+   "auteur": "D-Stanley",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "lien": "https://www.flickr.com/photos/79721788@N00/21083819053",
+   "modification": "Réduite pour le web",
+   "auteur_url": "https://www.flickr.com/photos/79721788@N00",
+   "lieu": "Kpalimé"
+  },
+  {
+   "id": "galerie-21",
+   "theme": "gens",
+   "alt": "Pompiste en uniforme devant une station Texaco et sa pompe rouge",
+   "legende": "Pompiste en uniforme devant une station Texaco et sa pompe rouge",
+   "largeur": 735,
+   "hauteur": 743,
+   "couleur": "#a29a9d",
+   "tailles": [
+    480,
+    735
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "foaa-01",
+   "theme": "musees",
+   "alt": "Hall aux murs gris surmonté d'une grande enseigne « musee » en lettres noires, structure conique en terre à gauche, table et chaise au fond",
+   "legende": "Hall aux murs gris surmonté d'une grande enseigne « musee » en lettres noires",
+   "largeur": 1080,
+   "hauteur": 807,
+   "couleur": "#717071",
+   "tailles": [
+    480,
+    960,
+    1080
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée national de Lomé"
+  },
+  {
+   "id": "foaa-02",
+   "theme": "musees",
+   "alt": "Vitrine de statuettes en bois clair : un homme barbu assis tenant un bâton et une femme assise les bras levés, chacune avec son cartel",
+   "legende": "Vitrine de statuettes en bois clair",
+   "largeur": 480,
+   "hauteur": 853,
+   "couleur": "#998a7c",
+   "tailles": [
+    480
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée national de Lomé",
+   "cartel": "« La vie religieuse », « Statue du Dieu de la fécondité AGBABKENA (Région maritime) »"
+  },
+  {
+   "id": "foaa-03",
+   "theme": "musees",
+   "alt": "Vitrine sur fond orange présentant des chaînes, fers et entraves en métal sombre, avec leurs cartels",
+   "legende": "Vitrine sur fond orange présentant des chaînes",
+   "largeur": 1536,
+   "hauteur": 1152,
+   "couleur": "#8a6e5c",
+   "tailles": [
+    480,
+    960,
+    1536
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée national de Lomé",
+   "cartel": "« Chaîne à esclaves »"
+  },
+  {
+   "id": "foaa-06",
+   "theme": "musees",
+   "alt": "Coiffe hémisphérique couverte de cauris, surmontée de deux cornes recourbées, photographiée sur fond blanc",
+   "legende": "Coiffe hémisphérique couverte de cauris",
+   "largeur": 640,
+   "hauteur": 480,
+   "couleur": "#e4e3e2",
+   "tailles": [
+    480,
+    640
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "objet": "Coiffe à calebasse Nawdha"
+  },
+  {
+   "id": "commons-20",
+   "theme": "musees",
+   "alt": "Cimier de danse en calebasse, cauris, perles et cornes d'antilope",
+   "legende": "Cimier de danse en calebasse",
+   "largeur": 960,
+   "hauteur": 1616,
+   "couleur": "#7d746a",
+   "tailles": [
+    480,
+    960
+   ],
+   "source": "commons",
+   "auteur": "Ji-Elle",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "lien": "https://commons.wikimedia.org/wiki/File%3ACimier_de_danse-Togo-Mus%C3%A9e_barrois.jpg",
+   "modification": "Réduite pour le web"
+  },
+  {
+   "id": "foaa-11",
+   "theme": "musees",
+   "alt": "Galerie extérieure blanche : grandes statues en bois alignées contre les colonnes, affiches peintes au mur",
+   "legende": "Galerie extérieure blanche",
+   "largeur": 1200,
+   "hauteur": 677,
+   "couleur": "#7b7975",
+   "tailles": [
+    480,
+    960,
+    1200
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-12",
+   "theme": "musees",
+   "alt": "Porte en bois sculptée de rangées de personnages, statues sur socles et figure peinte d'un personnage casqué sur une moto",
+   "legende": "Porte en bois sculptée de rangées de personnages",
+   "largeur": 1200,
+   "hauteur": 677,
+   "couleur": "#867a6c",
+   "tailles": [
+    480,
+    960,
+    1200
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-13",
+   "theme": "musees",
+   "alt": "Trois grandes statues en bois, dont une femme assise portant un enfant, panneau sculpté au mur et miroir doré",
+   "legende": "Trois grandes statues en bois",
+   "largeur": 1218,
+   "hauteur": 815,
+   "couleur": "#7e746b",
+   "tailles": [
+    480,
+    960,
+    1218
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-14",
+   "theme": "musees",
+   "alt": "Longue galerie vitrée : panneaux sculptés au mur, statues alignées sur une banquette, pirogues sculptées sur un lit de galets",
+   "legende": "Longue galerie vitrée",
+   "largeur": 729,
+   "hauteur": 1089,
+   "couleur": "#938473",
+   "tailles": [
+    480,
+    729
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-15",
+   "theme": "musees",
+   "alt": "Salle remplie de statues, masques et figurines en bois, miroir doré, étagères et fauteuils à motifs fleuris",
+   "legende": "Salle remplie de statues",
+   "largeur": 1218,
+   "hauteur": 815,
+   "couleur": "#7a7571",
+   "tailles": [
+    480,
+    960,
+    1218
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-16",
+   "theme": "musees",
+   "alt": "Couloir carrelé bordé de masques muraux, tambours et statues, petits véhicules colorés en métal au sol",
+   "legende": "Couloir carrelé bordé de masques muraux",
+   "largeur": 1218,
+   "hauteur": 815,
+   "couleur": "#6b665a",
+   "tailles": [
+    480,
+    960,
+    1218
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-17",
+   "theme": "musees",
+   "alt": "Auvent blanc abritant de hauts poteaux et statues sculptés et peints, devant un bâtiment",
+   "legende": "Auvent blanc abritant de hauts poteaux et statues sculptés et peints",
+   "largeur": 1218,
+   "hauteur": 815,
+   "couleur": "#7f7269",
+   "tailles": [
+    480,
+    960,
+    1218
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-18",
+   "theme": "musees",
+   "alt": "Salle d'exposition : statues assises en bois, masques, miroir doré et étagères de figurines",
+   "legende": "Salle d'exposition : statues assises en bois",
+   "largeur": 1218,
+   "hauteur": 815,
+   "couleur": "#8c8781",
+   "tailles": [
+    480,
+    960,
+    1218
+   ],
+   "source": "foaa",
+   "auteur": "Fabio Tabbo', Lifetour.net",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée",
+   "groupe": "lifetour"
+  },
+  {
+   "id": "foaa-19",
+   "theme": "musees",
+   "alt": "Salle remplie de statues en bois et en métal, fauteuils à coussins fleuris, miroir doré et étagères",
+   "legende": "Salle remplie de statues en bois et en métal",
+   "largeur": 1200,
+   "hauteur": 900,
+   "couleur": "#89867f",
+   "tailles": [
+    480,
+    960,
+    1200
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-22",
+   "theme": "musees",
+   "alt": "Cinq grandes statues en bois alignées devant un mur végétalisé, dont une sculpture à deux grandes pièces dressées en forme d'ailes",
+   "legende": "Cinq grandes statues en bois alignées devant un mur végétalisé",
+   "largeur": 1200,
+   "hauteur": 900,
+   "couleur": "#8a8167",
+   "tailles": [
+    480,
+    960,
+    1200
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-20",
+   "theme": "musees",
+   "alt": "Auvent ouvert : hauts poteaux sculptés de personnages superposés, banc en bois et statue blanche coiffée d'un chapeau",
+   "legende": "Auvent ouvert : hauts poteaux sculptés de personnages superposés",
+   "largeur": 1200,
+   "hauteur": 677,
+   "couleur": "#7e6c5f",
+   "tailles": [
+    480,
+    960,
+    1200
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-21",
+   "theme": "musees",
+   "alt": "Rangée de statues en bois assises à l'ombre d'un auvent, cour ensoleillée au fond",
+   "legende": "Rangée de statues en bois assises à l'ombre d'un auvent",
+   "largeur": 600,
+   "hauteur": 450,
+   "couleur": "#63605e",
+   "tailles": [
+    480,
+    600
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée international du golfe de Guinée"
+  },
+  {
+   "id": "foaa-23",
+   "theme": "musees",
+   "alt": "Façade ocre aux lignes courbes, deux statues-colonnes en pierre, grande tête sculptée et fresque en mosaïque colorée",
+   "legende": "Façade ocre aux lignes courbes",
+   "largeur": 868,
+   "hauteur": 563,
+   "couleur": "#878584",
+   "tailles": [
+    480,
+    868
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-24",
+   "theme": "musees",
+   "alt": "Deux statues-colonnes en pierre mouchetée à tête de femme, l'une percée de trois trous ronds, devant une façade",
+   "legende": "Deux statues-colonnes en pierre mouchetée à tête de femme",
+   "largeur": 776,
+   "hauteur": 721,
+   "couleur": "#ae9685",
+   "tailles": [
+    480,
+    776
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-25",
+   "theme": "musees",
+   "alt": "Grille en fer formant un visage stylisé, yeux en céramique bleue et carreaux de couleur",
+   "legende": "Grille en fer formant un visage stylisé",
+   "largeur": 787,
+   "hauteur": 670,
+   "couleur": "#947d5a",
+   "tailles": [
+    480,
+    787
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-26",
+   "theme": "musees",
+   "alt": "Bas-relief en céramique émaillée : profil d'une tête coiffée, motifs géométriques jaunes, violets et rouges",
+   "legende": "Bas-relief en céramique émaillée",
+   "largeur": 775,
+   "hauteur": 722,
+   "couleur": "#c19167",
+   "tailles": [
+    480,
+    775
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-27",
+   "theme": "musees",
+   "alt": "Gros plan d'un vitrail en éclats de verre rouges, orange, bleus et blancs pris dans un liant sombre",
+   "legende": "Gros plan d'un vitrail en éclats de verre rouges",
+   "largeur": 776,
+   "hauteur": 718,
+   "couleur": "#633f2e",
+   "tailles": [
+    480,
+    776
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-28",
+   "theme": "musees",
+   "alt": "Panneau de métal doré gravé de deux figures stylisées au trait noir, avec incrustations colorées",
+   "legende": "Panneau de métal doré gravé de deux figures stylisées au trait noir",
+   "largeur": 791,
+   "hauteur": 624,
+   "couleur": "#a59882",
+   "tailles": [
+    480,
+    791
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-29",
+   "theme": "musees",
+   "alt": "Panneau de bois brûlé et gravé : figure allongée au visage triangulaire et aux boucles d'oreilles rondes",
+   "legende": "Panneau de bois brûlé et gravé",
+   "largeur": 782,
+   "hauteur": 677,
+   "couleur": "#c1b4a2",
+   "tailles": [
+    480,
+    782
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-30",
+   "theme": "musees",
+   "alt": "Peinture en touches épaisses : profil d'une tête coiffée d'un turban rayé bleu, vert et jaune",
+   "legende": "Peinture en touches épaisses",
+   "largeur": 779,
+   "hauteur": 621,
+   "couleur": "#a59c70",
+   "tailles": [
+    480,
+    779
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "foaa-31",
+   "theme": "musees",
+   "alt": "Gros plan d'une mosaïque en céramique émaillée : motif bleu en forme de croix surmontée d'un anneau, entouré de rouge, jaune et vert",
+   "legende": "Gros plan d'une mosaïque en céramique émaillée",
+   "largeur": 779,
+   "hauteur": 698,
+   "couleur": "#b3824d",
+   "tailles": [
+    480,
+    779
+   ],
+   "source": "foaa",
+   "auteur": "non identifié",
+   "lien": "https://www.musee-foaa.com/togo/",
+   "musee": "Musée Paul Ahyi"
+  },
+  {
+   "id": "galerie-01",
+   "theme": "affiches",
+   "alt": "Timbre vert de 10 centimes surchargé TOGO, un homme grimpe à un palmier",
+   "legende": "Timbre vert de 10 centimes surchargé TOGO",
+   "largeur": 736,
+   "hauteur": 1202,
+   "couleur": "#9baf91",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "J. de la Nézière (dessin), A. Mignon (gravure) : mentions gravées sur le timbre"
+  },
+  {
+   "id": "galerie-05",
+   "theme": "affiches",
+   "alt": "Affiche bleue : masque stylisé et étoile sous le titre TOGO",
+   "legende": "Affiche bleue : masque stylisé et étoile sous le titre TOGO",
+   "largeur": 736,
+   "hauteur": 1024,
+   "couleur": "#b9bbbe",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-23",
+   "theme": "affiches",
+   "alt": "Armoiries de la République togolaise : deux lions rouges et la devise Travail, Liberté, Patrie",
+   "legende": "Armoiries de la République togolaise",
+   "largeur": 736,
+   "hauteur": 917,
+   "couleur": "#dcd5cb",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-35",
+   "theme": "affiches",
+   "alt": "Carte situant le Togo entre le Ghana et le Bénin",
+   "legende": "Carte situant le Togo entre le Ghana et le Bénin",
+   "largeur": 736,
+   "hauteur": 414,
+   "couleur": "#eacf97",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-39",
+   "theme": "affiches",
+   "alt": "Lettres TOGO derrière un monument surmonté d'une colombe",
+   "legende": "Lettres TOGO derrière un monument surmonté d'une colombe",
+   "largeur": 736,
+   "hauteur": 1303,
+   "couleur": "#98b0c6",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-06",
+   "theme": "affiches",
+   "alt": "Empreinte digitale aux couleurs du drapeau togolais sur fond noir",
+   "legende": "Empreinte digitale aux couleurs du drapeau togolais sur fond noir",
+   "largeur": 736,
+   "hauteur": 1165,
+   "couleur": "#56491d",
+   "tailles": [
+    480,
+    736
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-41",
+   "theme": "affiches",
+   "alt": "Timbre de la République autonome du Togo, danseurs et tambours",
+   "legende": "Timbre de la République autonome du Togo, danseurs et tambours",
+   "largeur": 460,
+   "hauteur": 700,
+   "couleur": "#b1b4b3",
+   "tailles": [
+    460
+   ],
+   "source": "pinterest",
+   "auteur": "Bétemps (mention gravée sur le timbre)"
+  },
+  {
+   "id": "galerie-25",
+   "theme": "affiches",
+   "alt": "Grandes lettres TOGO devant deux tours vitrées, un passant au premier plan",
+   "legende": "Grandes lettres TOGO devant deux tours vitrées",
+   "largeur": 683,
+   "hauteur": 1024,
+   "couleur": "#857567",
+   "tailles": [
+    480,
+    683
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  },
+  {
+   "id": "galerie-40",
+   "theme": "affiches",
+   "alt": "Affiche : masque stylisé aux couleurs du drapeau, titre TOGO",
+   "legende": "Affiche : masque stylisé aux couleurs du drapeau, titre TOGO",
+   "largeur": 236,
+   "hauteur": 313,
+   "couleur": "#8a8256",
+   "tailles": [
+    236
+   ],
+   "source": "pinterest",
+   "auteur": "non identifié"
+  }
+ ]
+}

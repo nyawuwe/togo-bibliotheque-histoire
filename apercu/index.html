@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Aperçu « ordinateur » sur un petit écran : ?ordinateur=1, tenu pour l'onglet (sessionStorage) jusqu'à ?ordinateur=0.
+     La page se met en page sur 1440 px de large, réduite à la largeur de l'écran, et ne renvoie jamais vers la version
+     téléphone. Même script en tête d'index.html et d'ordinateur.html ; sans le paramètre ni le drapeau, rien ne change. -->
+<script>(() => {
+  const q = new URLSearchParams(location.search).get('ordinateur');
+  let oui = q === '1';
+  try { if (q === '0') sessionStorage.removeItem('togo-ordinateur'); else if (oui) sessionStorage.setItem('togo-ordinateur', '1'); else oui = sessionStorage.getItem('togo-ordinateur') === '1'; } catch { /* stockage indisponible : le paramètre seul */ }
+  if (oui) { document.documentElement.dataset.apercu = 'ordinateur'; document.querySelector('meta[name="viewport"]').content = 'width=1440'; }
+})();</script>
+<!-- Au-delà de 1100 px de large, l'accueil seul (ancre vide, #/ ou #/ouverture) part vers l'accueil pour ordinateur
+     (public/ordinateur.html) ; tous les autres écrans restent ici et s'affichent en grand. ordinateur.html renvoie ici
+     ses ancres d'écran, et tout sous 1101 px : même requête média, jamais d'aller-retour. Les paramètres suivent ;
+     ?telephone=1 garde l'accueil de cette version sur un grand écran ; l'aperçu « ordinateur » (ci-dessus) vaut grand écran.
+     main.js fait de même pour un retour à l'accueil. -->
+<script>if ((document.documentElement.dataset.apercu === 'ordinateur' || matchMedia('(min-width: 1101px)').matches) && !/[?&]telephone=1(&|$)/.test(location.search) && /^(#\/?(ouverture)?)?$/.test(location.hash)) location.replace('ordinateur.html' + location.search);</script>
+<meta name="robots" content="noindex">
+<meta name="description" content="Musée d'art et d'histoire du Togo, de l'âge du fer à nos jours : des salles d'archives du domaine public ou sous licence libre, avec leurs sources. Projet personnel, non officiel.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:,">
+<title>Togo, musée d'art et d'histoire</title>
+<link rel="preload" href="./polices/tinos-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./polices/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./polices/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="module" crossorigin src="./js/index-7WifUlFm.js"></script>
+  <link rel="stylesheet" crossorigin href="./js/index-BAowhneI.css">
+</head>
+<body>
+<a class="evitement" href="#principal">Aller au contenu</a>
+<main id="principal">
+
+<!-- Écran 1 : l'ouverture -->
+<section id="ouverture" class="ecran nuit" aria-labelledby="titre-site">
+  <div class="ouv-fond" aria-hidden="true"><img src="./images/ouverture.webp" alt="" width="760" height="686" fetchpriority="high"></div>
+  <header class="ouv-haut">
+    <span class="mono">Musée d'art et d'histoire</span>
+    <span class="etiquette">Africaaans groupe</span>
+  </header>
+  <div class="ouv-centre">
+    <h1 class="titre-geant" id="titre-site">Togo</h1>
+    <p class="ouv-sous">De l'âge du fer<br>à nos jours</p>
+    <p class="mono"><span id="ouv-compte">Une visite en salles</span><br>son recommandé</p>
+  </div>
+  <div class="ouv-bas">
+    <div class="chargement">
+      <div class="chargement-barre" role="progressbar" aria-label="Chargement" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chargement-barre"><span id="chargement-niveau"></span></div>
+      <span class="mono" id="chargement-texte" aria-live="polite">Chargement des archives</span>
+    </div>
+    <button class="bouton-entrer" id="entrer" type="button" disabled>Entrer</button>
+    <p class="liens"><a href="#/tableau/1" id="entrer-muet">Entrer sans le son</a><a href="#/bibliotheque">Aller à la bibliothèque</a></p>
+    <p class="note" id="note-voix"></p>
+    <footer class="pied">
+      <p class="credit" id="credit-ouverture"></p>
+      <p class="mention">Projet personnel, non officiel · <a href="#/credits">Crédits</a></p>
+    </footer>
+  </div>
+</section>
+
+<!-- Écran 2 : la présentation, un tableau par salle -->
+<section id="presentation" class="ecran mur" aria-label="Visite guidée" hidden>
+  <header class="pres-haut">
+    <ol class="segments" id="segments" aria-hidden="true"></ol>
+    <div class="pres-barre">
+      <span class="mono" id="compteur" aria-live="polite"></span>
+      <button type="button" class="bouton-commandes" id="b-commandes" aria-controls="commandes" aria-expanded="true" aria-label="Masquer les commandes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="1.8"/><circle cx="15" cy="12" r="1.8"/><circle cx="8" cy="17" r="1.8"/></svg></button>
+      <a class="lien-biblio" href="#/bibliotheque">Explorer la bibliothèque</a>
+    </div>
+  </header>
+  <div class="galerie" id="galerie">
+    <div class="galerie-piste" id="galerie-piste"></div>
+    <span class="cartouche" id="cartouche" aria-hidden="true"></span>
+  </div>
+  <div class="recit" id="recits"></div>
+  <nav class="commandes" id="commandes" aria-label="Commandes de la visite">
+    <button type="button" id="b-sous-titres" aria-pressed="true" aria-label="Sous-titres"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 11h4M13 11h4M7 14.5h7"/><path class="coupe" d="M4 4l16 16"/></svg></button>
+    <button type="button" id="b-voix" aria-pressed="false" aria-label="Voix"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20c0-4 3-6.2 6.5-6.2s6.5 2.2 6.5 6.2M17.5 6c1.3 1.4 1.3 3.8 0 5.2M20 4c2.4 2.6 2.4 6.6 0 9.2"/><path class="coupe" d="M4 4l16 16"/></svg></button>
+    <button type="button" id="b-precedent" aria-label="Tableau précédent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button type="button" id="b-pause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M9 5v14M15 5v14"/><path class="i-lecture" d="M8 5l11 7-11 7z"/></svg></button>
+    <button type="button" id="b-suivant" aria-label="Tableau suivant"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <button type="button" id="b-musique" aria-pressed="false" aria-label="Musique"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/><path class="coupe" d="M4 4l16 16"/></svg></button>
+  </nav>
+  <p class="note note-pres" id="note-pres"></p>
+</section>
+
+<!-- Détail d'une salle -->
+<section id="salle" class="ecran mur" hidden></section>
+
+<!-- Écran 3 : la bibliothèque -->
+<section id="bibliotheque" class="ecran nuit" aria-labelledby="titre-biblio" hidden>
+  <div class="papier frise-zone">
+    <header class="biblio-tete">
+      <div class="barre-nav"><a href="#/" class="mono retour">Togo</a><span class="etiquette">Africaaans groupe</span></div>
+      <p class="mono">La bibliothèque · archives</p>
+      <h2 class="titre-biblio" id="titre-biblio">Frise des jalons</h2>
+      <p class="chapo-mono" id="frise-chapo"></p>
+      <p class="periodes"><span>Avant 1884 · salles 1 à 3</span><span>1884 à 1960 · salles 4 à 7</span><span>1960 à 2025 · salle 8</span><span>1902 à 2019 · salle 9</span></p>
+    </header>
+    <div class="frise-defile frise-anime" id="frise" tabindex="0" aria-label="Frise des jalons, à faire défiler vers la droite">
+      <div class="frise-piste" id="frise-piste"></div>
+    </div>
+    <p class="frise-aide"><span>Glisser vers la droite →</span><span id="frise-compte"></span></p>
+  </div>
+  <section class="salles" aria-labelledby="titre-salles">
+    <p class="mono">Toutes les salles · à faire glisser</p>
+    <h3 class="titre-salles" id="titre-salles">Entrer dans une salle</h3>
+    <div class="rangee" id="rangee"></div>
+    <div id="biblio-liens"></div>
+  </section>
+  <footer class="biblio-pied">
+    <p>Archives et objets du domaine public ou sous licence libre, chacun crédité sur sa fiche et dans les <a href="#/credits">crédits</a>.</p>
+    <p class="mention">Projet personnel, non officiel.</p>
+  </footer>
+</section>
+
+<!-- Fiche d'archive en double page -->
+<section id="archive" class="ecran fiche" hidden>
+  <div class="fiche-coin" aria-hidden="true"><img id="fiche-fond" alt=""></div>
+  <header class="fiche-tete"><div class="barre-nav"><a href="#/bibliotheque" class="mono retour">Bibliothèque</a></div></header>
+  <div class="fiche-defile" id="fiche-defile" tabindex="0" aria-label="Fiche, à faire défiler vers la droite"><div class="fiche-piste" id="fiche-piste"></div></div>
+  <p class="fiche-pied" id="fiche-pied"></p>
+</section>
+
+<!-- Archive groupée autour d'un événement -->
+<section id="evenement" class="ecran" hidden></section>
+
+<!-- Écran 4 : les objets -->
+<section id="objets" class="ecran nuit" aria-labelledby="titre-objets" hidden>
+  <div class="objets-liste">
+    <header class="obj-tete">
+      <div class="barre-nav"><a href="#/bibliotheque" class="mono retour">Bibliothèque</a><span class="etiquette">Africaaans groupe</span></div>
+      <div class="obj-titre-ligne"><h2 class="titre-objets" id="titre-objets">Objets<sup id="objets-nombre"></sup></h2><span class="obj-sous">Arts et usages<br>du Togo</span></div>
+      <div class="obj-colonnes"><p>Des objets du Togo conservés dans des musées et des collections, photographiés et publiés sous licence libre.</p><p>Chaque image est détourée et retouchée pour le site ; le crédit complet est sur sa fiche.</p></div>
+    </header>
+    <div class="bande" id="bande" aria-label="Bande des objets, à faire glisser"><ul class="bande-piste" id="bande-piste"></ul></div>
+    <p class="bande-aide"><span>Glisser · toucher un objet</span><span id="bande-compte"></span></p>
+  </div>
+  <div class="objet-detail" id="objet-detail"></div>
+</section>
+
+<!-- Crédits, générés depuis les données -->
+<section id="credits" class="ecran papier" aria-labelledby="titre-credits" hidden></section>
+
+</main>
+</body>
+</html>

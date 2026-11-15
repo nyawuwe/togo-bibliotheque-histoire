@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Aperçu « ordinateur » sur un petit écran : ?ordinateur=1, tenu pour l'onglet (sessionStorage) jusqu'à ?ordinateur=0.
+     La page se met en page sur 1440 px de large, réduite à la largeur de l'écran, et ne renvoie jamais vers la version
+     téléphone. Même script en tête d'index.html et d'ordinateur.html ; sans le paramètre ni le drapeau, rien ne change. -->
+<script>(() => {
+  const q = new URLSearchParams(location.search).get('ordinateur');
+  let oui = q === '1';
+  try { if (q === '0') sessionStorage.removeItem('togo-ordinateur'); else if (oui) sessionStorage.setItem('togo-ordinateur', '1'); else oui = sessionStorage.getItem('togo-ordinateur') === '1'; } catch { /* stockage indisponible : le paramètre seul */ }
+  if (oui) { document.documentElement.dataset.apercu = 'ordinateur'; document.querySelector('meta[name="viewport"]').content = 'width=1440'; }
+})();</script>
+<!-- Version ordinateur : la page d'accueil seulement (ouverture, affiche, salles en cartes, galerie), servie telle quelle depuis
+     public/. Les écrans (visite, salles, bibliothèque, fiches, objets, crédits) sont ceux d'index.html, en grand, et
+     index.html ne renvoie ici que son adresse d'accueil. Une ancre d'écran repart donc vers lui, traduite pour les
+     anciennes adresses de cette page (#salle-fer devient #/salle/fer) ; sous 1101 px, tout repart vers lui. Même requête
+     média des deux côtés (ou l'aperçu « ordinateur »), et l'accueil seul franchit la limite : jamais d'aller-retour. -->
+<script>(() => {
+  const h = location.hash.replace(/^#salle-/, '#/salle/').replace(/^#credits$/, '#/credits').replace(/^#parcours$/, '#/bibliotheque');
+  if (document.documentElement.dataset.apercu !== 'ordinateur' && !matchMedia('(min-width: 1101px)').matches) location.replace('./' + location.search + h.replace(/^#salles$/, '#/bibliotheque'));
+  else if (/^#\/(?!ouverture$)./.test(h)) location.replace('./' + location.search + h);
+})();</script>
+<meta name="robots" content="noindex">
+<meta name="description" content="Musée d'art et d'histoire du Togo, accueil pour ordinateur : des salles chronologiques, des archives et des objets, chacun avec sa source et sa licence. Projet personnel, non officiel.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:,">
+<title>Togo, musée d'art et d'histoire</title>
+<link rel="preload" href="polices/tinos-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="polices/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="polices/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="ordinateur.css">
+<script src="ordinateur.js" defer></script>
+</head>
+<body>
+<a class="evitement" href="#salles">Aller aux salles</a>
+
+<!-- Ouverture : clichés du Togo enchaînés en plein écran, avant l'affiche -->
+<div class="film" id="film" role="region" aria-label="Ouverture : clichés du Togo" hidden>
+  <div class="film-images" id="film-images"></div>
+  <div class="film-voile" aria-hidden="true"></div>
+  <header class="film-haut">
+    <span class="marque marque-nuit" aria-hidden="true"><span class="marque-nom">Togo</span><span class="marque-sous">Musée d'art et d'histoire</span></span>
+    <button type="button" class="film-passer" id="film-passer">Passer l'ouverture</button>
+  </header>
+  <p class="film-titre" id="film-titre" aria-hidden="true">Togo</p>
+  <footer class="film-bas">
+    <p class="film-legende" id="film-legende" aria-live="off"></p>
+    <ol class="film-segments" id="film-segments" aria-hidden="true"></ol>
+  </footer>
+</div>
+
+<main>
+<!-- 1. L'affiche (référence 11) : titre serif, objets détourés en bas de page, parallaxe au défilement -->
+<section class="affiche" id="affiche" aria-labelledby="titre">
+  <div class="scene" id="scene">
+    <header class="barre">
+      <button type="button" class="bouton-index" id="bouton-index" aria-expanded="false" aria-controls="index">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>Index
+      </button>
+      <a class="marque" href="#affiche" aria-label="Togo, musée d'art et d'histoire : haut de page"><span class="marque-nom">Togo</span><span class="marque-sous">Musée d'art et d'histoire</span></a>
+      <div class="barre-droite">
+        <a class="lien-visite" href="./#/tableau/1">Commencer la visite<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </header>
+
+    <div class="titrage-zone">
+      <div class="titrage" id="titrage">
+        <p class="cote cote-g">Archives, cartes,<br>photographies et objets</p>
+        <!-- LE TITRE DE L'AFFICHE : il ne s'écrit qu'ici. Le script en garde la première ligne et adapte la fin aux
+             données : « à l'indépendance » si la dernière salle finit en 1960, « Histoire du Togo » si elle s'arrête
+             avant les toutes dernières années. -->
+        <h1 class="titre" id="titre" tabindex="-1">De l'âge du fer<br>à nos jours</h1>
+        <p class="cote cote-d" id="compte"><span>Les salles</span><br><span>et leurs archives</span></p>
+      </div>
+    </div>
+
+    <div class="foule" id="foule" role="group" aria-label="Objets de la collection"></div>
+  </div>
+</section>
+
+<!-- Index : la liste des salles, ouverte depuis la barre -->
+<nav class="index" id="index" aria-label="Index des salles" hidden>
+  <div class="index-dedans">
+    <div class="index-tete">
+      <p class="index-titre">Index</p>
+      <button type="button" class="index-fermer" id="index-fermer">Fermer<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <ol class="index-liste" id="index-liste"></ol>
+    <p class="index-pied"><a href="#salles">Les salles en cartes</a><a href="#galerie">La galerie</a><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/credits">Crédits</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button><a href="./#/tableau/1">Commencer la visite</a></p>
+  </div>
+</nav>
+
+<!-- 2. La belle section (référence 12) : les salles en cartes sur une grande archive sépia -->
+<section class="salles" id="salles" aria-labelledby="titre-salles">
+  <div class="planche" id="planche">
+    <div class="planche-fond" id="planche-fond" aria-hidden="true"></div>
+    <div class="planche-voile" aria-hidden="true"></div>
+    <div class="planche-tete">
+      <h2 class="planche-titre" id="titre-salles">Les salles<br>du musée</h2>
+      <p class="planche-chapo">Chaque salle réunit ses archives datées, chacune avec sa source et sa licence.</p>
+    </div>
+    <div class="cartes" id="cartes" role="region" aria-roledescription="carrousel" aria-label="Salles du musée">
+      <ol class="cartes-piste" id="cartes-piste"></ol>
+    </div>
+    <div class="planche-bas">
+      <div class="progression" aria-hidden="true"><span class="progression-rail"><span id="progression-niveau"></span></span><span class="progression-compte" id="progression-compte"></span></div>
+      <div class="fleches">
+        <button type="button" class="fleche" id="carte-precedente" aria-label="Salle précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="fleche" id="carte-suivante" aria-label="Salle suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <p class="planche-credit" id="planche-credit"></p>
+  <p class="visuellement-cache" id="cartes-annonce" aria-live="polite"></p>
+</section>
+
+<!-- 3. La galerie, à part des salles : images d'origines diverses, chacune avec sa source ; deux films. Rien ne s'en
+     charge à l'arrivée : ordinateur.js appelle galerie.js quand elle approche de l'écran. -->
+<section class="galerie" id="galerie" aria-labelledby="titre-galerie">
+  <header class="galerie-tete">
+    <p class="galerie-sur">Hors des salles <span id="galerie-compte"></span></p>
+    <h2 class="galerie-titre" id="titre-galerie">La galerie</h2>
+    <p class="galerie-chapo">Images réunies depuis Pinterest, le site du musée FOAA, Wikimedia Commons et Flickr. Elles ne font pas partie des archives des salles&nbsp;: leur source est indiquée, leur auteur pas toujours connu. Vous êtes l'auteur d'une image&nbsp;? <a href="#reclamation">Signalez-la</a>&nbsp;: elle sera créditée ou retirée.</p>
+  </header>
+  <div class="galerie-themes" id="galerie-themes"></div>
+</section>
+
+<footer class="pied">
+  <section class="reclamation" id="reclamation" aria-labelledby="titre-reclamation">
+    <div class="reclamation-tete">
+      <h2 class="reclamation-titre" id="titre-reclamation">Signaler une image</h2>
+      <p>Vous êtes l'auteur d'une image de la galerie, ou vous en détenez les droits&nbsp;? Demandez qu'elle soit créditée ou retirée.</p>
+      <p>Le formulaire prépare un courriel dans votre messagerie&nbsp;: rien ne passe par un service tiers.</p>
+    </div>
+    <form class="formulaire" id="formulaire" novalidate>
+      <div class="champ">
+        <label for="f-nom">Nom</label>
+        <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-describedby="e-nom">
+        <p class="erreur" id="e-nom" hidden></p>
+      </div>
+      <div class="champ">
+        <label for="f-courriel">Courriel</label>
+        <input id="f-courriel" name="courriel" type="email" autocomplete="email" spellcheck="false" required aria-describedby="e-courriel">
+        <p class="erreur" id="e-courriel" hidden></p>
+      </div>
+      <div class="champ large">
+        <label for="f-image">Image concernée</label>
+        <select id="f-image" name="image" required aria-describedby="e-image"><option value="">Choisir une image</option><option value="autre">Autre image (à décrire dans le message)</option></select>
+        <p class="erreur" id="e-image" hidden></p>
+      </div>
+      <fieldset class="champ" aria-describedby="e-demande">
+        <legend>Demande</legend>
+        <div class="choix"><label><input type="radio" name="demande" value="créditer" required> Créditer l'image</label><label><input type="radio" name="demande" value="retirer"> Retirer l'image</label></div>
+        <p class="erreur" id="e-demande" hidden></p>
+      </fieldset>
+      <div class="champ">
+        <label for="f-lien">Lien établissant vos droits <span class="facultatif">(facultatif)</span></label>
+        <input id="f-lien" name="lien" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://" aria-describedby="e-lien">
+        <p class="erreur" id="e-lien" hidden></p>
+      </div>
+      <div class="champ large">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" name="message" rows="5" required aria-describedby="a-message e-message"></textarea>
+        <p class="aide" id="a-message">Qui vous êtes par rapport à l'image&nbsp;; si vous avez choisi «&nbsp;Autre image&nbsp;», décrivez-la.</p>
+        <p class="erreur" id="e-message" hidden></p>
+      </div>
+      <div class="envoi large">
+        <button type="submit" class="bouton-envoi">Préparer le courriel</button>
+        <p class="aide">Votre messagerie s'ouvre avec le message prêt à partir.</p>
+      </div>
+    </form>
+    <div class="repli" id="repli" tabindex="-1" role="region" aria-labelledby="repli-titre" hidden>
+      <p class="repli-titre" id="repli-titre">Votre messagerie devrait s'ouvrir avec ce message.</p>
+      <p>Si elle ne s'ouvre pas, copiez-le et envoyez-le à <span id="repli-adresse"></span>.</p>
+      <textarea id="repli-texte" rows="14" readonly aria-label="Message préparé"></textarea>
+      <p class="repli-actions"><button type="button" class="bouton-envoi" id="repli-copier">Copier le message</button><span id="repli-etat" role="status"></span></p>
+    </div>
+  </section>
+
+  <details class="credits-galerie" id="credits-galerie">
+    <summary>Crédits de la galerie <span id="credits-galerie-compte"></span></summary>
+    <ol class="credits-galerie-liste" id="credits-galerie-liste"></ol>
+  </details>
+
+  <div class="pied-bas">
+    <p>Projet personnel, non officiel.</p>
+    <p class="pied-liens"><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/objets">Objets</a><a href="./#/credits">Crédits du musée</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button></p>
+  </div>
+</footer>
+</main>
+
+<!-- Visionneuse de la galerie : une image entière, jamais agrandie, avec sa légende et son crédit complet. -->
+<dialog class="visionneuse" id="visionneuse" aria-labelledby="v-legende">
+  <div class="v-scene">
+    <p class="v-compte" id="v-compte"></p>
+    <button type="button" class="v-fermer">Fermer<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="v-image"><img id="v-img" alt="" decoding="async"></div>
+    <button type="button" class="v-fleche v-prec" aria-label="Image précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="v-fleche v-suiv" aria-label="Image suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="v-texte">
+      <p class="v-legende" id="v-legende" aria-live="polite"></p>
+      <p class="v-credit" id="v-credit"></p>
+      <a class="v-signaler" href="#reclamation">Signaler cette image</a>
+    </div>
+  </div>
+</dialog>
+
+<noscript><p class="sans-script">Cette page lit ses salles et ses archives dans les données du site : elle demande JavaScript.</p></noscript>
+</body>
+</html>
