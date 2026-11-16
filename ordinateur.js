@@ -82,13 +82,18 @@
   }
   // Une arrivée sur une ancre de cette page (#salles) va droit à sa cible, sans l'ouverture. « Revoir l'ouverture » la
   // rejoue à la demande, même sous mouvement réduit : sans zoom ni rideau alors (ordinateur.css).
-  const veutFilm = () => !reduit.matches && params.get('ouverture') !== '0' && (params.get('ouverture') === '1' || (!memoire('togo-ouverture-vue') && location.hash.length < 2));
+  const arrivee = () => params.get('ouverture') !== '0' && (params.get('ouverture') === '1' || (!memoire('togo-ouverture-vue') && location.hash.length < 2));
+  const veutFilm = () => !reduit.matches && arrivee();
   const cliches = () => FILM.map((id) => decor(parId.get(id))).filter(Boolean);
   let masquer = 0;
+  // Transition écoute (ecoute/ecoute.js) : cinq secondes juste après l'ouverture, sans action demandée, une fois par
+  // visite (le composant tient le drapeau de session, partagé avec index.html : déjà vue, il ne montre rien).
+  const ecoute = () => window.afficherTransitionEcoute?.({ onFin() {}, image: 'ecoute/ecouteurs-suspendus.webp' });
 
   function ouverture(demande = false, bouton = null) {
     const liste = cliches();
-    if (liste.length < 2 || !(demande || veutFilm())) return;
+    // Sans film (mouvement réduit, clichés absents), la transition vient à l'arrivée, dans sa version fixe.
+    if (liste.length < 2 || !(demande || veutFilm())) { if (!demande && arrivee()) ecoute(); return; }
     const film = $('#film'), boite = $('#film-images'), legendeFilm = $('#film-legende'), segs = $('#film-segments');
     // Le film couvre toute la page : derrière lui, rien ne se lit au lecteur d'écran ni ne prend le focus.
     const derriere = [$('.evitement'), $('main')];
@@ -137,6 +142,7 @@
         cible.focus({ preventScroll: true });
       }
       masquer = setTimeout(() => { film.hidden = true; boite.innerHTML = ''; }, vite ? 750 : 1200);
+      ecoute();
     }
     function interrompre(e) {
       if (e.type === 'keydown' && ['Tab', 'Shift'].includes(e.key)) return;

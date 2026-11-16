@@ -1,0 +1,95 @@
+/* Transition écoute du musée du Togo : courte transition automatique, plein noir, après l'intro.
+   Sans dépendance. Les polices ("Togo Serif") sont fournies par le site hôte ; des substituts
+   système prennent le relais en démonstration isolée. Pivot du balancier hors cadre, en haut. */
+
+.te-ecran {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  margin: 0;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .45s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.te-ecran.te-visible { opacity: 1; }
+
+/* Deux couches sur le même pivot hors cadre : l'arrivée amortie (une fois), puis le balancement. */
+.te-scene { position: absolute; inset: 0; pointer-events: none; }
+.te-pivot,
+.te-bras {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% -34vh;
+  will-change: transform;
+}
+.te-pivot { animation: te-arrivee 2.4s cubic-bezier(.33, .12, .22, 1) both; }
+.te-bras  { animation: te-balance 4s ease-in-out 2s infinite; }
+
+.te-ecouteurs {
+  position: absolute;
+  top: -3vh;
+  left: 50%;
+  height: 86vh;
+  width: auto;
+  max-width: none;
+  display: block;
+  transform: translateX(-50%);
+  animation: te-chute .9s cubic-bezier(.2, .7, .3, 1) both;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.te-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(7vh + env(safe-area-inset-bottom));
+  margin: 0 auto;
+  padding: 0 24px;
+  max-width: 16em;
+  text-align: center;
+  font: 400 clamp(21px, 5.2vw, 30px) / 1.25 "Togo Serif", Georgia, "Times New Roman", serif;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  opacity: 0;
+  animation: te-texte .8s ease .7s forwards;
+}
+
+@keyframes te-arrivee {
+  0%   { transform: rotate(9deg); }
+  25%  { transform: rotate(-6deg); }
+  48%  { transform: rotate(3.8deg); }
+  68%  { transform: rotate(-2.3deg); }
+  85%  { transform: rotate(1.1deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes te-balance {
+  0%, 100% { transform: rotate(1.1deg); }
+  50%      { transform: rotate(-1.1deg); }
+}
+@keyframes te-chute {
+  from { transform: translateX(-50%) translateY(-8vh); }
+  to   { transform: translateX(-50%) translateY(0); }
+}
+@keyframes te-texte {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Mouvement réduit : image fixe, texte posé, rien ne bouge. La classe te-statique applique le même
+   gel (démonstration et captures sans toucher au réglage du système). */
+@media (prefers-reduced-motion: reduce) {
+  .te-ecran { transition: none; opacity: 1; }
+  .te-pivot, .te-bras { animation: none; transform: none; }
+  .te-ecouteurs { animation: none; transform: translateX(-50%); }
+  .te-message { animation: none; opacity: 1; }
+}
+:root.te-statique .te-ecran { transition: none; opacity: 1; }
+:root.te-statique .te-pivot,
+:root.te-statique .te-bras { animation: none; transform: none; }
+:root.te-statique .te-ecouteurs { animation: none; transform: translateX(-50%); }
+:root.te-statique .te-message { animation: none; opacity: 1; }
