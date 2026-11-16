@@ -56,7 +56,38 @@
       "27 avril 1958": "carte-elections-1958",
       "16 mai 1958": "sieges-1958",
       "Novembre 1959": "drapeau-1958",
-      "27 avril 1960": "togoland-carte"
+      "27 avril 1960": [
+        "togoland-carte",
+        "drapeau-1960"
+      ]
+    },
+    "republique": {
+      "20 septembre 1960": "olympio-munich-1961",
+      "9 avril 1961": "olympio-munich-1961",
+      "13 janvier 1963": "olympio-munich-1961",
+      "5 et 11 mai 1963": "grunitzky-1964",
+      "13 et 14 janvier 1967": "grunitzky-1964",
+      "14 avril 1967": "eyadema-1972",
+      "30 décembre 1979 et 9 janvier 1980": "lome-convention-1979",
+      "16 juillet 1991": "lome-convention-1979",
+      "27 septembre et 14 octobre 1992": "lome-convention-1979",
+      "31 décembre 2002": "eyadema-1972",
+      "5 février 2005": "eyadema-1972",
+      "25 février 2005": "faure-gnassingbe-2006",
+      "24 avril et 4 mai 2005": "faure-gnassingbe-2006",
+      "15 mai 2019": "faure-gnassingbe-2006",
+      "6 mai 2024": "faure-gnassingbe-2006",
+      "3 mai 2025": "faure-gnassingbe-2006"
+    },
+    "symboles-monuments": {
+      "21 septembre 1902": "lome-cathedrale",
+      "Septembre 1905": "lome-allee-1904",
+      "18 septembre 1956": null,
+      "14 mars 1962": null,
+      "9 janvier 1980": "drapeau-1960",
+      "16 juillet et 23 août 1991": "drapeau-1960",
+      "2004": "takienta-nadoba",
+      "Fin 2019": "lome-palais-gouverneurs"
     }
   },
   "cadrages": {
@@ -79,7 +110,12 @@
     "drapeau-1958": "0% 50%",
     "agbonu-gare": "45% 50%",
     "sprigade-e2-lome": "45% 72%",
-    "klein-popo-1897": "40% 50%"
+    "klein-popo-1897": "40% 50%",
+    "olympio-munich-1961": "16% 40%",
+    "grunitzky-1964": "50% 32%",
+    "eyadema-1972": "50% 38%",
+    "lome-convention-1979": "60% 45%",
+    "faure-gnassingbe-2006": "50% 30%"
   },
   "rogne_haut": [
     "bandjeli-hauts-fourneaux",
@@ -99,6 +135,8 @@
     "5": "carte-gold-coast-1921",
     "6": "togoland-carte",
     "7": "carte-elections-1958",
+    "8": "lome-convention-1979",
+    "9": "lome-palais-gouverneurs",
     "defaut": "sklavenkueste-1885"
   },
   "details": {

@@ -300,7 +300,7 @@
       },
       {
         "date": "24 août 1956",
-        "libelle": "Le décret n° 56-847 fixe le statut du Togo sous administration française, qui devient la République autonome du Togo.",
+        "libelle": "Un décret fixe le statut du Togo sous administration française, qui devient la République autonome du Togo.",
         "source": "Nations unies, Assemblée générale, résolutions 1044 (XI) et 1046 (XI), 619e séance plénière, 13 décembre 1956 (Commons, « United Nations General Assembly resolution A-RES-1044(XI).pdf »), résolution 1046 (XI)",
         "verifie": true
       },
@@ -343,7 +343,7 @@
     "numero": 7,
     "titre": "L'indépendance",
     "periode": "1958 à 1960",
-    "texte": "Le 27 avril 1958, des élections législatives se tiennent au Togo sous la surveillance des Nations unies. Le Comité de l'unité togolaise (CUT) l'emporte, et son chef, Sylvanus Olympio, prend ses fonctions de Premier ministre le 16 mai 1958. Le 27 avril 1960, le Togo devient indépendant et adopte son drapeau : cinq bandes horizontales, vertes et jaunes, et une étoile blanche sur un canton rouge. République autonome depuis 1956, le Togo sous tutelle française devient ainsi un État souverain. Le récit de cette bibliothèque s'arrête ici, à l'indépendance.",
+    "texte": "Le 27 avril 1958, des élections législatives se tiennent au Togo sous la surveillance des Nations unies. Le Comité de l'unité togolaise (CUT) l'emporte, et son chef, Sylvanus Olympio, prend ses fonctions de Premier ministre le 16 mai 1958. Le 27 avril 1960, le Togo devient indépendant et adopte son drapeau : cinq bandes horizontales, vertes et jaunes, et une étoile blanche sur un canton rouge. République autonome depuis 1956, le Togo sous tutelle française devient ainsi un État souverain. La salle suivante raconte la République et ses constitutions.",
     "jalons": [
       {
         "date": "27 avril 1958",
@@ -386,7 +386,196 @@
       "drapeau-1958",
       "carte-elections-1958",
       "sieges-1958",
-      "togoland-carte"
+      "togoland-carte",
+      "drapeau-1960"
+    ]
+  },
+  {
+    "id": "republique",
+    "numero": 8,
+    "titre": "La République et ses constitutions",
+    "periode": "1960 à 2025",
+    "texte": "Le 9 avril 1961, le Togo adopte une constitution par référendum et élit Sylvanus Olympio président. Celui-ci est tué le 13 janvier 1963 ; mandaté par le « Comité Insurrectionnel », Nicolas Grunitzky préside un gouvernement provisoire, et une nouvelle constitution est adoptée le 5 mai. En janvier 1967, la démission de Grunitzky est constatée, et un Comité de réconciliation nationale présidé par le colonel Kléber Dadjo lui succède ; le 14 avril, Étienne Eyadéma devient président. La constitution de 1980 inscrit le parti unique ; celle de 1992 suit la Conférence nationale de 1991. À la mort d'Eyadéma, en 2005, l'armée confie le pouvoir à son fils, Faure Gnassingbé, élu en avril. La constitution du 6 mai 2024 confie le gouvernement à un Président du Conseil.",
+    "jalons": [
+      {
+        "date": "20 septembre 1960",
+        "libelle": "Le Togo est admis à l'Organisation des Nations unies.",
+        "source": "Nations unies, page des États membres (« Togo, Date of Admission: 20-09-1960 ») ; Bibliothèque Dag Hammarskjöld, résolutions de la quinzième session de l'Assemblée générale (admission du Togo, 20 septembre 1960)",
+        "verifie": true
+      },
+      {
+        "date": "9 avril 1961",
+        "libelle": "Les électeurs adoptent par référendum la constitution de la République togolaise et élisent Sylvanus Olympio président de la République.",
+        "source": "Journal officiel de la République togolaise, 13 avril 1961 (résultats du référendum) et numéro spécial du 17 avril 1961 (constitution promulguée le 14 avril, proclamation du 15 avril du résultat de l'élection présidentielle) ; Digithèque MJP (mjp.univ-perp.fr), « Constitution du 9 avril 1961 »",
+        "verifie": true
+      },
+      {
+        "date": "13 janvier 1963",
+        "libelle": "Le président Sylvanus Olympio est tué. Le 17 janvier, Nicolas Grunitzky, mandaté par le « Comité Insurrectionnel », dissout par ordonnance l'Assemblée nationale et abroge la constitution de 1961.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr), page « Togo », chronologie (« Olympio tué lors d'un putsch militaire ») ; Journal officiel de la République togolaise, 17 janvier 1963 (ordonnance du 17 janvier 1963)",
+        "verifie": true
+      },
+      {
+        "date": "5 et 11 mai 1963",
+        "libelle": "Une nouvelle constitution est adoptée par référendum le 5 mai et promulguée le 11 mai. Nicolas Grunitzky est président de la République, Antoine Meatchi vice-président.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr), « Constitution du 5 mai 1963 » ; Journal officiel de la République togolaise, 16 juin 1963 (décret du 28 mai 1963)",
+        "verifie": true
+      },
+      {
+        "date": "13 et 14 janvier 1967",
+        "libelle": "Une ordonnance du colonel Kléber Dadjo constate la démission de Nicolas Grunitzky et abroge la constitution de 1963 ; un Comité de réconciliation nationale, qu'il préside, assume les pouvoirs.",
+        "source": "Journal officiel de la République togolaise, numéro spécial du 30 janvier 1967 (ordonnances du 14 janvier 1967) ; Haut-Commissariat à la réconciliation et au renforcement de l'unité nationale (HCRRUN), « Hommage national à Feu Président Colonel Kléber Dadjo », 15 août 2026",
+        "verifie": true
+      },
+      {
+        "date": "14 avril 1967",
+        "libelle": "Le Comité de réconciliation nationale est dissous ; le lieutenant-colonel Étienne Eyadéma assume les fonctions de président de la République.",
+        "source": "Journal officiel de la République togolaise, numéro spécial du 15 avril 1967 (ordonnances du 14 avril 1967)",
+        "verifie": true
+      },
+      {
+        "date": "30 décembre 1979 et 9 janvier 1980",
+        "libelle": "Constitution approuvée par référendum le 30 décembre 1979, promulguée le 9 janvier 1980. Préambule : « Le Rassemblement du peuple Togolais, parti unique, prime toutes les institutions de l'État ».",
+        "source": "Digithèque MJP (mjp.univ-perp.fr), « Constitution du 9 janvier 1980 » (préambule, point 4)",
+        "verifie": true
+      },
+      {
+        "date": "16 juillet 1991",
+        "libelle": "La Conférence nationale, ouverte le 8 juillet, se déclare souveraine et suspend la constitution du 9 janvier 1980.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr), « Conférence nationale souveraine, 1991 » (acte du 16 juillet 1991, articles 1er et 4)",
+        "verifie": true
+      },
+      {
+        "date": "27 septembre et 14 octobre 1992",
+        "libelle": "Constitution approuvée par référendum le 27 septembre 1992, promulguée le 14 octobre : mandat présidentiel de cinq ans, renouvelable une seule fois ; élection à deux tours.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr), « Constitution du 14 octobre 1992 », texte initial (articles 59 et 60)",
+        "verifie": true
+      },
+      {
+        "date": "31 décembre 2002",
+        "libelle": "Révision de la constitution : l'article 59 dit désormais « Il est rééligible », sans limite du nombre de mandats, et l'élection présidentielle se fait en un seul tour.",
+        "source": "Journal officiel de la République togolaise, numéro spécial du 31 décembre 2002 ; Digithèque MJP (mjp.univ-perp.fr), « Constitution de 1992, version de 2002 »",
+        "verifie": true
+      },
+      {
+        "date": "5 février 2005",
+        "libelle": "Mort du président Gnassingbé Eyadéma. Les Forces armées togolaises confient le pouvoir à son fils, Faure Gnassingbé, investi le 7 février.",
+        "source": "Nations unies, Haut-Commissariat aux droits de l'homme, rapport de la mission d'établissement des faits sur le Togo, 29 août 2005",
+        "verifie": true
+      },
+      {
+        "date": "25 février 2005",
+        "libelle": "Faure Gnassingbé démissionne ; Abass Bonfoh, premier vice-président de l'Assemblée nationale, assure la présidence de la République par intérim.",
+        "source": "Nations unies, Haut-Commissariat aux droits de l'homme, rapport de la mission d'établissement des faits sur le Togo, 29 août 2005 ; Nations unies, déclaration du porte-parole du Secrétaire général du 25 février 2005 (SG/SM/9737) ; Journal officiel de la République togolaise, mars à mai 2005 (actes signés « Le Président de la République par intérim El-Hadj Abass BONFOH »)",
+        "verifie": true
+      },
+      {
+        "date": "24 avril et 4 mai 2005",
+        "libelle": "Élection présidentielle du 24 avril. Déclaré élu par la Cour constitutionnelle le 2 mai, Faure Gnassingbé prête serment le 4 mai.",
+        "source": "Nations unies, Haut-Commissariat aux droits de l'homme, rapport de la mission d'établissement des faits sur le Togo, 29 août 2005",
+        "verifie": true
+      },
+      {
+        "date": "15 mai 2019",
+        "libelle": "Une révision de la constitution rétablit le mandat présidentiel de cinq ans, renouvelable une seule fois, et l'élection à deux tours.",
+        "source": "Journal officiel de la République togolaise, numéro spécial du 15 mai 2019 ; Digithèque MJP (mjp.univ-perp.fr), « Constitution de 1992, version de 2019 »",
+        "verifie": true
+      },
+      {
+        "date": "6 mai 2024",
+        "libelle": "Nouvelle constitution : le président de la République, chef de l'État, est élu par le Parlement réuni en Congrès ; le Président du Conseil est le chef du gouvernement.",
+        "source": "Journal officiel de la République togolaise, numéro spécial du 6 mai 2024 ; Digithèque MJP (mjp.univ-perp.fr), « Constitution du 6 mai 2024 » (articles 35, 37, 40, 47 et 50)",
+        "verifie": true
+      },
+      {
+        "date": "3 mai 2025",
+        "libelle": "Le Parlement réuni en Congrès élit Jean-Lucien Savi de Tové président de la République. Faure Gnassingbé devient le premier Président du Conseil.",
+        "source": "presidence.gouv.tg, page « Jean-Lucien Kwassi Lanyo Savi de Tové » ; presidenceduconseil.gouv.tg, page « Faure Essozimna Gnassingbé »",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Le 9 avril 1961, les Togolais adoptent une constitution et élisent Sylvanus Olympio président. Moins de deux ans plus tard, il est tué ; un gouvernement provisoire lui succède, et une deuxième constitution suit. En 1967, Eyadéma devient président, et le reste jusqu'à sa mort ; la constitution de 1980 inscrit le parti unique. Après la conférence nationale de 1991, une nouvelle constitution est adoptée. Celle de 2024 confie le gouvernement à un Président du Conseil.",
+      "dit": "Le neuf avril mille neuf cent soixante et un, les Togolais adoptent une constitution et élisent Silvanus Olympio président. Moins de deux ans plus tard, il est tué ; un gouvernement provisoire lui succède, et une deuxième constitution suit. En mille neuf cent soixante-sept, Éyadéma devient président, et le reste jusqu'à sa mort ; la constitution de mille neuf cent quatre-vingts inscrit le parti unique. Après la conférence nationale de mille neuf cent quatre-vingt-onze, une nouvelle constitution est adoptée. Celle de deux mille vingt-quatre confie le gouvernement à un Président du Conseil.",
+      "duree_estimee_s": 45
+    },
+    "archives": [
+      "olympio-munich-1961",
+      "grunitzky-1964",
+      "eyadema-1972",
+      "lome-convention-1979",
+      "faure-gnassingbe-2006"
+    ]
+  },
+  {
+    "id": "symboles-monuments",
+    "numero": 9,
+    "titre": "Symboles de la République et hauts lieux de la nation",
+    "periode": "1902 à 2019",
+    "texte": "Le 18 septembre 1956, la République autonome se donne un premier emblème, la devise « Union - Ordre - Travail » et l'hymne « La Togolaise ». Le 27 avril 1960, l'État indépendant adopte le drapeau aux cinq bandes, dessiné par Paul Ahyi, et l'hymne « Terre de nos aïeux ». La constitution de 1961 inscrit la devise « Travail - Liberté - Patrie » ; une loi de 1962 définit les armoiries. La constitution de 1980 remplace l'hymne et la devise, que la Conférence nationale rétablit en 1991. Le drapeau, lui, n'a jamais changé. Ces symboles côtoient des hauts lieux : la cathédrale de Lomé, consacrée en 1902, le Palais des Gouverneurs, achevé en 1905, et le Koutammakou, inscrit au patrimoine mondial en 2004.",
+    "jalons": [
+      {
+        "date": "21 septembre 1902",
+        "libelle": "Consécration solennelle de la cathédrale du Sacré-Cœur de Lomé, église néogothique aux deux clochers, bâtie en dix-huit mois par des charpentiers et maçons togolais sous la direction d'un frère de la mission catholique de Steyl.",
+        "source": "Goethe-Institut Togo, Kokou Azamede, « L'église Sacré-Cœur de Jésus », novembre 2014 (goethe.de/ins/tg/fr/kul/sup/dsi/lom/20808951.html) ; fr.wikipedia.org, « Cathédrale du Sacré-Cœur de Lomé », révision 238275515",
+        "verifie": true
+      },
+      {
+        "date": "Septembre 1905",
+        "libelle": "Achèvement du Palais des Gouverneurs à Lomé, entrepris en 1898 face à la mer à l'initiative du gouverneur allemand August Köhler.",
+        "source": "Goethe-Institut Togo, Kokou Azamede, « Le Palais des Gouverneurs », novembre 2014 (goethe.de/ins/tg/fr/kul/sup/dsi/lom/20808342.html) ; de.wikipedia.org, « Gouverneurspalast von Lome », révision 269190525",
+        "verifie": true
+      },
+      {
+        "date": "18 septembre 1956",
+        "libelle": "Adoption du premier emblème, de la devise « Union - Ordre - Travail » et de l'hymne « La Togolaise » de la République autonome du Togo.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr/constit/tg1956.htm), « Statut du Togo du 24 août 1956 » et Loi du 18 septembre 1956",
+        "verifie": true
+      },
+      {
+        "date": "14 mars 1962",
+        "libelle": "Une loi définit le sceau de l'État et les armoiries de la République.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr/constit/tg1963.htm), constitution du 5 mai 1963, article premier",
+        "verifie": true
+      },
+      {
+        "date": "9 janvier 1980",
+        "libelle": "Promulgation d'une nouvelle constitution qui adopte la devise « Union, Paix, Solidarité » et l'hymne « L'Unité nationale » ; le drapeau aux cinq bandes reste l'emblème national.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr/constit/tg1980.htm), constitution du 9 janvier 1980, article premier",
+        "verifie": true
+      },
+      {
+        "date": "16 juillet et 23 août 1991",
+        "libelle": "La Conférence nationale souveraine rétablit l'hymne « Terre de nos aïeux » le 16 juillet, puis la devise « Travail - Liberté - Patrie » le 23 août.",
+        "source": "Digithèque MJP (mjp.univ-perp.fr/constit/tg1991.htm), acte du 16 juillet 1991 (article 3) et acte du 23 août 1991 portant loi constitutionnelle (articles 2 et 3)",
+        "verifie": true
+      },
+      {
+        "date": "2004",
+        "libelle": "Inscription du paysage culturel du Koutammakou, pays des Batammariba et de leurs maisons-tours traditionnelles, sur la Liste du patrimoine mondial de l'UNESCO.",
+        "source": "UNESCO, Centre du patrimoine mondial, « Koutammakou, le pays des Batammariba » (whc.unesco.org/fr/list/1140/) : date d'inscription 2004, modification importante des limites en 2023",
+        "verifie": true
+      },
+      {
+        "date": "Fin 2019",
+        "libelle": "Réouverture de l'ancien Palais des Gouverneurs de Lomé, restauré et transformé en centre d'art et de culture.",
+        "source": "fr.wikipedia.org, « Palais de Lomé », révision 238109504 ; de.wikipedia.org, « Gouverneurspalast von Lome », révision 269190525 ; presidence.gouv.tg, agenda, « Cérémonie d'inauguration d'un nouveau Centre d'art et de culture « Palais de Lomé » », publié le 20 novembre 2019",
+        "verifie": true
+      }
+    ],
+    "narration": {
+      "affiche": "Le Togo a ses symboles et ses hauts lieux. En 1956, la République autonome adopte un premier emblème. Le 27 avril 1960, l'État indépendant choisit le drapeau à cinq bandes et l'hymne national. Remplacé en 1980, l'hymne revient en 1991 ; le drapeau n'a jamais changé. De la cathédrale de 1902 au palais de 1905, jusqu'au Koutammakou inscrit au patrimoine mondial en 2004, ces lieux racontent aussi la nation.",
+      "dit": "Le Togo a ses symboles et ses hauts lieux. En mille neuf cent cinquante-six, la République autonome adopte un premier emblème. Le vingt-sept avril mille neuf cent soixante, l'État indépendant choisit le drapeau à cinq bandes et l'hymne national. Remplacé en mille neuf cent quatre-vingts, l'hymne revient en mille neuf cent quatre-vingt-onze ; le drapeau n'a jamais changé. De la cathédrale de mille neuf cent deux au palais de mille neuf cent cinq, jusqu'au Koutamakou inscrit au patrimoine mondial en deux mille quatre, ces lieux racontent aussi la nation.",
+      "duree_estimee_s": 44
+    },
+    "archives": [
+      "drapeau-1960",
+      "lome-palais-gouverneurs",
+      "lome-cathedrale",
+      "takienta-nadoba",
+      "koutammakou-2006",
+      "lome-allee-1904",
+      "monument-independance-1962"
     ]
   }
 ]

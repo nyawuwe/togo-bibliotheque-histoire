@@ -3,16 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Aperçu « ordinateur » sur un petit écran : ?ordinateur=1, tenu pour l'onglet (sessionStorage) jusqu'à ?ordinateur=0.
+     La page se met en page sur 1440 px de large, réduite à la largeur de l'écran, et ne renvoie jamais vers la version
+     téléphone. Même script en tête d'index.html et d'ordinateur.html ; sans le paramètre ni le drapeau, rien ne change. -->
+<script>(() => {
+  const q = new URLSearchParams(location.search).get('ordinateur');
+  let oui = q === '1';
+  try { if (q === '0') sessionStorage.removeItem('togo-ordinateur'); else if (oui) sessionStorage.setItem('togo-ordinateur', '1'); else oui = sessionStorage.getItem('togo-ordinateur') === '1'; } catch { /* stockage indisponible : le paramètre seul */ }
+  if (oui) { document.documentElement.dataset.apercu = 'ordinateur'; document.querySelector('meta[name="viewport"]').content = 'width=1440'; }
+})();</script>
+<!-- Au-delà de 1100 px de large, l'accueil seul (ancre vide, #/ ou #/ouverture) part vers l'accueil pour ordinateur
+     (public/ordinateur.html) ; tous les autres écrans restent ici et s'affichent en grand. ordinateur.html renvoie ici
+     ses ancres d'écran, et tout sous 1101 px : même requête média, jamais d'aller-retour. Les paramètres suivent ;
+     ?telephone=1 garde l'accueil de cette version sur un grand écran ; l'aperçu « ordinateur » (ci-dessus) vaut grand écran.
+     main.js fait de même pour un retour à l'accueil. -->
+<script>if ((document.documentElement.dataset.apercu === 'ordinateur' || matchMedia('(min-width: 1101px)').matches) && !/[?&]telephone=1(&|$)/.test(location.search) && /^(#\/?(ouverture)?)?$/.test(location.hash)) location.replace('ordinateur.html' + location.search);</script>
 <meta name="robots" content="noindex">
-<meta name="description" content="Bibliothèque d'histoire du Togo, de l'âge du fer à l'indépendance : sept salles, des archives du domaine public ou sous licence libre, avec leurs sources. Projet personnel, non officiel.">
+<meta name="description" content="Musée d'art et d'histoire du Togo, de l'âge du fer à nos jours : des salles d'archives du domaine public ou sous licence libre, avec leurs sources. Projet personnel, non officiel.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:,">
-<title>Togo, bibliothèque d'histoire</title>
+<title>Togo, musée d'art et d'histoire</title>
 <link rel="preload" href="./polices/tinos-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./polices/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./polices/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
-  <script type="module" crossorigin src="./js/index-D10P8Wtu.js"></script>
-  <link rel="stylesheet" crossorigin href="./js/index-DFESUL0J.css">
+  <script type="module" crossorigin src="./js/index-CskQE6-d.js"></script>
+  <link rel="stylesheet" crossorigin href="./js/index-Dp8-34Ba.css">
 </head>
 <body>
 <a class="evitement" href="#principal">Aller au contenu</a>
@@ -22,13 +37,13 @@
 <section id="ouverture" class="ecran nuit" aria-labelledby="titre-site">
   <div class="ouv-fond" aria-hidden="true"><img src="./images/ouverture.webp" alt="" width="760" height="686" fetchpriority="high"></div>
   <header class="ouv-haut">
-    <span class="mono">Bibliothèque d'histoire</span>
-    <span class="etiquette">Titre provisoire</span>
+    <span class="mono">Musée d'art et d'histoire</span>
+    <span class="etiquette">Africaaans groupe</span>
   </header>
   <div class="ouv-centre">
     <h1 class="titre-geant" id="titre-site">Togo</h1>
-    <p class="ouv-sous">De l'âge du fer<br>à l'indépendance</p>
-    <p class="mono">Sept salles · environ 5 minutes<br>son recommandé</p>
+    <p class="ouv-sous">De l'âge du fer<br>à nos jours</p>
+    <p class="mono"><span id="ouv-compte">Une visite en salles</span><br>son recommandé</p>
   </div>
   <div class="ouv-bas">
     <div class="chargement">
@@ -36,7 +51,7 @@
       <span class="mono" id="chargement-texte" aria-live="polite">Chargement des archives</span>
     </div>
     <button class="bouton-entrer" id="entrer" type="button" disabled>Entrer</button>
-    <p class="liens"><a href="#/tableau/1" id="entrer-muet">Entrer sans le son</a><a href="#/bibliotheque">Aller à la bibliothèque</a></p>
+    <p class="liens"><a href="#/tableau/1" id="entrer-muet">Entrer sans le son</a><a href="#/bibliotheque">Aller à la bibliothèque</a><a href="personnes.html">Ces Togolais(es) qui m'ont marqué</a></p>
     <p class="note" id="note-voix"></p>
     <footer class="pied">
       <p class="credit" id="credit-ouverture"></p>
@@ -45,7 +60,7 @@
   </div>
 </section>
 
-<!-- Écran 2 : la présentation, sept tableaux -->
+<!-- Écran 2 : la présentation, un tableau par salle -->
 <section id="presentation" class="ecran mur" aria-label="Visite guidée" hidden>
   <header class="pres-haut">
     <ol class="segments" id="segments" aria-hidden="true"></ol>
@@ -78,11 +93,11 @@
 <section id="bibliotheque" class="ecran nuit" aria-labelledby="titre-biblio" hidden>
   <div class="papier frise-zone">
     <header class="biblio-tete">
-      <div class="barre-nav"><a href="#/" class="mono retour">Togo</a><span class="etiquette">Titre provisoire</span></div>
+      <div class="barre-nav"><a href="#/" class="mono retour">Togo</a><span class="etiquette">Africaaans groupe</span></div>
       <p class="mono">La bibliothèque · archives</p>
       <h2 class="titre-biblio" id="titre-biblio">Frise des jalons</h2>
       <p class="chapo-mono" id="frise-chapo"></p>
-      <p class="periodes"><span>Avant 1884 · salles 1 à 3</span><span>1884 à 1960 · salles 4 à 7</span></p>
+      <p class="periodes"><span>Avant 1884 · salles 1 à 3</span><span>1884 à 1960 · salles 4 à 7</span><span>1960 à 2025 · salle 8</span><span>1902 à 2019 · salle 9</span></p>
     </header>
     <div class="frise-defile frise-anime" id="frise" tabindex="0" aria-label="Frise des jalons, à faire défiler vers la droite">
       <div class="frise-piste" id="frise-piste"></div>
@@ -90,7 +105,7 @@
     <p class="frise-aide"><span>Glisser vers la droite →</span><span id="frise-compte"></span></p>
   </div>
   <section class="salles" aria-labelledby="titre-salles">
-    <p class="mono">Les sept salles · à faire glisser</p>
+    <p class="mono">Toutes les salles · à faire glisser</p>
     <h3 class="titre-salles" id="titre-salles">Entrer dans une salle</h3>
     <div class="rangee" id="rangee"></div>
     <div id="biblio-liens"></div>
@@ -116,7 +131,7 @@
 <section id="objets" class="ecran nuit" aria-labelledby="titre-objets" hidden>
   <div class="objets-liste">
     <header class="obj-tete">
-      <div class="barre-nav"><a href="#/bibliotheque" class="mono retour">Bibliothèque</a><span class="etiquette">Titre provisoire</span></div>
+      <div class="barre-nav"><a href="#/bibliotheque" class="mono retour">Bibliothèque</a><span class="etiquette">Africaaans groupe</span></div>
       <div class="obj-titre-ligne"><h2 class="titre-objets" id="titre-objets">Objets<sup id="objets-nombre"></sup></h2><span class="obj-sous">Arts et usages<br>du Togo</span></div>
       <div class="obj-colonnes"><p>Des objets du Togo conservés dans des musées et des collections, photographiés et publiés sous licence libre.</p><p>Chaque image est détourée et retouchée pour le site ; le crédit complet est sur sa fiche.</p></div>
     </header>
