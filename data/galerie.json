@@ -452,28 +452,6 @@
    "modification": "Réduite pour le web"
   },
   {
-   "id": "ov-12",
-   "theme": "cote",
-   "alt": "Pêcheur endormi sur des filets bleus étalés sur le sable",
-   "legende": "Pêcheur endormi sur des filets bleus étalés sur le sable",
-   "largeur": 1600,
-   "hauteur": 1066,
-   "couleur": "#556d78",
-   "tailles": [
-    480,
-    960,
-    1600
-   ],
-   "source": "flickr",
-   "auteur": "andryn2006",
-   "licence": "CC BY-SA 2.0",
-   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
-   "lien": "https://www.flickr.com/photos/84985982@N00/30036578284",
-   "modification": "Réduite pour le web",
-   "auteur_url": "https://www.flickr.com/photos/84985982@N00",
-   "lieu": "Lomé"
-  },
-  {
    "id": "galerie-16",
    "theme": "cote",
    "alt": "Pirogues colorées le long d'une digue d'enrochements",
