@@ -86,14 +86,22 @@
   const veutFilm = () => !reduit.matches && arrivee();
   const cliches = () => FILM.map((id) => decor(parId.get(id))).filter(Boolean);
   let masquer = 0;
-  // Transition écoute (ecoute/ecoute.js) : cinq secondes juste après l'ouverture, sans action demandée, une fois par
-  // visite (le composant tient le drapeau de session, partagé avec index.html : déjà vue, il ne montre rien).
-  const ecoute = () => window.afficherTransitionEcoute?.({ onFin() {}, image: 'ecoute/ecouteurs-suspendus.webp' });
+  // Transition écoute (ecoute/ecoute.js) : la première chose à l'arrivée, cinq secondes sans action demandée, avant le
+  // film d'ouverture (sous mouvement réduit, fixe et sans film) ; une fois par visite (le composant tient le drapeau de
+  // session, partagé avec index.html : déjà vue, il passe aussitôt à la suite). La page reste inerte dessous, pour
+  // qu'un clic ne la traverse pas.
+  let ecouteEnCours = false;
+  function ecoute(suite) {
+    if (!window.afficherTransitionEcoute) { suite(); return; }
+    const derriere = [$('.evitement'), $('main')];
+    ecouteEnCours = true;
+    derriere.forEach((el) => { el.inert = true; });
+    window.afficherTransitionEcoute({ image: 'ecoute/ecouteurs-suspendus.webp', onFin() { ecouteEnCours = false; derriere.forEach((el) => { el.inert = false; }); suite(); } });
+  }
 
   function ouverture(demande = false, bouton = null) {
     const liste = cliches();
-    // Sans film (mouvement réduit, clichés absents), la transition vient à l'arrivée, dans sa version fixe.
-    if (liste.length < 2 || !(demande || veutFilm())) { if (!demande && arrivee()) ecoute(); return; }
+    if (liste.length < 2 || !(demande || veutFilm())) return;
     const film = $('#film'), boite = $('#film-images'), legendeFilm = $('#film-legende'), segs = $('#film-segments');
     // Le film couvre toute la page : derrière lui, rien ne se lit au lecteur d'écran ni ne prend le focus.
     const derriere = [$('.evitement'), $('main')];
@@ -142,7 +150,6 @@
         cible.focus({ preventScroll: true });
       }
       masquer = setTimeout(() => { film.hidden = true; boite.innerHTML = ''; }, vite ? 750 : 1200);
-      ecoute();
     }
     function interrompre(e) {
       if (e.type === 'keydown' && ['Tab', 'Shift'].includes(e.key)) return;
@@ -314,6 +321,8 @@
     // le bouton Voix. Un visiteur qui a coupé le son ici ne l'entend pas repartir dans la visite. Posé avant toute donnée
     // (relecture du 15/11 : un clic avant la fin du chargement partait sans drapeau, visite muette au premier essai).
     document.addEventListener('click', (e) => { if (e.target.closest('a[href*="#/tableau/"]') && !window.togoMusique?.coupe()) memoire('togo-son', '1'); });
+    // À l'arrivée, la transition écoute d'abord, pendant que les données se lisent ; le film d'ouverture la suit.
+    const ecouteFinie = new Promise((ok) => { if (arrivee()) ecoute(ok); else ok(); });
     galerieAuBesoin();
     try {
       const [salles, archives, objets, mise] = await Promise.all(['salles.json', 'archives.json', 'objets.json', 'mise-en-page.json'].map(json));
@@ -323,7 +332,9 @@
       document.body.insertAdjacentHTML('afterbegin', `<p class="sans-script" role="alert">Les données du site n'ont pas pu être lues (${esc(e.message)}). Recharger la page.</p>`);
       return;
     }
-    ouverture();
+    // Sous la transition, le rideau du film couvre déjà la page : son fondu de sortie ne laisse pas entrevoir l'affiche.
+    if (ecouteEnCours && veutFilm() && cliches().length >= 2) $('#film').hidden = false;
+    ecouteFinie.then(() => ouverture());
     affiche();
     index();
     planche();
