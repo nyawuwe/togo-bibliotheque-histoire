@@ -88,6 +88,27 @@
   }
 
   // ---------- Construction ----------
+  // Les images montrées, dans l'ordre des thèmes, avec leur numéro (une image masquée n'a ni place ni numéro).
+  function trier(D) {
+    const masques = new Set(D.masques ?? []);
+    const rang = new Map(D.themes.map((t, k) => [t.id, k]));
+    const liste = D.images.filter((i) => rang.has(i.theme) && !masques.has(i.groupe) && !masques.has(i.id)).sort((a, b) => rang.get(a.theme) - rang.get(b.theme));
+    const numero = new Map(liste.map((i, k) => [i.id, k + 1]));
+    const themes = D.themes.map((t) => ({ ...t, images: liste.filter((i) => i.theme === t.id) })).filter((t) => t.images.length);
+    return { liste, numero, themes };
+  }
+
+  // reclamation.html : le formulaire de la galerie seul, sans la galerie (les crédits de la version téléphone y mènent).
+  async function formulaireSeul() {
+    $('#formulaire').addEventListener('submit', (e) => e.preventDefault());   // tant que les données ne sont pas là
+    try {
+      const r = await fetch('data/galerie.json');
+      if (!r.ok) throw new Error(`galerie.json : HTTP ${r.status}`);
+      const { numero, themes } = trier(await r.json());
+      reclamation(themes, numero);
+    } catch { reclamation([], new Map()); }   // « Autre image » reste possible
+  }
+
   async function demarrer() {
     let D;
     try {
@@ -99,12 +120,8 @@
       reclamation([], new Map());   // le formulaire reste utilisable, avec « Autre image »
       return;
     }
-    const masques = new Set(D.masques ?? []);
-    const rang = new Map(D.themes.map((t, k) => [t.id, k]));
-    const liste = D.images.filter((i) => rang.has(i.theme) && !masques.has(i.groupe) && !masques.has(i.id)).sort((a, b) => rang.get(a.theme) - rang.get(b.theme));
-    const numero = new Map(liste.map((i, k) => [i.id, k + 1]));
+    const { liste, numero, themes } = trier(D);
     const parId = new Map(liste.map((i) => [i.id, i]));   // une image masquée ne sert pas non plus de vignette
-    const themes = D.themes.map((t) => ({ ...t, images: liste.filter((i) => i.theme === t.id) })).filter((t) => t.images.length);
     $('#galerie-compte').textContent = `${liste.length} images`;
 
     $('#galerie-themes').innerHTML = themes.map((t, k) => `<section class="theme" aria-labelledby="theme-${esc(t.id)}">
@@ -421,7 +438,7 @@
           `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
           'Message :', val('message'), '',
           val('nom'), val('courriel'), '',
-          `Page : ${location.origin}${location.pathname}${personne ? `?p=${encodeURIComponent(personne.id)}` : '#galerie'}`,
+          `Page : ${location.origin}${personne ? `${location.pathname}?p=${encodeURIComponent(personne.id)}` : `${location.pathname.replace(/[^/]*$/, '')}ordinateur.html#galerie`}`,
         ].join('\n'),
       };
     });
@@ -455,8 +472,9 @@
   }
 
   // Hors de l'accueil pour ordinateur (salle des personnes), rien ne démarre : la composition, l'image, la visionneuse et
-  // le formulaire de réclamation y sont prêtés tels quels.
+  // le formulaire de réclamation y sont prêtés tels quels. Sur reclamation.html, le formulaire de la galerie seul.
   window.togoGalerie = { rangees, poser, image, credit, visionneuse, reclamation };
+  if ($('#reclamation[data-galerie]')) formulaireSeul();
   if (!$('#galerie-themes')) return;
   contribution();
   demarrer();

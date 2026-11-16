@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Signaler une image de la galerie de l'accueil pour ordinateur : le formulaire seul, lisible à toutes les tailles d'écran.
+     Les crédits de la version téléphone y mènent ; ?image=<identifiant> choisit l'image d'avance. La page ne touche pas au
+     mode de l'onglet (ni ?ordinateur=1, ni togo-ordinateur). Même formulaire que la galerie et la salle des personnes
+     (galerie.js, reclamation()), sur la nuit de la salle (personnes.css). -->
+<meta name="robots" content="noindex">
+<meta name="description" content="Signaler une image de la galerie : demander qu'elle soit créditée ou retirée. Projet personnel, non officiel.">
+<meta name="theme-color" content="#14110F">
+<link rel="icon" href="data:,">
+<title>Signaler une image · Togo, musée d'art et d'histoire</title>
+<link rel="preload" href="polices/tinos-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="polices/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="ordinateur.css">
+<link rel="stylesheet" href="personnes.css">
+<script src="galerie.js" defer></script>
+</head>
+<body>
+<header class="p-barre">
+  <a class="marque" href="./" aria-label="Togo, musée d'art et d'histoire : accueil"><span class="marque-nom">Togo</span><span class="marque-sous">Musée d'art et d'histoire</span></a>
+  <a class="p-accueil" href="./#/credits">Crédits du musée</a>
+</header>
+
+<main>
+<section class="reclamation p-reclamation" id="reclamation" data-galerie aria-labelledby="titre-reclamation">
+  <div class="reclamation-tete">
+    <h1 class="reclamation-titre" id="titre-reclamation">Signaler une image</h1>
+    <p>Vous êtes l'auteur d'une image de la galerie de l'accueil, ou vous en détenez les droits&nbsp;? Demandez qu'elle soit créditée ou retirée.</p>
+    <p>Le formulaire prépare un courriel dans votre messagerie&nbsp;: rien ne passe par un service tiers.</p>
+  </div>
+  <form class="formulaire" id="formulaire" novalidate>
+    <div class="champ">
+      <label for="f-nom">Nom</label>
+      <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-describedby="e-nom">
+      <p class="erreur" id="e-nom" hidden></p>
+    </div>
+    <div class="champ">
+      <label for="f-courriel">Courriel</label>
+      <input id="f-courriel" name="courriel" type="email" autocomplete="email" spellcheck="false" required aria-describedby="e-courriel">
+      <p class="erreur" id="e-courriel" hidden></p>
+    </div>
+    <div class="champ large">
+      <label for="f-image">Image concernée</label>
+      <select id="f-image" name="image" required aria-describedby="e-image"><option value="">Choisir une image</option><option value="autre">Autre image (à décrire dans le message)</option></select>
+      <p class="erreur" id="e-image" hidden></p>
+    </div>
+    <fieldset class="champ" aria-describedby="e-demande">
+      <legend>Demande</legend>
+      <div class="choix"><label><input type="radio" name="demande" value="créditer" required> Créditer l'image</label><label><input type="radio" name="demande" value="retirer"> Retirer l'image</label></div>
+      <p class="erreur" id="e-demande" hidden></p>
+    </fieldset>
+    <div class="champ">
+      <label for="f-lien">Lien établissant vos droits <span class="facultatif">(facultatif)</span></label>
+      <input id="f-lien" name="lien" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://" aria-describedby="e-lien">
+      <p class="erreur" id="e-lien" hidden></p>
+    </div>
+    <div class="champ large">
+      <label for="f-message">Message</label>
+      <textarea id="f-message" name="message" rows="5" required aria-describedby="a-message e-message"></textarea>
+      <p class="aide" id="a-message">Qui vous êtes par rapport à l'image&nbsp;; si vous avez choisi «&nbsp;Autre image&nbsp;», décrivez-la.</p>
+      <p class="erreur" id="e-message" hidden></p>
+    </div>
+    <div class="envoi large">
+      <button type="submit" class="bouton-envoi">Préparer le courriel</button>
+      <p class="aide">Votre messagerie s'ouvre avec le message prêt à partir.</p>
+    </div>
+  </form>
+  <div class="repli" id="repli" tabindex="-1" role="region" aria-labelledby="repli-titre" hidden>
+    <p class="repli-titre" id="repli-titre">Votre messagerie devrait s'ouvrir avec ce message.</p>
+    <p>Si elle ne s'ouvre pas, copiez-le et envoyez-le à <span id="repli-adresse"></span>.</p>
+    <textarea id="repli-texte" rows="14" readonly aria-label="Message préparé"></textarea>
+    <p class="repli-actions"><button type="button" class="bouton-envoi" id="repli-copier">Copier le message</button><span id="repli-etat" role="status"></span></p>
+  </div>
+</section>
+</main>
+
+<footer class="p-pied">
+  <p>Projet personnel, non officiel · <a href="./#/credits">Crédits du musée</a> · <a href="./">Accueil du musée</a></p>
+</footer>
+
+<noscript><p class="sans-script">Ce formulaire prépare le courriel dans le navigateur : il demande JavaScript.</p></noscript>
+</body>
+</html>

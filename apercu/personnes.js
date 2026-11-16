@@ -15,6 +15,15 @@
 
   // Musique : proposée d'emblée sur grand écran, comme l'accueil ; sur téléphone, le bouton seul.
   window.togoMusique?.demarrer({ auto: matchMedia('(min-width: 1101px)').matches });
+  // Le bouton du son est fixe : en descendant, il se retire (classe « replie », personnes.css) pour ne pas rester posé sur
+  // le texte qu'on lit ; il revient dès qu'on remonte de quelques pixels, et en haut de page.
+  let dernier = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    if (Math.abs(y - dernier) < 6 && y > 80) return;
+    $('.bouton-son')?.classList.toggle('replie', y > dernier && y > 80);
+    dernier = y;
+  }, { passive: true });
 
   const duree = (s) => `${Math.floor(s / 60)} min ${String(Math.round(s % 60)).padStart(2, '0')} s`;
   const annee = (t) => t.match(/\b(1[89]\d\d|20\d\d)\b/)?.[0] ?? '';
@@ -66,24 +75,27 @@
       ? G.image(portrait, `min(${portrait.largeur}px, 100vw)`).replace(' loading="lazy"', ' fetchpriority="high"').replace('style="', `style="--ratio:${portrait.largeur / portrait.hauteur};`)
       : `<span class="p-monogramme" aria-hidden="true">${esc(p.monogramme)}</span>`;
 
-    // Le titrage passe sur le portrait (maquette), mais aucune ligne des dates et des lieux ne s'arrête sur son bord fondu
-    // (16 % de sa largeur, à gauche) : le portrait glisse alors du plus petit pas qui les en sort, vers la droite (juste
-    // au-delà des dates) ou vers la gauche (les dates finissent sur l'image), sans quitter les marges. Au-dessus de 760 px
-    // seulement ; recalé quand la fenêtre change.
+    // Sur grand écran, le titrage passe sur le portrait (maquette), mais aucune ligne des dates, des lieux ni des étiquettes
+    // « Né » et « Mort » ne s'arrête sur l'un de ses deux bords fondus (16 % de sa largeur, à gauche et à droite, 12 px de
+    // garde) : le portrait glisse alors du plus petit pas qui les en sort, sans quitter les marges. Au-dessus de 1100 px
+    // seulement (dessous, l'entrée s'empile) ; recalé quand la fenêtre change.
     const img = $('#p-portrait img');
     if (img) {
       const fins = (e) => { const g = document.createRange(); g.selectNodeContents(e); return [...g.getClientRects()]; };
       const caler = () => {
         const boite = $('#p-portrait');
         boite.style.translate = '';
-        if (!matchMedia('(min-width: 761px)').matches) return;
+        if (!matchMedia('(min-width: 1101px)').matches) return;
         const i = img.getBoundingClientRect(), fondu = i.width * 0.16, garde = 12, marge = $('.p-barre').getBoundingClientRect().left;
-        const bouts = [...document.querySelectorAll('.p-date-jour, .p-date-lieu')].flatMap(fins).filter((r) => r.width > 1 && r.bottom > i.top).map((r) => r.right);
-        const libre = (s) => bouts.every((d) => d <= i.left + s - garde || d >= i.left + s + fondu + garde);
+        const bouts = [...document.querySelectorAll('.p-date dt, .p-date-jour, .p-date-lieu')].flatMap(fins).filter((r) => r.width > 1 && r.bottom > i.top).map((r) => r.right);
+        // Les deux bandes fondues quand le portrait a glissé de s ; une fin de ligne d est libre hors de chacune.
+        const bandes = (s) => [[i.left + s - garde, i.left + s + fondu + garde], [i.right + s - fondu - garde, i.right + s + garde]];
+        const libre = (s) => bouts.every((d) => bandes(s).every(([a, b]) => d <= a || d >= b));
         if (libre(0)) return;
-        const pas = bouts.flatMap((d) => [d + garde + 1 - i.left, d - garde - 1 - fondu - i.left])
+        // Pas arrondis avant contrôle : le pas posé est celui qu'on a vérifié.
+        const pas = bouts.flatMap((d) => bandes(0).flatMap(([a, b]) => [Math.ceil(d - a + 1), Math.floor(d - b - 1)]))
           .filter((s) => i.right + s <= innerWidth - marge && i.left + s >= marge && libre(s)).sort((a, b) => Math.abs(a) - Math.abs(b));
-        if (pas.length) boite.style.translate = `${Math.round(pas[0])}px 0`;
+        if (pas.length) boite.style.translate = `${pas[0]}px 0`;
       };
       document.fonts.ready.then(caler);
       addEventListener('resize', caler);
