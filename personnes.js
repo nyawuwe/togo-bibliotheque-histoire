@@ -14,7 +14,9 @@
   const G = window.togoGalerie;
 
   // Musique : proposée d'emblée sur grand écran, comme l'accueil ; sur téléphone, le bouton seul.
-  window.togoMusique?.demarrer({ auto: matchMedia('(min-width: 1101px)').matches });
+  // Même requête que personnes.css (max-width: 1100px), pour qu'aucune largeur fractionnaire (zoom) ne tombe entre les deux.
+  const grandEcran = () => !matchMedia('(max-width: 1100px)').matches;
+  window.togoMusique?.demarrer({ auto: grandEcran() });
   // Le bouton du son est fixe : en descendant, il se retire (classe « replie », personnes.css) pour ne pas rester posé sur
   // le texte qu'on lit ; il revient dès qu'on remonte de quelques pixels, et en haut de page.
   let dernier = scrollY;
@@ -75,27 +77,29 @@
       ? G.image(portrait, `min(${portrait.largeur}px, 100vw)`).replace(' loading="lazy"', ' fetchpriority="high"').replace('style="', `style="--ratio:${portrait.largeur / portrait.hauteur};`)
       : `<span class="p-monogramme" aria-hidden="true">${esc(p.monogramme)}</span>`;
 
-    // Sur grand écran, le titrage passe sur le portrait (maquette), mais aucune ligne des dates, des lieux ni des étiquettes
-    // « Né » et « Mort » ne s'arrête sur l'un de ses deux bords fondus (16 % de sa largeur, à gauche et à droite, 12 px de
-    // garde) : le portrait glisse alors du plus petit pas qui les en sort, sans quitter les marges. Au-dessus de 1100 px
-    // seulement (dessous, l'entrée s'empile) ; recalé quand la fenêtre change.
+    // Sur grand écran, aucun texte ne passe sur le portrait, bords fondus compris : sa boîte entière reste au-dessus des
+    // légendes des vignettes, sous la barre, et à droite de toute ligne du titrage qui monte à sa hauteur (24 px de garde).
+    // Sa largeur est bornée à la place qui reste jusqu'à la marge, puis il glisse vers la droite s'il commence trop tôt.
+    // Au-dessus de 1100 px seulement (dessous, l'entrée s'empile) ; recalé quand la fenêtre change.
     const img = $('#p-portrait img');
     if (img) {
       const fins = (e) => { const g = document.createRange(); g.selectNodeContents(e); return [...g.getClientRects()]; };
       const caler = () => {
-        const boite = $('#p-portrait');
-        boite.style.translate = '';
-        if (!matchMedia('(min-width: 1101px)').matches) return;
-        const i = img.getBoundingClientRect(), fondu = i.width * 0.16, garde = 12, marge = $('.p-barre').getBoundingClientRect().left;
-        const bouts = [...document.querySelectorAll('.p-date dt, .p-date-jour, .p-date-lieu')].flatMap(fins).filter((r) => r.width > 1 && r.bottom > i.top).map((r) => r.right);
-        // Les deux bandes fondues quand le portrait a glissé de s ; une fin de ligne d est libre hors de chacune.
-        const bandes = (s) => [[i.left + s - garde, i.left + s + fondu + garde], [i.right + s - fondu - garde, i.right + s + garde]];
-        const libre = (s) => bouts.every((d) => bandes(s).every(([a, b]) => d <= a || d >= b));
-        if (libre(0)) return;
-        // Pas arrondis avant contrôle : le pas posé est celui qu'on a vérifié.
-        const pas = bouts.flatMap((d) => bandes(0).flatMap(([a, b]) => [Math.ceil(d - a + 1), Math.floor(d - b - 1)]))
-          .filter((s) => i.right + s <= innerWidth - marge && i.left + s >= marge && libre(s)).sort((a, b) => Math.abs(a) - Math.abs(b));
-        if (pas.length) boite.style.translate = `${pas[0]}px 0`;
+        const boite = $('#p-portrait'), garde = 24;
+        boite.style.translate = ''; boite.style.removeProperty('--p-place'); boite.style.removeProperty('--p-bas');
+        if (!grandEcran()) return;
+        const entree = $('.p-entree').getBoundingClientRect(), barre = $('.p-barre').getBoundingClientRect();
+        const legendes = [...document.querySelectorAll('.p-vignette-legende')].flatMap(fins);
+        if (legendes.length) boite.style.setProperty('--p-bas', `${Math.ceil(entree.bottom - Math.min(...legendes.map((r) => r.top)) + 12)}px`);
+        const pied = boite.getBoundingClientRect().bottom;
+        const lire = $('.p-lire')?.getBoundingClientRect();
+        const lignes = [...document.querySelectorAll('.p-salle, .p-nom, .p-role, .p-date dt, .p-date-jour, .p-date-lieu, .p-sans-portrait')].flatMap(fins)
+          .concat(lire ? [lire] : []).filter((r) => r.width > 1 && r.top < pied);
+        const gauche = Math.ceil(Math.max(0, ...lignes.map((r) => r.right)) + garde);
+        const ratio = parseFloat(img.style.getPropertyValue('--ratio')) || img.width / img.height;
+        boite.style.setProperty('--p-place', `${Math.floor(Math.min(barre.right - gauche, (pied - barre.bottom - 16) * ratio))}px`);
+        const i = img.getBoundingClientRect();
+        if (i.left < gauche) boite.style.translate = `${gauche - i.left}px 0`;   // pas arrondi : il dépasserait la marge d'un pixel
       };
       document.fonts.ready.then(caler);
       addEventListener('resize', caler);
@@ -107,7 +111,7 @@
       <h1 class="p-nom" id="p-nom">${esc(p.nom).replace(' ', '<br>')}</h1>
       <p class="p-role">${esc(p.role.texte)}</p>
       <dl class="p-dates">${date(ne, p.naissance)}${date(mort, p.deces)}</dl>
-      ${portrait ? '' : `<p class="p-sans-portrait">Aucune photographie de ${esc(p.nom)} sous licence connue n'est encore publiée ici.</p>`}
+      ${portrait ? '' : `<p class="p-sans-portrait">Aucune photographie de ${esc(p.nom)} n'est encore publiée ici.</p>`}
       <a class="p-lire" href="#page">Lire sa page<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></a>`;
 
     $('#p-vignettes').innerHTML = p.images.slice(0, 3).map((id) => {
@@ -184,10 +188,11 @@
     G.visionneuse(liste, numero, [{ id: p.id, titre: p.nom }], $('#p-flux'));
     // Le formulaire de réclamation, en bas de cette page : toutes les images de la personne, portrait compris.
     G.reclamation([{ titre: p.nom, images: [p.portrait && parId.get(p.portrait), ...liste].filter(Boolean) }], numero, { id: p.id, nom: p.nom });
-    // Sous l'enregistrement, la musique baisse de 11 dB, comme sous les voix des salles ; elle remonte quand il s'arrête.
+    // Sous une voix, la musique baisse de 11 dB, comme sous les voix des salles ; sous une chanson, elle se tait tout à fait
+    // (deux chansons ne se superposent jamais). Elle revient quand l'enregistrement s'arrête.
     const lecteur = $('.p-lecteur');
     if (lecteur) {
-      lecteur.addEventListener('play', () => window.togoMusique?.sousLaVoix(true));
+      lecteur.addEventListener('play', () => window.togoMusique?.sousLaVoix(p.audio.nature === 'chanson' ? 'chanson' : true));
       ['pause', 'ended'].forEach((t) => lecteur.addEventListener(t, () => window.togoMusique?.sousLaVoix(false)));
     }
   }

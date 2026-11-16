@@ -1,6 +1,7 @@
 // Togo, musée d'art et d'histoire : la musique de fond des pages servies telles quelles depuis public/ (accueil pour
 // ordinateur et son ouverture, salle des personnes). Même boucle et mêmes niveaux que site/src/audio.js, celui de la
 // visite : AudioBuffer bouclé sans couture, -9 dB, 11 dB de moins sous une voix. Les deux fichiers vont ensemble.
+// Seule différence : sous une chanson de la salle des personnes, la musique (elle-même une chanson) se tait tout à fait.
 // ponytail: boucle recopiée de src/audio.js (Vite ne laisse pas une page de public/ importer un module de src/) ; à
 // fusionner si la visite passe un jour sur ce script.
 //
@@ -14,7 +15,7 @@
 
 window.togoMusique = (() => {
   const NIVEAU = 10 ** (-9 / 20), BAISSE = 10 ** (-11 / 20);
-  const ATTAQUE = 0.25, RELACHE = 0.9, ENTREE = 1.2;
+  const ATTAQUE = 0.25, RELACHE = 0.9, ENTREE = 1.2, SILENCE = 0.08;   // SILENCE : -35 dB en 0,3 s, inaudible en 1 s
   const CLE = 'togo-son';
   const lire = () => { try { return localStorage.getItem(CLE); } catch { return null; } };
   const retenir = (coupe) => { try { if (coupe) localStorage.setItem(CLE, '0'); else localStorage.removeItem(CLE); } catch { /* stockage indisponible : le choix vaut pour la page */ } };
@@ -46,8 +47,8 @@ window.togoMusique = (() => {
   }
   function viser(tau) {
     if (!bus) return;
-    const cible = voulue ? NIVEAU * (sous ? BAISSE : 1) : 0;
-    bus.gain.setTargetAtTime(cible, ctx.currentTime, tau ?? (cible < bus.gain.value ? ATTAQUE : RELACHE));
+    const cible = voulue && sous !== 'chanson' ? NIVEAU * (sous ? BAISSE : 1) : 0;
+    bus.gain.setTargetAtTime(cible, ctx.currentTime, tau ?? (sous === 'chanson' ? SILENCE : cible < bus.gain.value ? ATTAQUE : RELACHE));
   }
   // Le fichier se décode dès que la musique est voulue, même contexte suspendu : elle part sans attente au premier geste.
   function lancer() {
@@ -120,7 +121,8 @@ window.togoMusique = (() => {
     }
   }
 
-  // Une voix parle (enregistrement d'archive) : la musique baisse ; elle se tait : la musique remonte.
+  // Une voix parle (enregistrement d'archive, v = true) : la musique baisse ; une chanson joue (v = 'chanson') : la
+  // musique se tait ; l'enregistrement s'arrête (v = false) : la musique remonte.
   const sousLaVoix = (v) => { sous = v; viser(); };
   document.addEventListener('visibilitychange', () => {
     if (!ctx) return;

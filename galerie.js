@@ -23,8 +23,9 @@
   const lien = (href, texte, rel = '') => `<a href="${esc(href)}"${rel ? ` rel="${rel}"` : ''}>${texte}</a>`;
   function credit(i) {
     if (i.source === 'pinterest') return i.auteur === 'non identifié' ? 'Image trouvée sur Pinterest, auteur non identifié.' : `Image trouvée sur Pinterest. ${esc(i.auteur)}.`;
-    // Salle des personnes : image sans licence connue, avec sa source et le lien du formulaire de réclamation.
-    if (i.source === 'web') return `Image trouvée sur ${lien(i.lien, esc(i.site))}, ${i.auteur === 'non identifié' ? 'auteur non identifié' : esc(i.auteur)}.${i.reclamation ? ` ${lien(i.reclamation, 'Signaler cette image')}.` : ''}`;
+    // Salle des personnes : image sans licence connue, avec sa source et le lien du formulaire de réclamation ; la photo
+    // d'une œuvre encore protégée le dit (i.oeuvre).
+    if (i.source === 'web') return `Image trouvée sur ${lien(i.lien, esc(i.site))}, ${i.auteur === 'non identifié' ? 'auteur non identifié' : esc(i.auteur)}.${i.oeuvre ? ` ${esc(i.oeuvre)}` : ''}${i.reclamation ? ` ${lien(i.reclamation, 'Signaler cette image')}.` : ''}`;
     if (i.source === 'foaa') {
       const site = lien(i.lien, 'Musée FOAA (musee-foaa.com)');
       const avant = [i.musee && `${esc(i.musee)}.`, i.objet && `${esc(i.objet)}, nom donné par le site du musée FOAA.`, i.cartel && `Cartel : ${esc(i.cartel)}.`].filter(Boolean).join(' ');
@@ -438,7 +439,11 @@
           `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
           'Message :', val('message'), '',
           val('nom'), val('courriel'), '',
-          `Page : ${location.origin}${personne ? `${location.pathname}?p=${encodeURIComponent(personne.id)}` : `${location.pathname.replace(/[^/]*$/, '')}ordinateur.html#galerie`}`,
+          // Une adresse qui s'ouvre sur tout appareil : la page de la personne, sinon le fichier de l'image elle-même,
+          // sinon (autre image) les crédits du musée.
+          personne ? `Page : ${location.origin}${location.pathname}?p=${encodeURIComponent(personne.id)}`
+            : i ? `Image en ligne : ${location.origin}${location.pathname.replace(/[^/]*$/, '')}${dossier(i)}${i.id}-${Math.max(...i.tailles)}.webp`
+            : `Page : ${location.origin}${location.pathname.replace(/[^/]*$/, '')}#/credits`,
         ].join('\n'),
       };
     });
