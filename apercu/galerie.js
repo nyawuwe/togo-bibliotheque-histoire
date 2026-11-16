@@ -15,13 +15,16 @@
 
   // ---------- Images : WebP en srcset, proportions posées (width, height), jamais recadrées ni agrandies ----------
   // La largeur affichée est bornée à la largeur réelle du plus grand fichier (--max, ordinateur.css).
-  const srcset = (i) => i.tailles.map((w) => `${DOSSIER}${i.id}-${w}.webp ${w}w`).join(', ');
-  const image = (i, sizes, alt = i.alt) => `<img src="${DOSSIER}${i.id}-${i.tailles[0]}.webp" srcset="${srcset(i)}" sizes="${sizes}" alt="${esc(alt)}" width="${i.largeur}" height="${i.hauteur}" loading="lazy" decoding="async" style="--max:${i.largeur}px;background-color:${esc(i.couleur ?? '#EEEAE4')}">`;
+  const dossier = (i) => i.dossier ?? DOSSIER;   // la salle des personnes pose le sien (images/personnes/)
+  const srcset = (i) => i.tailles.map((w) => `${dossier(i)}${i.id}-${w}.webp ${w}w`).join(', ');
+  const image = (i, sizes, alt = i.alt) => `<img src="${dossier(i)}${i.id}-${i.tailles[0]}.webp" srcset="${srcset(i)}" sizes="${sizes}" alt="${esc(alt)}" width="${i.largeur}" height="${i.hauteur}" loading="lazy" decoding="async" style="--max:${i.largeur}px;background-color:${esc(i.couleur ?? '#EEEAE4')}">`;
 
   // ---------- Crédits ----------
   const lien = (href, texte, rel = '') => `<a href="${esc(href)}"${rel ? ` rel="${rel}"` : ''}>${texte}</a>`;
   function credit(i) {
     if (i.source === 'pinterest') return i.auteur === 'non identifié' ? 'Image trouvée sur Pinterest, auteur non identifié.' : `Image trouvée sur Pinterest. ${esc(i.auteur)}.`;
+    // Salle des personnes : image sans licence connue, avec sa source et le lien du formulaire de réclamation.
+    if (i.source === 'web') return `Image trouvée sur ${lien(i.lien, esc(i.site))}, ${i.auteur === 'non identifié' ? 'auteur non identifié' : esc(i.auteur)}.${i.reclamation ? ` ${lien(i.reclamation, 'Signaler cette image')}.` : ''}`;
     if (i.source === 'foaa') {
       const site = lien(i.lien, 'Musée FOAA (musee-foaa.com)');
       const avant = [i.musee && `${esc(i.musee)}.`, i.objet && `${esc(i.objet)}, nom donné par le site du musée FOAA.`, i.cartel && `Cartel : ${esc(i.cartel)}.`].filter(Boolean).join(' ');
@@ -108,7 +111,7 @@
       <header class="theme-tete"><span class="theme-num" aria-hidden="true">${deux(k + 1)}</span><h3 class="theme-titre" id="theme-${esc(t.id)}">${esc(t.titre)}</h3><span class="theme-compte">${t.images.length} images</span></header>
       ${rangees(t.images).map((row, n) => `<div class="rangee">${poser(row, n).map((p) => `<figure class="piece${p.just === 'end' ? ' vers-droite' : ''}" style="grid-column:${p.col};align-self:${p.a};justify-self:${p.just};--d:${p.d};--max:${p.i.largeur}px">
         <button type="button" class="piece-ouvrir" data-id="${esc(p.i.id)}" aria-haspopup="dialog">${image(p.i, `${((p.span * 91) / 12).toFixed(1)}vw`)}</button>
-        <figcaption class="piece-legende" aria-hidden="true"><span class="piece-num">${numero.get(p.i.id)}</span>${esc(p.i.legende)}<span class="piece-source">${SOURCES[p.i.source]}</span></figcaption>
+        <figcaption class="piece-legende" aria-hidden="true"><span class="piece-num">${numero.get(p.i.id)}</span>${esc(p.i.legende)}<span class="piece-source">${esc(p.i.site ?? SOURCES[p.i.source])}</span></figcaption>
       </figure>`).join('')}</div>`).join('')}
     </section>`).join('') + films(D.videos ?? [], parId, themes.length + 1);
 
@@ -132,7 +135,7 @@
   // La transformation qui pose le rectangle r1 (l'image dans la fenêtre) sur r0 (la vignette) ; origine en haut à gauche.
   const depuis = (r0, r1) => `translate(${r0.left - r1.left}px, ${r0.top - r1.top}px) scale(${r0.width / r1.width}, ${r0.height / r1.height})`;
 
-  function visionneuse(liste, numero, tousThemes) {
+  function visionneuse(liste, numero, tousThemes, conteneur = $('#galerie-themes')) {
     const d = $('#visionneuse'), im = $('#v-img'), zone = $('.v-image', d);
     const habillage = $$('.v-compte, .v-fermer, .v-fleche, .v-texte', d);
     const fond = getComputedStyle(document.documentElement).getPropertyValue('--fond').trim() || '#fff';
@@ -162,11 +165,11 @@
       ajuster();
       if (src) { im.src = src; return; }
       im.srcset = srcset(i);
-      im.src = `${DOSSIER}${i.id}-${i.tailles[0]}.webp`;
+      im.src = `${dossier(i)}${i.id}-${i.tailles[0]}.webp`;
     };
     const precharger = (i) => {
       const p = new Image();
-      Object.assign(p, { sizes: `${largeur(i)}px`, srcset: srcset(i), src: `${DOSSIER}${i.id}-${i.tailles[0]}.webp` });
+      Object.assign(p, { sizes: `${largeur(i)}px`, srcset: srcset(i), src: `${dossier(i)}${i.id}-${i.tailles[0]}.webp` });
       return Promise.race([p.decode().catch(() => {}), attendre(1200)]);
     };
     const finir = (anims) => Promise.all(anims.map((a) => a.finished)).catch(() => {});
@@ -259,7 +262,7 @@
       if (d.open) d.close();
     }
 
-    $('#galerie-themes').addEventListener('click', (e) => {
+    conteneur.addEventListener('click', (e) => {
       const b = e.target.closest('.piece-ouvrir');
       if (b && !d.open) ouverte = ouvrir(b).catch(() => {});
     });
@@ -267,10 +270,13 @@
     $('.v-suiv', d).addEventListener('click', () => aller(k + 1, 1));
     $('.v-fermer', d).addEventListener('click', fermer);
     d.addEventListener('keydown', (e) => {
+      // Échap pendant une fermeture en cours : ignoré, la fermeture se termine. Le second « cancel » n'est plus annulable
+      // (le navigateur limite les fermetures retenues) : il faut l'arrêter dès la touche, sinon la fenêtre se ferme d'un coup.
+      if (e.key === 'Escape' && fermeture) { e.preventDefault(); return; }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); aller(k + (e.key === 'ArrowRight' ? 1 : -1), e.key === 'ArrowRight' ? 1 : -1); }
     });
     // Échap : le navigateur annonce la fermeture ; on la joue en morph. S'il ne la laisse pas différer, elle se fait d'un coup.
-    d.addEventListener('cancel', (e) => { if (e.cancelable) { e.preventDefault(); fermer(); } });
+    d.addEventListener('cancel', (e) => { if (fermeture) { e.preventDefault(); return; } if (e.cancelable) { e.preventDefault(); fermer(); } });
     // Un clic dans le vide autour de l'image ferme, comme Échap.
     d.addEventListener('click', (e) => { if (e.target === d || e.target.classList.contains('v-scene') || e.target === zone) fermer(); });
     addEventListener('resize', () => { if (d.open) ajuster(); });
@@ -288,7 +294,7 @@
       if (versFormulaire) { versFormulaire = false; return; }
       boutons.get(liste[affiche].id)?.focus({ preventScroll: true });
     });
-    $('.v-signaler', d).addEventListener('click', (e) => {
+    $('.v-signaler', d)?.addEventListener('click', (e) => {
       e.preventDefault();
       versFormulaire = true;
       const id = liste[affiche].id;
@@ -386,8 +392,10 @@
   // Réclamation de droits sur une image de la galerie.
   function reclamation(themes, numero) {
     const f = $('#formulaire'), choix = $('#f-image');
-    const avant = choix.value;
-    choix.innerHTML = `<option value="">Choisir une image</option>${themes.map((t) => `<optgroup label="${esc(t.titre)}">${t.images.map((i) => `<option value="${esc(i.id)}">${numero.get(i.id)}. ${esc(i.legende)}</option>`).join('')}</optgroup>`).join('')}<option value="autre">Autre image (à décrire dans le message)</option>`;
+    // Arrivée depuis la salle des personnes (?personne=…&image=…) : l'image y est désignée par sa personne et son identifiant.
+    const q = new URLSearchParams(location.search), personne = q.get('personne'), piece = q.get('image');
+    const avant = choix.value || (personne ? 'personne' : '');
+    choix.innerHTML = `<option value="">Choisir une image</option>${themes.map((t) => `<optgroup label="${esc(t.titre)}">${t.images.map((i) => `<option value="${esc(i.id)}">${numero.get(i.id)}. ${esc(i.legende)}</option>`).join('')}</optgroup>`).join('')}${personne ? `<option value="personne">Salle des personnes : ${esc(personne)}${piece ? ` (${esc(piece)})` : ''}</option>` : ''}<option value="autre">Autre image (à décrire dans le message)</option>`;
     choix.value = avant;
     const parId = new Map(themes.flatMap((t) => t.images).map((i) => [i.id, i]));
     const val = (n) => (f.elements[n].value ?? '').trim();
@@ -399,13 +407,13 @@
       lien: () => (!val('lien') || LIEN.test(val('lien')) ? '' : 'Ce lien n\'est pas une adresse web complète : elle commence par https://.'),
       message: () => (val('message') ? '' : 'Écrivez quelques mots sur votre demande.'),
     }, ['demande'], () => {
-      const i = parId.get(val('image'));
+      const i = parId.get(val('image')), salle = val('image') === 'personne';
       return {
-        sujet: `Réclamation de droits : ${i ? `${i.legende} (${i.id})` : 'autre image'}`,
+        sujet: `Réclamation de droits : ${salle ? personne : i ? `${i.legende} (${i.id})` : 'autre image'}`,
         corps: [
           'Bonjour,', '',
-          'Je vous écris au sujet d\'une image de la galerie de « Togo, musée d\'art et d\'histoire ».', '',
-          `Image concernée : ${i ? `n° ${numero.get(i.id)}, ${i.legende} (${i.id}), source indiquée : ${SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
+          `Je vous écris au sujet d'une image ${salle ? 'de la salle « Ces Togolais(es) qui m\'ont marqué »' : 'de la galerie'} de « Togo, musée d'art et d'histoire ».`, '',
+          `Image concernée : ${salle ? `${piece ?? 'à préciser dans le message'}, page de ${personne}` : i ? `n° ${numero.get(i.id)}, ${i.legende} (${i.id}), source indiquée : ${SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
           `Demande : ${val('demande') === 'retirer' ? 'retirer l\'image' : 'créditer l\'image'}`,
           `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
           'Message :', val('message'), '',
@@ -443,6 +451,10 @@
     }));
   }
 
+  // Hors de l'accueil pour ordinateur (salle des personnes), rien ne démarre : la composition, l'image et la visionneuse
+  // y sont prêtées telles quelles.
+  window.togoGalerie = { rangees, poser, image, credit, visionneuse };
+  if (!$('#galerie-themes')) return;
   contribution();
   demarrer();
 })();

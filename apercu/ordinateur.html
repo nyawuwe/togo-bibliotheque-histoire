@@ -31,6 +31,7 @@
 <link rel="preload" href="polices/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="polices/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="ordinateur.css">
+<script src="musique.js" defer></script>
 <script src="ordinateur.js" defer></script>
 </head>
 <body>
@@ -50,6 +51,10 @@
     <ol class="film-segments" id="film-segments" aria-hidden="true"></ol>
   </footer>
 </div>
+
+<!-- Le son (musique.js) : un seul bouton, fixe, visible dès la première image de l'ouverture puis sur toute la page.
+     Hors de <main> et du film : il reste utilisable pendant l'ouverture, quand le reste de la page est inerte. -->
+<button type="button" class="bouton-son" data-son><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="onde" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/><path class="coupe" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span class="son-texte">Activer le son</span></button>
 
 <main>
 <!-- 1. L'affiche (référence 11) : titre serif, objets détourés en bas de page, parallaxe au défilement -->
@@ -88,7 +93,7 @@
       <button type="button" class="index-fermer" id="index-fermer">Fermer<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <ol class="index-liste" id="index-liste"></ol>
-    <p class="index-pied"><a href="#salles">Les salles en cartes</a><a href="#galerie">La galerie</a><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/credits">Crédits</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button><a href="./#/tableau/1">Commencer la visite</a></p>
+    <p class="index-pied"><a href="#salles">Les salles en cartes</a><a href="#galerie">La galerie</a><a href="personnes.html">Ces Togolais(es) qui m'ont marqué</a><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/credits">Crédits</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button><a href="./#/tableau/1">Commencer la visite</a></p>
   </div>
 </nav>
 
@@ -114,6 +119,21 @@
   </div>
   <p class="planche-credit" id="planche-credit"></p>
   <p class="visuellement-cache" id="cartes-annonce" aria-live="polite"></p>
+</section>
+
+<!-- Une salle à part : « Ces Togolais(es) qui m'ont marqué » (personnes.html), une page entière par personne. Liste
+     écrite ici (trois personnes) ; ponytail: à générer depuis data/personnes.json quand la salle grandira. -->
+<section class="personnes" id="personnes" aria-labelledby="titre-personnes">
+  <header class="personnes-tete">
+    <p class="galerie-sur">Une salle à part</p>
+    <h2 class="personnes-titre" id="titre-personnes">Ces Togolais(es)<br>qui m'ont marqué</h2>
+    <p class="personnes-chapo">Une page entière par personne : sa voix quand un enregistrement authentique existe, ses images, sa vie et ses sources. <a href="personnes.html">Entrer dans la salle</a></p>
+  </header>
+  <ol class="personnes-liste">
+    <li><a href="personnes.html?p=sylvanus-olympio"><img src="images/personnes/olympio-maison-blanche-1962-portrait-480.webp" alt="" width="480" height="620" loading="lazy" decoding="async"><span class="personnes-nom">Sylvanus Olympio</span><span class="personnes-dates">1902-1963</span></a></li>
+    <li><a href="personnes.html?p=nicolas-grunitzky"><img src="images/personnes/grunitzky-1964-480.webp" alt="" width="480" height="640" loading="lazy" decoding="async"><span class="personnes-nom">Nicolas Grunitzky</span><span class="personnes-dates">1913-1969</span></a></li>
+    <li><a href="personnes.html?p=bella-bellow"><img src="images/personnes/bella-bellow-portrait-480.webp" alt="" width="480" height="715" loading="lazy" decoding="async"><span class="personnes-nom">Bella Bellow</span><span class="personnes-dates">1945-1973</span></a></li>
+  </ol>
 </section>
 
 <!-- 3. La galerie, à part des salles : images d'origines diverses, chacune avec sa source ; deux films. Rien ne s'en
@@ -240,7 +260,7 @@
 
   <div class="pied-bas">
     <p>Projet personnel, non officiel.</p>
-    <p class="pied-liens"><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/objets">Objets</a><a href="./#/credits">Crédits du musée</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button></p>
+    <p class="pied-liens"><a href="personnes.html">Ces Togolais(es) qui m'ont marqué</a><a href="./#/bibliotheque">Bibliothèque</a><a href="./#/objets">Objets</a><a href="./#/credits">Crédits du musée</a><button type="button" class="revoir" data-revoir hidden>Revoir l'ouverture</button></p>
   </div>
 </footer>
 </main>

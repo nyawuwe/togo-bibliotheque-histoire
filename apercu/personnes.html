@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Salle « Ces Togolais(es) qui m'ont marqué » : une page par personne (?p=identifiant), servie telle quelle depuis public/,
+     pour ordinateur comme pour téléphone (empilée sous 761 px). Elle reprend les jetons, les rangées, les pièces et la
+     visionneuse de l'accueil pour ordinateur (ordinateur.css, galerie.js) et sa musique (musique.js). Aucune requête vers
+     un autre site : les liens vers les sources ne se suivent qu'au clic. -->
+<meta name="robots" content="noindex">
+<meta name="description" content="Ces Togolais(es) qui m'ont marqué : une page par personne, avec sa voix quand un enregistrement authentique existe, ses images sous licence et ses sources. Projet personnel, non officiel.">
+<meta name="theme-color" content="#14110F">
+<link rel="icon" href="data:,">
+<title>Ces Togolais(es) qui m'ont marqué · Togo, musée d'art et d'histoire</title>
+<link rel="preload" href="polices/tinos-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="polices/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="polices/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="ordinateur.css">
+<link rel="stylesheet" href="personnes.css">
+<script src="musique.js" defer></script>
+<script src="galerie.js" defer></script>
+<script src="personnes.js" defer></script>
+</head>
+<body class="salle-personnes">
+<a class="evitement" href="#page">Aller à la page</a>
+
+<!-- Le son (musique.js) : proposé d'emblée sur grand écran ; le navigateur peut attendre un premier geste. -->
+<button type="button" class="bouton-son" data-son><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="onde" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/><path class="coupe" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span class="son-texte">Activer le son</span></button>
+
+<main>
+<section class="p-entree" aria-labelledby="p-nom">
+  <header class="p-barre">
+    <a class="marque" href="./" aria-label="Togo, musée d'art et d'histoire : accueil"><span class="marque-nom">Togo</span><span class="marque-sous">Musée d'art et d'histoire</span></a>
+    <a class="p-accueil" href="./">Accueil du musée</a>
+  </header>
+  <nav class="p-rail" aria-label="Les personnes de la salle"><ol id="p-rail"></ol></nav>
+  <div class="p-portrait" id="p-portrait"></div>
+  <div class="p-titrage" id="p-titrage"><p class="p-salle">Ces Togolais(es) qui m'ont marqué</p></div>
+  <ul class="p-vignettes" id="p-vignettes" aria-label="Quelques images de la page"></ul>
+</section>
+
+<article class="p-page" id="page" aria-labelledby="p-page-titre"></article>
+</main>
+
+<footer class="p-pied">
+  <p>Projet personnel, non officiel · <a href="./#/credits">Crédits du musée</a> · <a href="./">Accueil du musée</a></p>
+</footer>
+
+<!-- Visionneuse (galerie.js) : une image entière, jamais agrandie, avec sa légende et son crédit complet. -->
+<dialog class="visionneuse" id="visionneuse" aria-labelledby="v-legende">
+  <div class="v-scene">
+    <p class="v-compte" id="v-compte"></p>
+    <button type="button" class="v-fermer">Fermer<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="v-image"><img id="v-img" alt="" decoding="async"></div>
+    <button type="button" class="v-fleche v-prec" aria-label="Image précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="v-fleche v-suiv" aria-label="Image suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="v-texte">
+      <p class="v-legende" id="v-legende" aria-live="polite"></p>
+      <p class="v-credit" id="v-credit"></p>
+    </div>
+  </div>
+</dialog>
+
+<noscript><p class="sans-script">Cette salle lit ses pages dans les données du site : elle demande JavaScript.</p></noscript>
+</body>
+</html>

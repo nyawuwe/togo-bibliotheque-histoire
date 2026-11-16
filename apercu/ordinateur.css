@@ -55,6 +55,18 @@ h1:focus { outline: none; }
 .marque-nom { font: 700 19px/1 var(--serif); letter-spacing: .36em; margin-right: -.36em; text-transform: uppercase; }
 .marque-sous { font: 500 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; }
 
+/* Le son (musique.js) : un seul bouton, fixe, à droite de l'Index dans la barre, et à la même place sur l'ouverture,
+   dont la colonne gauche est libre. Fond nuit translucide : il reste lisible sur le film, le blanc et la planche sépia.
+   Sous l'index ouvert (z-index 30), au-dessus du film (50) tant qu'il joue. */
+.bouton-son { position: fixed; z-index: 25; top: 42px; left: calc(var(--marge) + 116px); translate: 0 -50%; display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px 8px 11px;
+  border: 1px solid rgba(239, 230, 214, .4); border-radius: 999px; background: rgba(20, 17, 15, .64); color: var(--texte-nuit); font: 400 14px/1.2 var(--sans); cursor: pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background-color .25s; }
+.bouton-son:hover { background: rgba(20, 17, 15, .82); }
+.bouton-son:focus-visible { outline-color: var(--laterite); }
+.bouton-son svg { width: 18px; height: 18px; flex: none; }
+.bouton-son:not([data-etat="joue"]) .onde, .bouton-son[data-etat="joue"] .coupe { display: none; }
+html.film-actif .bouton-son { z-index: 55; }
+
 /* ---------- 0. Ouverture : clichés du Togo ---------- */
 .film { position: fixed; inset: 0; z-index: 50; background: var(--nuit); color: var(--texte-nuit); overflow: hidden;
   clip-path: inset(0 0 0 0); transition: clip-path 1.15s cubic-bezier(.76, 0, .24, 1); }
@@ -214,6 +226,21 @@ h1:focus { outline: none; }
 .fleche:focus-visible { outline-color: var(--texte-nuit); }
 .fleche svg { width: 20px; height: 20px; }
 .planche-credit { margin: 12px 4px 0; max-width: 120ch; font: 400 11px/1.5 var(--mono); color: var(--argile); }
+
+/* ---------- Une salle à part : Ces Togolais(es) qui m'ont marqué (personnes.html), sur blanc ---------- */
+/* Trois portraits entiers, de même hauteur, jamais agrandis (fichiers de 480 px) ; sans portrait libre, un monogramme. */
+.personnes { --gout: clamp(20px, 1.9vw, 36px); padding: clamp(128px, 12vw, 220px) var(--marge) 0; }
+.personnes-tete { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gout); align-items: end; }
+.personnes-titre { grid-column: 1 / span 7; margin: 0; font: 400 clamp(64px, 6vw, 120px)/.92 var(--serif); letter-spacing: -.03em; }
+.personnes-chapo { grid-column: 9 / span 4; margin: 0 0 .5em; max-width: 40ch; font: 400 17px/1.55 var(--sans); }
+.personnes-chapo a { text-decoration-color: var(--laiton); }
+.personnes-liste { list-style: none; display: flex; align-items: flex-end; gap: var(--gout); margin: clamp(56px, 5vw, 96px) 0 0; padding: 0; }
+.personnes-liste a { display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
+.personnes-liste img, .personnes-mono { width: auto; height: clamp(260px, 24vw, 400px); transition: opacity .3s ease; }
+.personnes-mono { display: grid; place-items: center; aspect-ratio: 3 / 4; background: var(--nuit); color: var(--laiton); font: 400 clamp(80px, 8vw, 140px)/1 var(--serif); letter-spacing: -.04em; }
+.personnes-liste a:hover img, .personnes-liste a:hover .personnes-mono { opacity: .88; }
+.personnes-nom { margin-top: 10px; font: 400 clamp(22px, 1.8vw, 30px)/1.1 var(--serif); }
+.personnes-dates { font: 400 12px/1 var(--mono); color: var(--argile); }
 
 /* ---------- 3. La galerie : à part des salles, sur blanc ---------- */
 /* Douze colonnes ; galerie.js pose chaque image dans sa rangée (colonnes, alignement, pas de descente --d). Aucune image

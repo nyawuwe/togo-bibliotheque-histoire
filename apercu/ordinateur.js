@@ -13,6 +13,8 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduit = matchMedia('(prefers-reduced-motion: reduce)');
   const borne = (v, a, b) => Math.min(b, Math.max(a, v));
+  // La musique est proposée dès l'ouverture (musique.js) : avant les données, pour que le film commence avec elle.
+  window.togoMusique?.demarrer({ auto: true });
 
   // Réglages de présentation propres à cette proposition (jamais du contenu) : un identifiant absent des données est ignoré.
   const FILM = ['bandjeli-hauts-fourneaux', 'sokode-cavaliers', 'bellin-golfe-benin', 'lome-gare', 'kamina-antennes', 'takienta-tamberma'];
@@ -138,7 +140,8 @@
     }
     function interrompre(e) {
       if (e.type === 'keydown' && ['Tab', 'Shift'].includes(e.key)) return;
-      if (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' ') && e.target === $('#film-passer')) return;
+      // Entrée ou Espace sur « Passer » ou sur le bouton du son : leur propre clic, pas l'interruption du film.
+      if (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' ') && e.target.closest?.('#film-passer, [data-son]')) return;
       e.preventDefault();
       lever(true);
     }
@@ -300,6 +303,11 @@
   }
 
   async function demarrer() {
+    // Commencer la visite : le geste est fait ici, la visite démarre dans un autre document (index.html). Ce drapeau,
+    // lu une fois là-bas, y lance la voix et la musique ; un navigateur qui refuse le son garde la visite muette et montre
+    // le bouton Voix. Un visiteur qui a coupé le son ici ne l'entend pas repartir dans la visite. Posé avant toute donnée
+    // (relecture du 15/11 : un clic avant la fin du chargement partait sans drapeau, visite muette au premier essai).
+    document.addEventListener('click', (e) => { if (e.target.closest('a[href*="#/tableau/"]') && !window.togoMusique?.coupe()) memoire('togo-son', '1'); });
     galerieAuBesoin();
     try {
       const [salles, archives, objets, mise] = await Promise.all(['salles.json', 'archives.json', 'objets.json', 'mise-en-page.json'].map(json));
@@ -316,9 +324,6 @@
     defilement();
     racine.classList.add('pret');
     if (cliches().length >= 2) $$('[data-revoir]').forEach((b) => { b.hidden = false; b.addEventListener('click', () => ouverture(true, b)); });
-    // Commencer la visite : le geste est fait ici, la visite démarre dans un autre document (index.html). Ce drapeau,
-    // lu une fois là-bas, y lance la voix ; un navigateur qui refuse le son garde la visite muette et montre le bouton Voix.
-    document.addEventListener('click', (e) => { if (e.target.closest('a[href*="#/tableau/"]')) memoire('togo-son', '1'); });
     // Une ancre de cette page (#salles) vise un élément sous l'affiche : saut direct, le défilement doux de la page
     // (html { scroll-behavior: smooth }) traverserait toute l'affiche. Les ancres d'écran sont parties vers index.html.
     try { if (location.hash.length > 1) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: 'instant' }); } catch { /* ancre mal formée : ignorée */ }
