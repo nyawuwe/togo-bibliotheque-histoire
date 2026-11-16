@@ -294,7 +294,10 @@
       if (versFormulaire) { versFormulaire = false; return; }
       boutons.get(liste[affiche].id)?.focus({ preventScroll: true });
     });
-    $('.v-signaler', d)?.addEventListener('click', (e) => {
+    // « Signaler cette image » : le lien de la visionneuse (galerie) ou celui du crédit (salle des personnes). Le
+    // formulaire est sur la même page : on y va sans recharger, l'image déjà choisie.
+    d.addEventListener('click', (e) => {
+      if (!e.target.closest('.v-signaler, a[href*="#reclamation"]') || !$('#reclamation')) return;
       e.preventDefault();
       versFormulaire = true;
       const id = liste[affiche].id;
@@ -389,14 +392,14 @@
     });
   }
 
-  // Réclamation de droits sur une image de la galerie.
-  function reclamation(themes, numero) {
+  // Réclamation de droits sur une image de la galerie, ou d'une page de la salle des personnes (personne : { id, nom },
+  // le formulaire est alors dans la salle elle-même). ?image=<identifiant> la choisit d'avance.
+  function reclamation(themes, numero, personne) {
     const f = $('#formulaire'), choix = $('#f-image');
-    // Arrivée depuis la salle des personnes (?personne=…&image=…) : l'image y est désignée par sa personne et son identifiant.
-    const q = new URLSearchParams(location.search), personne = q.get('personne'), piece = q.get('image');
-    const avant = choix.value || (personne ? 'personne' : '');
-    choix.innerHTML = `<option value="">Choisir une image</option>${themes.map((t) => `<optgroup label="${esc(t.titre)}">${t.images.map((i) => `<option value="${esc(i.id)}">${numero.get(i.id)}. ${esc(i.legende)}</option>`).join('')}</optgroup>`).join('')}${personne ? `<option value="personne">Salle des personnes : ${esc(personne)}${piece ? ` (${esc(piece)})` : ''}</option>` : ''}<option value="autre">Autre image (à décrire dans le message)</option>`;
-    choix.value = avant;
+    const avant = choix.value || new URLSearchParams(location.search).get('image') || '';
+    const num = (i) => (numero.get(i.id) ? `${numero.get(i.id)}. ` : '');   // le portrait d'entrée n'a pas de numéro
+    choix.innerHTML = `<option value="">Choisir une image</option>${themes.map((t) => `<optgroup label="${esc(t.titre)}">${t.images.map((i) => `<option value="${esc(i.id)}">${num(i)}${esc(i.legende)}</option>`).join('')}</optgroup>`).join('')}<option value="autre">Autre image (à décrire dans le message)</option>`;
+    if ([...choix.options].some((o) => o.value === avant)) choix.value = avant;
     const parId = new Map(themes.flatMap((t) => t.images).map((i) => [i.id, i]));
     const val = (n) => (f.elements[n].value ?? '').trim();
     courriel(f, 'e-', 'repli', {
@@ -407,18 +410,18 @@
       lien: () => (!val('lien') || LIEN.test(val('lien')) ? '' : 'Ce lien n\'est pas une adresse web complète : elle commence par https://.'),
       message: () => (val('message') ? '' : 'Écrivez quelques mots sur votre demande.'),
     }, ['demande'], () => {
-      const i = parId.get(val('image')), salle = val('image') === 'personne';
+      const i = parId.get(val('image'));
       return {
-        sujet: `Réclamation de droits : ${salle ? personne : i ? `${i.legende} (${i.id})` : 'autre image'}`,
+        sujet: `Réclamation de droits : ${personne ? `${personne.nom}, ${i ? i.id : 'autre image'}` : i ? `${i.legende} (${i.id})` : 'autre image'}`,
         corps: [
           'Bonjour,', '',
-          `Je vous écris au sujet d'une image ${salle ? 'de la salle « Ces Togolais(es) qui m\'ont marqué »' : 'de la galerie'} de « Togo, musée d'art et d'histoire ».`, '',
-          `Image concernée : ${salle ? `${piece ?? 'à préciser dans le message'}, page de ${personne}` : i ? `n° ${numero.get(i.id)}, ${i.legende} (${i.id}), source indiquée : ${SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
+          `Je vous écris au sujet d'une image ${personne ? `de la page de ${personne.nom}, salle « Ces Togolais(es) qui m'ont marqué »,` : 'de la galerie'} de « Togo, musée d'art et d'histoire ».`, '',
+          `Image concernée : ${i ? `${numero.get(i.id) ? `n° ${numero.get(i.id)}, ` : ''}${i.legende} (${i.id}), source indiquée : ${i.site ?? SOURCES[i.source]}` : 'autre image, décrite dans le message'}`,
           `Demande : ${val('demande') === 'retirer' ? 'retirer l\'image' : 'créditer l\'image'}`,
           `Lien établissant mes droits : ${val('lien') || 'non fourni'}`, '',
           'Message :', val('message'), '',
           val('nom'), val('courriel'), '',
-          `Page : ${location.origin}${location.pathname}#galerie`,
+          `Page : ${location.origin}${location.pathname}${personne ? `?p=${encodeURIComponent(personne.id)}` : '#galerie'}`,
         ].join('\n'),
       };
     });
@@ -451,9 +454,9 @@
     }));
   }
 
-  // Hors de l'accueil pour ordinateur (salle des personnes), rien ne démarre : la composition, l'image et la visionneuse
-  // y sont prêtées telles quelles.
-  window.togoGalerie = { rangees, poser, image, credit, visionneuse };
+  // Hors de l'accueil pour ordinateur (salle des personnes), rien ne démarre : la composition, l'image, la visionneuse et
+  // le formulaire de réclamation y sont prêtés tels quels.
+  window.togoGalerie = { rangees, poser, image, credit, visionneuse, reclamation };
   if (!$('#galerie-themes')) return;
   contribution();
   demarrer();

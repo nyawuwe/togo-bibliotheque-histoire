@@ -31,6 +31,7 @@ window.togoMusique = (() => {
     for (const b of boutons) {
       b.dataset.etat = e;
       b.querySelector('.son-texte').textContent = e === 'joue' ? 'Couper le son' : 'Activer le son';
+      b.setAttribute('aria-label', b.querySelector('.son-texte').textContent);   // le texte se masque sur petit téléphone
       b.title = e === 'attente' ? 'Le navigateur attend un premier geste pour laisser sortir le son' : '';
     }
   }

@@ -25,7 +25,7 @@
 <a class="evitement" href="#page">Aller à la page</a>
 
 <!-- Le son (musique.js) : proposé d'emblée sur grand écran ; le navigateur peut attendre un premier geste. -->
-<button type="button" class="bouton-son" data-son><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="onde" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/><path class="coupe" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span class="son-texte">Activer le son</span></button>
+<button type="button" class="bouton-son" data-son aria-label="Activer le son"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="onde" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/><path class="coupe" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span class="son-texte">Activer le son</span></button>
 
 <main>
 <section class="p-entree" aria-labelledby="p-nom">
@@ -40,6 +40,59 @@
 </section>
 
 <article class="p-page" id="page" aria-labelledby="p-page-titre"></article>
+
+<!-- Signaler une image (galerie.js, reclamation()) : le formulaire est ici, sur la page de la personne, à toutes les tailles
+     d'écran ; « Signaler cette image » y mène sans recharger ni changer de page. -->
+<section class="reclamation p-reclamation" id="reclamation" aria-labelledby="titre-reclamation">
+  <div class="reclamation-tete">
+    <h2 class="reclamation-titre" id="titre-reclamation">Signaler une image</h2>
+    <p>Vous êtes l'auteur d'une image de cette page, ou vous en détenez les droits&nbsp;? Demandez qu'elle soit créditée ou retirée.</p>
+    <p>Le formulaire prépare un courriel dans votre messagerie&nbsp;: rien ne passe par un service tiers.</p>
+  </div>
+  <form class="formulaire" id="formulaire" novalidate>
+    <div class="champ">
+      <label for="f-nom">Nom</label>
+      <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-describedby="e-nom">
+      <p class="erreur" id="e-nom" hidden></p>
+    </div>
+    <div class="champ">
+      <label for="f-courriel">Courriel</label>
+      <input id="f-courriel" name="courriel" type="email" autocomplete="email" spellcheck="false" required aria-describedby="e-courriel">
+      <p class="erreur" id="e-courriel" hidden></p>
+    </div>
+    <div class="champ large">
+      <label for="f-image">Image concernée</label>
+      <select id="f-image" name="image" required aria-describedby="e-image"><option value="">Choisir une image</option><option value="autre">Autre image (à décrire dans le message)</option></select>
+      <p class="erreur" id="e-image" hidden></p>
+    </div>
+    <fieldset class="champ" aria-describedby="e-demande">
+      <legend>Demande</legend>
+      <div class="choix"><label><input type="radio" name="demande" value="créditer" required> Créditer l'image</label><label><input type="radio" name="demande" value="retirer"> Retirer l'image</label></div>
+      <p class="erreur" id="e-demande" hidden></p>
+    </fieldset>
+    <div class="champ">
+      <label for="f-lien">Lien établissant vos droits <span class="facultatif">(facultatif)</span></label>
+      <input id="f-lien" name="lien" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://" aria-describedby="e-lien">
+      <p class="erreur" id="e-lien" hidden></p>
+    </div>
+    <div class="champ large">
+      <label for="f-message">Message</label>
+      <textarea id="f-message" name="message" rows="5" required aria-describedby="a-message e-message"></textarea>
+      <p class="aide" id="a-message">Qui vous êtes par rapport à l'image&nbsp;; si vous avez choisi «&nbsp;Autre image&nbsp;», décrivez-la.</p>
+      <p class="erreur" id="e-message" hidden></p>
+    </div>
+    <div class="envoi large">
+      <button type="submit" class="bouton-envoi">Préparer le courriel</button>
+      <p class="aide">Votre messagerie s'ouvre avec le message prêt à partir.</p>
+    </div>
+  </form>
+  <div class="repli" id="repli" tabindex="-1" role="region" aria-labelledby="repli-titre" hidden>
+    <p class="repli-titre" id="repli-titre">Votre messagerie devrait s'ouvrir avec ce message.</p>
+    <p>Si elle ne s'ouvre pas, copiez-le et envoyez-le à <span id="repli-adresse"></span>.</p>
+    <textarea id="repli-texte" rows="14" readonly aria-label="Message préparé"></textarea>
+    <p class="repli-actions"><button type="button" class="bouton-envoi" id="repli-copier">Copier le message</button><span id="repli-etat" role="status"></span></p>
+  </div>
+</section>
 </main>
 
 <footer class="p-pied">

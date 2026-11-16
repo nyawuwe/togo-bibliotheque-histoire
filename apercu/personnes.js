@@ -3,7 +3,7 @@
 // portrait, nom, naissance et mort avec dates et lieux, vignettes. Dessous, la page : sa voix (enregistrement authentique,
 // ou « enregistrement à venir »), une citation ou un fait marquant, puis le défilé de la galerie (galerie.js : mêmes
 // rangées, même visionneuse, même morph) où les paragraphes de la biographie prennent place entre les images, de sorte
-// qu'une personne qui n'a que trois images n'a ni trou ni image répétée. Divergences, sources et crédits ferment la page.
+// qu'une personne qui n'a que trois images n'a ni trou ni image répétée. Divergences, sources, crédits et le formulaire « Signaler une image » ferment la page.
 // Données : data/personnes.json (outils/importer-personnes.mjs, depuis contenu/personnes.json).
 'use strict';
 
@@ -37,6 +37,18 @@
     document.title = `${p.nom} · ${D.salle.titre} · Togo, musée d'art et d'histoire`;
     entree(D, p, parId);
     page(D, p, parId);
+    // « Signaler cette image » hors de la visionneuse (crédits) : le formulaire est plus bas, on y va sans recharger. La
+    // visionneuse fait de même pour son propre lien (galerie.js).
+    document.addEventListener('click', (e) => {
+      const a = !e.defaultPrevented && e.target.closest('a[href*="#reclamation"]');
+      if (!a) return;
+      const u = new URL(a.href, location.href), chemin = (s) => s.replace(/\.html$/, '');
+      if (chemin(u.pathname) !== chemin(location.pathname) || u.searchParams.get('p') !== p.id) return;
+      e.preventDefault();
+      $('#f-image').value = u.searchParams.get('image') ?? '';
+      $('#reclamation').scrollIntoView({ behavior: 'instant' });
+      $('#f-image').focus({ preventScroll: true });
+    });
     // Arrivée sur une ancre de la page (#page, #source-s3) : elle n'existait pas avant la construction.
     try { const cible = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); if (cible) cible.scrollIntoView({ behavior: 'instant' }); } catch { /* ancre mal formée */ }
   }
@@ -53,6 +65,29 @@
     $('#p-portrait').innerHTML = portrait
       ? G.image(portrait, `min(${portrait.largeur}px, 100vw)`).replace(' loading="lazy"', ' fetchpriority="high"').replace('style="', `style="--ratio:${portrait.largeur / portrait.hauteur};`)
       : `<span class="p-monogramme" aria-hidden="true">${esc(p.monogramme)}</span>`;
+
+    // Le titrage passe sur le portrait (maquette), mais aucune ligne des dates et des lieux ne s'arrête sur son bord fondu
+    // (16 % de sa largeur, à gauche) : le portrait glisse alors du plus petit pas qui les en sort, vers la droite (juste
+    // au-delà des dates) ou vers la gauche (les dates finissent sur l'image), sans quitter les marges. Au-dessus de 760 px
+    // seulement ; recalé quand la fenêtre change.
+    const img = $('#p-portrait img');
+    if (img) {
+      const fins = (e) => { const g = document.createRange(); g.selectNodeContents(e); return [...g.getClientRects()]; };
+      const caler = () => {
+        const boite = $('#p-portrait');
+        boite.style.translate = '';
+        if (!matchMedia('(min-width: 761px)').matches) return;
+        const i = img.getBoundingClientRect(), fondu = i.width * 0.16, garde = 12, marge = $('.p-barre').getBoundingClientRect().left;
+        const bouts = [...document.querySelectorAll('.p-date-jour, .p-date-lieu')].flatMap(fins).filter((r) => r.width > 1 && r.bottom > i.top).map((r) => r.right);
+        const libre = (s) => bouts.every((d) => d <= i.left + s - garde || d >= i.left + s + fondu + garde);
+        if (libre(0)) return;
+        const pas = bouts.flatMap((d) => [d + garde + 1 - i.left, d - garde - 1 - fondu - i.left])
+          .filter((s) => i.right + s <= innerWidth - marge && i.left + s >= marge && libre(s)).sort((a, b) => Math.abs(a) - Math.abs(b));
+        if (pas.length) boite.style.translate = `${Math.round(pas[0])}px 0`;
+      };
+      document.fonts.ready.then(caler);
+      addEventListener('resize', caler);
+    }
 
     const [ne, mort] = p.genre === 'f' ? ['Née', 'Morte'] : ['Né', 'Mort'];
     const date = (etiquette, d) => `<div class="p-date"><dt>${etiquette}</dt><dd><span class="p-date-jour"><time datetime="${esc(d.date)}">${esc(d.affiche)}</time></span><span class="p-date-lieu">${esc(d.lieu)}</span></dd></div>`;
@@ -135,6 +170,8 @@
         <ol class="p-credits-liste">${images.map((i) => `<li><b>${esc(i.legende)}.</b> ${G.credit(i)}</li>`).join('')}</ol></div></section>`;
 
     G.visionneuse(liste, numero, [{ id: p.id, titre: p.nom }], $('#p-flux'));
+    // Le formulaire de réclamation, en bas de cette page : toutes les images de la personne, portrait compris.
+    G.reclamation([{ titre: p.nom, images: [p.portrait && parId.get(p.portrait), ...liste].filter(Boolean) }], numero, { id: p.id, nom: p.nom });
     // Sous l'enregistrement, la musique baisse de 11 dB, comme sous les voix des salles ; elle remonte quand il s'arrête.
     const lecteur = $('.p-lecteur');
     if (lecteur) {

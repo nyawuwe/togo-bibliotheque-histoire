@@ -45,6 +45,10 @@ a { text-decoration-color: var(--laiton); }
 .p-date-jour { display: block; font: 400 clamp(26px, 2.3vw, 40px)/1 var(--serif); white-space: nowrap; }
 .p-date-lieu { display: block; max-width: 28ch; margin-top: 10px; font: 400 13px/1.45 var(--sans); color: var(--pierre); }
 .p-sans-portrait { margin: 22px 0 0; max-width: 46ch; font: 400 12px/1.55 var(--mono); color: var(--pierre); }
+/* Comme dans la maquette, le titrage passe sur le portrait : salle, fonction, dates et lieux portent le même halo de nuit
+   que le nom, pour se lire sur le portrait comme sur son bord fondu (à 1440 px, la date de mort de Bella Bellow s'y
+   arrêtait sur un fond gris). */
+.p-salle, .p-role, .p-dates { text-shadow: 0 1px 2px rgba(20, 17, 15, .95), 0 0 18px rgba(20, 17, 15, .9), 0 0 36px rgba(20, 17, 15, .7); }
 .p-lire { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 30px; padding: 11px 20px 11px 22px; border: 1px solid rgba(239, 230, 214, .4); border-radius: 999px; font: 400 15px/1.2 var(--sans); text-decoration: none; transition: background-color .25s; }
 .p-lire:hover { background: rgba(239, 230, 214, .1); }
 .p-lire svg { width: 18px; height: 18px; }
@@ -107,9 +111,25 @@ a { text-decoration-color: var(--laiton); }
 .p-credits p { margin: 0 0 14px; font: 400 14px/1.6 var(--sans); }
 .p-credits b { font-weight: 600; }
 
+/* Signaler une image : le formulaire de l'accueil pour ordinateur (ordinateur.css), sur la nuit. */
+.p-reclamation { --gout: clamp(20px, 1.9vw, 36px); margin: clamp(120px, 11vw, 200px) var(--marge) 0; padding: 18px 0 0; border-top: 1px solid var(--filet); }
+.p-reclamation .champ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EFE6D6' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+.p-reclamation .erreur { color: var(--laiton); }   /* la latérite n'est qu'un décor sur la nuit */
+.p-reclamation .champ :is(input, select, textarea)[aria-invalid="true"] { border-bottom-color: var(--laiton); }
+.p-reclamation .bouton-envoi:hover { background: var(--laiton); }
+.p-reclamation .repli textarea { background: rgba(239, 230, 214, .05); color: var(--texte-nuit); }
+
 .p-pied { margin: clamp(120px, 11vw, 200px) var(--marge) 0; padding: 28px 0 48px; border-top: 1px solid var(--filet); font: 400 12px/1.6 var(--mono); color: var(--pierre); }
 .p-pied p { margin: 0; }
 .p-pied a { color: var(--texte-nuit); text-underline-offset: .3em; }
+
+/* ---------- Tablette (761 à 1100 px) ---------- */
+@media (min-width: 761px) and (max-width: 1100px) {
+  /* Les vignettes passent en colonne au bord droit : elles ne croisent plus la largeur des dates et des lieux. */
+  .p-vignettes { flex-direction: column; align-items: flex-end; gap: 12px; text-align: right; }
+  /* Une légende du défilé ne dépasse plus de son image (elle débordait de la fenêtre). */
+  .p-page .piece-legende { width: 100%; }
+}
 
 /* ---------- Téléphone : tout s'empile, gouttières de 16 px ---------- */
 @media (max-width: 760px) {
@@ -150,6 +170,9 @@ a { text-decoration-color: var(--laiton); }
   .p-citation blockquote p, .p-fait-texte { font-size: 27px; }
   .p-bio > p:first-child { font-size: 19px; }
   .p-annexe { gap: 20px; margin-top: 96px; }
+  .p-reclamation { display: flex; flex-direction: column; gap: 28px; margin-top: 96px; padding-bottom: 0; }
+  .p-reclamation .formulaire { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .p-reclamation .repli { margin-top: 0; }
   .p-pied { margin-top: 96px; }
 
   /* Visionneuse : les flèches sur l'image, le texte dessous, aucune colonne perdue. */
@@ -162,4 +185,11 @@ a { text-decoration-color: var(--laiton); }
   .v-suiv { justify-self: end; margin-right: 20px; }
   .v-texte { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 24px; }
   .v-legende { font-size: 18px; }
+}
+
+/* Petit téléphone : le bouton du son se réduit à son icône (44 px de côté) ; son nom passe par aria-label, que musique.js
+   tient à jour. Il couvrait « Musée d'art et d'histoire » jusqu'à 364 px. */
+@media (max-width: 400px) {
+  .salle-personnes .bouton-son { justify-content: center; min-width: 44px; padding: 7px; }
+  .salle-personnes .bouton-son .son-texte { display: none; }
 }
