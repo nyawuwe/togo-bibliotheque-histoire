@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Passage d'une page du site à l'autre en fondu (style.css, ordinateur.css). L'accord est donné ici, en ligne, pour être lu
+     avant le premier affichage : placé dans une feuille externe, il arrivait parfois trop tard et la page entrait sans transition.
+     Une transition sautée (chargement trop long) ne laisse pas d'erreur dans la console. -->
+<style>@view-transition{navigation:auto}</style>
+<script>addEventListener('pagereveal', (e) => e.viewTransition?.ready.catch(() => {}));</script>
 <!-- Aperçu « ordinateur » sur un petit écran : ?ordinateur=1, tenu pour l'onglet (sessionStorage) jusqu'à ?ordinateur=0.
      La page se met en page sur 1440 px de large, réduite à la largeur de l'écran, et ne renvoie jamais vers la version
      téléphone. Même script en tête d'index.html et d'ordinateur.html ; sans le paramètre ni le drapeau, rien ne change. -->
@@ -18,6 +23,9 @@
      ?telephone=1 garde l'accueil de cette version sur un grand écran ; l'aperçu « ordinateur » (ci-dessus) vaut grand écran.
      main.js fait de même pour un retour à l'accueil. -->
 <script>if ((document.documentElement.dataset.apercu === 'ordinateur' || matchMedia('(min-width: 1101px)').matches) && !/[?&]telephone=1(&|$)/.test(location.search) && /^(#\/?(ouverture)?)?$/.test(location.hash)) location.replace('ordinateur.html' + location.search);</script>
+<!-- Arrivée sur un écran (#/salle/…, #/tableau/…) : l'ouverture reste masquée sous son fond de nuit pendant le chargement,
+     puis l'écran demandé se dévoile (main.js, afficher). -->
+<script>if (/^#\/(?!ouverture)[a-z]/.test(location.hash)) document.documentElement.classList.add('arrivee');</script>
 <meta name="robots" content="noindex">
 <meta name="description" content="Musée d'art et d'histoire du Togo, de l'âge du fer à nos jours : des salles d'archives du domaine public ou sous licence libre, avec leurs sources. Projet personnel, non officiel.">
 <meta name="theme-color" content="#000000">
@@ -29,8 +37,8 @@
 <!-- Transition écoute (public/ecoute/) : cinq secondes à l'arrivée, avant l'écran d'entrée, une fois par visite (main.js). -->
 <link rel="stylesheet" href="./ecoute/ecoute.css">
 <script src="./ecoute/ecoute.js" defer></script>
-  <script type="module" crossorigin src="./js/index-By9g7jrs.js"></script>
-  <link rel="stylesheet" crossorigin href="./js/index-Dp8-34Ba.css">
+  <script type="module" crossorigin src="./js/index-D05042qQ.js"></script>
+  <link rel="stylesheet" crossorigin href="./js/index-DfyZWTSm.css">
 </head>
 <body>
 <a class="evitement" href="#principal">Aller au contenu</a>

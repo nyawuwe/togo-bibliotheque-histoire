@@ -140,7 +140,7 @@ html.film-actif .bouton-son { z-index: 55; }
 .cartel-nom { display: block; margin-bottom: 2px; font: 500 13.5px/1.3 var(--sans); color: var(--texte); }
 
 /* ---------- Index ---------- */
-.index { position: fixed; z-index: 30; top: 0; left: 0; right: 0; background: var(--nuit); color: var(--texte-nuit); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .55); animation: descend .5s var(--sortie); }
+.index { position: fixed; z-index: 30; top: 0; left: 0; right: 0; background: var(--nuit); color: var(--texte-nuit); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .55); animation: descend .4s var(--sortie); }
 @keyframes descend { from { transform: translateY(-24px); opacity: 0; } }
 .index-dedans { padding: 24px var(--marge) 48px; }
 .index-tete { display: flex; justify-content: space-between; align-items: center; height: 60px; margin-bottom: 36px; border-bottom: 1px solid var(--filet-nuit); }
@@ -303,7 +303,7 @@ html:has(.visionneuse[open]) { overflow: hidden; padding-right: var(--barre, 0px
 .visionneuse::backdrop { background: transparent; }   /* la fenêtre couvre tout l'écran ; transparente, elle laisse voir la page pendant le morph */
 /* Morph (galerie.js) : la page reste en place sous la fenêtre (gouttière gardée), la fenêtre part transparente, image et
    commandes invisibles, et rien ne déborde pendant que l'image grandit depuis sa vignette ou y retourne. */
-#v-img { transform-origin: 0 0; }
+#v-img { transform-origin: 0 0; touch-action: pinch-zoom; user-select: none; -webkit-user-drag: none; cursor: grab; }   /* gestes à un doigt : galerie.js ; le pincement reste au navigateur (zoom de la page) */
 .visionneuse.anime { overflow: hidden; }
 .visionneuse.ouvre { background: transparent; }
 .visionneuse.ouvre :is(#v-img, .v-compte, .v-fermer, .v-fleche, .v-texte) { opacity: 0; }
@@ -390,7 +390,7 @@ html:has(.visionneuse[open]) { overflow: hidden; padding-right: var(--barre, 0px
   /* Les cartes changent d'état directement, sans morph ; seul leur texte apparaît en fondu court. */
   .cartes-piste, .carte, .carte-tete, .carte-num, .carte-espace, .carte-nom, .carte-periode, .progression-rail span, .planche-fond { transition: none; }
   .carte-corps, .ouverte .carte-corps { transition: opacity .2s ease; }
-  .index { animation: none; }
+  .index { animation: vt-entree .15s ease-out; }   /* un fondu court (vt-entree, réduit à l'opacité plus bas) */
   .planche-fond, .planche-fond img { transform: none; }
   .lien-visite:hover svg { transform: none; }
   /* L'ouverture ne part jamais seule ; rejouée à la demande, elle enchaîne ses clichés en fondu, sans zoom ni rideau. */
@@ -398,4 +398,24 @@ html:has(.visionneuse[open]) { overflow: hidden; padding-right: var(--barre, 0px
   .film.leve { clip-path: none; opacity: 0; transition: opacity .3s; }
   .piece img, .piece-legende, .lecteur-icone { transition: none; }
   .piece-legende { transform: none; }
+}
+
+/* D'une page du site à l'autre (accueil, visite, salle des personnes) : la page qui part s'efface, celle qui arrive se pose,
+   au lieu d'une coupe ; même réglage dans style.css. Sous mouvement réduit, un fondu court. L'accord @view-transition
+   est en ligne dans la tête de chaque page, pour être lu avant le premier affichage. */
+/* Pendant une transition, la page reste cliquable : le calque des instantanés ne retient pas les clics (un second geste
+   n'attend pas la fin du premier). */
+::view-transition { pointer-events: none; }
+::view-transition-old(root) { animation: .2s ease-in both vt-sortie; }
+::view-transition-new(root) { animation: .34s cubic-bezier(.2, .8, .2, 1) .05s both vt-entree; }
+@keyframes vt-sortie { to { opacity: 0; } }
+@keyframes vt-entree { from { opacity: 0; transform: scale(.985); } }
+/* Un bouton qui devient son panneau (l'index, ordinateur.js) : seul l'élément nommé « morph » bouge, la page reste en place. */
+::view-transition-group(morph) { animation-duration: .4s; animation-timing-function: cubic-bezier(.2, .9, .3, 1.02); }
+::view-transition-old(morph), ::view-transition-new(morph) { height: 100%; object-fit: cover; animation-duration: .24s; }
+.vt-panneau::view-transition-old(root) { display: none; }
+.vt-panneau::view-transition-new(root) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .15s; animation-delay: 0s; }
+  @keyframes vt-entree { from { opacity: 0; } }
 }

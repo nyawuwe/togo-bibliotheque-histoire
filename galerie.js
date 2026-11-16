@@ -145,11 +145,13 @@
   // ---------- Visionneuse : <dialog> natif, Échap, flèches, focus rendu ----------
   // L'image grandit depuis sa vignette jusqu'à sa place (FLIP en Web Animations : seule une transformation bouge, aux
   // proportions de l'image, donc rien n'est rogné ni ne saute) et y retourne à la fermeture. D'une image à l'autre, elle
-  // s'efface en glissant pendant que la suivante se charge, puis celle-ci entre. Sous mouvement réduit, tout change d'un coup.
+  // s'efface en glissant pendant que la suivante se charge, puis celle-ci entre. Au doigt, l'image se glisse vers la
+  // voisine et se ferme en la tirant vers le bas (gestes, plus bas). Sous mouvement réduit, tout change d'un coup.
   const calme = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const attendre = (ms) => new Promise((ok) => setTimeout(ok, ms));
-  const ALLER = { duration: 560, easing: 'cubic-bezier(.22, .8, .16, 1)' };
-  const RETOUR = { duration: 460, easing: 'cubic-bezier(.45, 0, .2, 1)' };
+  const ALLER = { duration: 440, easing: 'cubic-bezier(.22, .8, .16, 1)' };
+  const RETOUR = { duration: 400, easing: 'cubic-bezier(.45, 0, .2, 1)' };
+  const RESSORT = 'cubic-bezier(.2, .9, .3, 1.02)';
   // La transformation qui pose le rectangle r1 (l'image dans la fenêtre) sur r0 (la vignette) ; origine en haut à gauche.
   const depuis = (r0, r1) => `translate(${r0.left - r1.left}px, ${r0.top - r1.top}px) scale(${r0.width / r1.width}, ${r0.height / r1.height})`;
 
@@ -207,7 +209,7 @@
       k = n;
       textes();
       $('.v-fermer', d).focus();
-      if (!morph) { poser(n); return; }
+      if (!morph) { poser(n); if (calme()) d.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, easing: 'ease-out' }); return; }
       poser(n, vignette.currentSrc);
       await Promise.race([im.decode().catch(() => {}), attendre(300)]);
       if (!vivante()) return;
@@ -217,7 +219,7 @@
       const anims = [
         im.animate([{ transform: depuis(r0, r1), opacity: teinte }, { transform: 'none', opacity: 1 }], ALLER),
         d.animate([{ backgroundColor: 'transparent' }, { backgroundColor: fond }], { duration: ALLER.duration * 0.8, easing: 'ease-out' }),
-        ...habillage.map((el) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 240, easing: 'ease-out', fill: 'backwards' })),
+        ...habillage.map((el) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 180, easing: 'ease-out', fill: 'backwards' })),
       ];
       // Le fichier à la taille de la fenêtre remplace la vignette dès qu'il est chargé ; d'ici là, elle reste affichée.
       im.srcset = srcset(liste[n]);
@@ -236,13 +238,16 @@
       if (vivant()) d.classList.add('passe');
       while (affiche !== k && vivant()) {
         let cible = k, pret = precharger(liste[cible]);
-        await finir([im.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-sens * 26}px)` }], { duration: 170, easing: 'ease-in', fill: 'forwards' })]);
+        // Lâchée au doigt, l'image part d'où elle est et continue sur sa lancée ; au clavier, elle glisse de 26 px.
+        const depart = getComputedStyle(im).transform, x0 = depart === 'none' ? 0 : new DOMMatrix(depart).m41;
+        im.style.transform = '';
+        await finir([im.animate([{ opacity: 1, transform: depart }, { opacity: 0, transform: `translateX(${x0 ? x0 - sens * 140 : -sens * 26}px)` }], { duration: x0 ? 200 : 170, easing: x0 ? 'ease-out' : 'ease-in', fill: 'forwards' })]);
         await pret;
         while (cible !== k && vivant()) { cible = k; await precharger(liste[cible]); }
         if (!vivant()) break;
         im.getAnimations().forEach((a) => a.cancel());
         poser(cible);
-        await finir([im.animate([{ opacity: 0, transform: `translateX(${sens * 26}px)` }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2, .7, .2, 1)' })]);
+        await finir([im.animate([{ opacity: 0, transform: `translateX(${sens * 40}px)` }, { opacity: 1, transform: 'none' }], { duration: 320, easing: RESSORT })]);
       }
       if (seance !== ici) return;   // fenêtre fermée (et peut-être rouverte) entre-temps : rien à rendre
       passage = false;
@@ -260,17 +265,31 @@
     async function fermer() {
       if (fermeture || !d.open) return;
       const b = boutons.get(liste[affiche].id), vignette = b && $('img', b);
+      // Sous mouvement réduit : un fondu court, rien d'autre.
+      if (calme() && !versFormulaire) { fermeture = true; await finir([d.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill: 'forwards' })]); if (d.open) d.close(); return; }
       // Morph d'ouverture pas encore parti (fenêtre transparente, vignette encore à sa place) : rien n'a bougé, on ferme.
-      if (calme() || !vignette || versFormulaire || d.classList.contains('ouvre')) { d.close(); return; }
+      if (!vignette || versFormulaire || d.classList.contains('ouvre')) { d.close(); return; }
       fermeture = true;
       k = affiche;   // fermé pendant un passage : on revient à l'image que l'on voyait
-      // Le retour part de ce qui est à l'écran à cet instant (morph d'ouverture ou glissement en cours compris) : rien ne saute.
+      // Le retour part de ce qui est à l'écran à cet instant (morph d'ouverture, glissement ou geste en cours compris) : rien
+      // ne saute. Le geste posé en ligne est retiré avant de mesurer, pour que le trajet vise la vignette depuis la vraie place.
       const vu = (el, p) => getComputedStyle(el)[p];
       const depart = { tr: vu(im, 'transform'), op: vu(im, 'opacity'), fond: vu(d, 'backgroundColor'), habits: habillage.map((el) => vu(el, 'opacity')) };
       d.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      lisser();
       d.classList.add('anime');
+      const r1 = im.getBoundingClientRect(), y = scrollY;
       b.scrollIntoView({ block: 'nearest', behavior: 'instant' });   // la vignette, à l'écran ; la page ne bouge que si besoin
-      const r1 = im.getBoundingClientRect(), r0 = vignette.getBoundingClientRect();
+      // Page défilée : les animations liées au défilement (.p-flux .piece, salle des personnes) ne se mettent à jour qu'à
+      // l'image suivante ; mesurée tout de suite, la vignette serait 48 px trop bas. L'image reste où elle est le temps d'une
+      // image, puis la vignette est mesurée à sa vraie place.
+      if (scrollY !== y) {
+        im.style.transform = depart.tr; im.style.opacity = depart.op; d.style.backgroundColor = depart.fond;
+        habillage.forEach((el, i) => { el.style.opacity = depart.habits[i]; });
+        await new Promise((ok) => requestAnimationFrame(ok));
+        lisser(); im.style.opacity = '';
+      }
+      const r0 = vignette.getBoundingClientRect();
       cacherVignette(vignette);
       await finir([
         im.animate([{ transform: depart.tr, opacity: depart.op }, { transform: depuis(r0, r1), opacity: 1 }], { ...RETOUR, fill: 'forwards' }),
@@ -298,10 +317,53 @@
     // Un clic dans le vide autour de l'image ferme, comme Échap.
     d.addEventListener('click', (e) => { if (e.target === d || e.target.classList.contains('v-scene') || e.target === zone) fermer(); });
     addEventListener('resize', () => { if (d.open) ajuster(); });
+    // Gestes : l'image suit le doigt (ou la souris). Sur le côté, au-delà de 60 px ou d'un geste vif, elle part vers la
+    // voisine avec son élan ; vers le bas, elle se détache en rapetissant, le fond et les commandes s'effacent à mesure, et
+    // lâchée assez bas (ou d'un geste vif), elle retourne à sa vignette (fermer part de là où elle est). En deçà, elle
+    // revient à sa place sur un ressort. transform et opacity seulement, plus la couleur du fond, unie.
+    let tir = null;
+    im.draggable = false;
+    const lisser = () => { im.style.transform = ''; d.style.backgroundColor = ''; habillage.forEach((el) => { el.style.opacity = ''; }); };
+    im.addEventListener('pointerdown', (e) => {
+      if (e.button > 0 || fermeture || passage || d.classList.contains('anime') || calme()) return;
+      tir = { id: e.pointerId, x: e.clientX, y: e.clientY, t: e.timeStamp, dx: 0, dy: 0, vx: 0, vy: 0, axe: null, w: im.offsetWidth, h: im.offsetHeight };
+    });
+    im.addEventListener('pointermove', (e) => {
+      if (!tir || e.pointerId !== tir.id) return;
+      const dx = e.clientX - tir.x, dy = e.clientY - tir.y, dt = Math.max(1, e.timeStamp - tir.t);
+      if (!tir.axe) {
+        if (Math.hypot(dx, dy) < 8) return;
+        tir.axe = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        im.setPointerCapture(e.pointerId);
+      }
+      tir.vx = (dx - tir.dx) / dt; tir.vy = (dy - tir.dy) / dt; tir.t = e.timeStamp; tir.dx = dx; tir.dy = dy;
+      if (tir.axe === 'x') { im.style.transform = `translateX(${dx}px)`; return; }
+      // Origine de l'image en haut à gauche (FLIP) : la réduction se recentre d'elle-même.
+      const p = Math.min(1, Math.max(0, dy) / (innerHeight * 0.45)), e2 = 1 - p * 0.25;
+      im.style.transform = `translate(${dx * 0.5 + ((1 - e2) * tir.w) / 2}px, ${(dy > 0 ? dy : dy * 0.3) + ((1 - e2) * tir.h) / 2}px) scale(${e2})`;
+      d.style.backgroundColor = `color-mix(in srgb, ${fond} ${Math.round((1 - p) * 100)}%, transparent)`;
+      habillage.forEach((el) => { el.style.opacity = String(1 - p); });
+    });
+    const lacher = (e) => {
+      if (!tir || e.pointerId !== tir.id) return;
+      const t = tir, vif = e.timeStamp - t.t < 90;
+      tir = null;
+      if (!t.axe) return;
+      if (t.axe === 'x' && (Math.abs(t.dx) > 60 || (vif && Math.abs(t.vx) > 0.4 && Math.sign(t.vx) === Math.sign(t.dx)))) { const s = t.dx < 0 ? 1 : -1; aller(k + s, s); return; }
+      if (t.axe === 'y' && (t.dy > 110 || (vif && t.vy > 0.5))) { fermer(); return; }
+      const vu = { tr: getComputedStyle(im).transform, fond: d.style.backgroundColor, habits: habillage.map((el) => el.style.opacity) };
+      lisser();
+      im.animate([{ transform: vu.tr }, { transform: 'none' }], { duration: 380, easing: RESSORT });
+      if (vu.fond) d.animate([{ backgroundColor: vu.fond }, { backgroundColor: fond }], { duration: 240, easing: 'ease-out' });
+      habillage.forEach((el, i) => { if (vu.habits[i]) el.animate([{ opacity: vu.habits[i] }, { opacity: 1 }], { duration: 240, easing: 'ease-out' }); });
+    };
+    im.addEventListener('pointerup', lacher);
+    im.addEventListener('pointercancel', lacher);
     // Le focus revient sur l'image de la page que l'on regardait en dernier (celle qui a ouvert, si l'on n'a pas navigué).
     d.addEventListener('close', () => {
       d.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       d.classList.remove('ouvre', 'anime', 'passe');
+      lisser();
       document.documentElement.style.removeProperty('--barre');
       montrerVignette();
       seance++;

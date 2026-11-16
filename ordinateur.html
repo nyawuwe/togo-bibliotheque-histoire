@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Passage d'une page du site à l'autre en fondu (style.css, ordinateur.css). L'accord est donné ici, en ligne, pour être lu
+     avant le premier affichage : placé dans une feuille externe, il arrivait parfois trop tard et la page entrait sans transition.
+     Une transition sautée (chargement trop long) ne laisse pas d'erreur dans la console. -->
+<style>@view-transition { navigation: auto; }</style>
+<script>addEventListener('pagereveal', (e) => e.viewTransition?.ready.catch(() => {}));</script>
 <!-- Aperçu « ordinateur » sur un petit écran : ?ordinateur=1, tenu pour l'onglet (sessionStorage) jusqu'à ?ordinateur=0.
      La page se met en page sur 1440 px de large, réduite à la largeur de l'écran, et ne renvoie jamais vers la version
      téléphone. Même script en tête d'index.html et d'ordinateur.html ; sans le paramètre ni le drapeau, rien ne change. -->

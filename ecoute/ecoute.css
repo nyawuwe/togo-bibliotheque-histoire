@@ -93,3 +93,8 @@
 :root.te-statique .te-bras { animation: none; transform: none; }
 :root.te-statique .te-ecouteurs { animation: none; transform: translateX(-50%); }
 :root.te-statique .te-message { animation: none; opacity: 1; }
+
+/* Départ vers le bouton du son (option « vers » d'ecoute.js) : le noir passe sur un calque qui se lève en opacité seule,
+   pendant que la scène des écouteurs vole jusqu'au bouton. */
+.te-ecran.te-part { background: transparent; }
+.te-fond { position: absolute; inset: 0; background: #000; }

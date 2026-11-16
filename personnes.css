@@ -78,7 +78,44 @@ a { text-decoration-color: var(--laiton); }
 .p-intro { align-items: start; }
 .p-voix { grid-column: 1 / span 5; padding: 28px 28px 24px; border: 1px solid var(--filet); border-radius: 6px; background: rgba(239, 230, 214, .035); }
 .p-voix-titre { margin: 0; font: 400 clamp(22px, 1.8vw, 28px)/1.2 var(--serif); }
-.p-lecteur { display: block; width: 100%; height: 44px; margin-top: 20px; }
+/* Le lecteur de la voix (personnes.js, ecoute) : un bouton rond qui, à la première lecture, se replie et laisse l'onde se
+   déplier depuis lui ; les barres battent tant que l'enregistrement joue ; l'onde se remplit en laiton (progression), on
+   la touche ou on la glisse pour se déplacer. transform et opacity seulement ; sous mouvement réduit, un fondu court. */
+.p-ecoute { display: flex; align-items: center; gap: 12px; margin-top: 20px; min-height: 56px; }
+.p-ecoute-bouton { flex: none; width: 56px; height: 56px; display: grid; place-items: center; padding: 0; border: 1px solid var(--laiton); border-radius: 50%;
+  background: var(--laiton); color: var(--nuit); cursor: pointer; transition: transform .45s cubic-bezier(.2, .9, .3, 1.02), background-color .3s, color .3s; }
+.p-ecoute-bouton svg { width: 24px; height: 24px; fill: currentColor; }
+.p-ecoute-bouton:focus-visible { outline: 2px solid var(--texte-nuit); outline-offset: 3px; }
+.p-ecoute-pause, .joue .p-ecoute-lire { display: none; }
+.joue .p-ecoute-pause { display: inline; }
+.ouverte .p-ecoute-bouton { transform: scale(.82); background: transparent; color: var(--laiton); }
+.p-onde { flex: 1; min-width: 0; display: flex; align-items: center; gap: 2px; height: 44px; cursor: pointer; touch-action: pan-y;
+  transform: scaleX(0); transform-origin: 0 50%; opacity: 0; visibility: hidden;
+  transition: transform .42s cubic-bezier(.2, .9, .3, 1.02), opacity .2s, visibility 0s linear .42s; }
+.ouverte .p-onde { transform: none; opacity: 1; visibility: visible; transition: transform .42s cubic-bezier(.2, .9, .3, 1.02), opacity .2s, visibility 0s; }
+.p-onde span { flex: 1; height: 100%; border-radius: 2px; background: rgba(239, 230, 214, .3); transform: scaleY(var(--h)); transition: background-color .2s; }
+.p-onde span.lu { background: var(--laiton); }
+.joue .p-onde span { animation: battre .8s ease-in-out infinite alternate; }
+.p-onde span:nth-child(3n) { animation-delay: -.27s; }
+.p-onde span:nth-child(3n + 1) { animation-delay: -.53s; }
+@keyframes battre { to { transform: scaleY(calc(var(--h) * .5)); } }
+.p-onde:focus-visible { outline: 2px solid var(--laiton); outline-offset: 4px; }
+.p-ecoule { flex: none; min-width: 3.2em; font: 400 12px/1 var(--mono); color: var(--pierre); opacity: 0; transition: opacity .3s; }
+.ouverte .p-ecoule { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .p-ecoute-bouton, .p-onde, .ouverte .p-onde { transition: opacity .15s; }
+  .p-onde { transform: none; }
+  .ouverte .p-ecoute-bouton { transform: none; }
+  .joue .p-onde span { animation: none; }
+}
+/* Un texte se dévoile à mesure qu'il entre dans l'écran, au rythme du défilement (sans script) ; sans cette fonction, ou
+   sous mouvement réduit, il est là d'emblée. La biographie a déjà le sien (.p-flux .p-bio, plus bas). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .p-annexe { animation: devoile linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  }
+}
+@keyframes devoile { from { opacity: 0; transform: translateY(28px); } }
 .p-voix-duree { margin: 10px 0 0; font: 400 12px/1.4 var(--mono); color: var(--pierre); }
 .p-voix-credit, .p-voix-note { margin: 14px 0 0; font: 400 12px/1.6 var(--mono); color: var(--pierre); }
 .p-citation, .p-fait { grid-column: 7 / span 6; margin: 0; }

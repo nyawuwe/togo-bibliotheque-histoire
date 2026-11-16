@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Passage d'une page du site à l'autre en fondu (style.css, ordinateur.css). L'accord est donné ici, en ligne, pour être lu
+     avant le premier affichage : placé dans une feuille externe, il arrivait parfois trop tard et la page entrait sans transition.
+     Une transition sautée (chargement trop long) ne laisse pas d'erreur dans la console. -->
+<style>@view-transition { navigation: auto; }</style>
+<script>addEventListener('pagereveal', (e) => e.viewTransition?.ready.catch(() => {}));</script>
 <!-- Salle « Ces Togolais(es) qui m'ont marqué » : une page par personne (?p=identifiant), servie telle quelle depuis public/,
      pour ordinateur comme pour téléphone (empilée sous 761 px). Elle reprend les jetons, les rangées, les pièces et la
      visionneuse de l'accueil pour ordinateur (ordinateur.css, galerie.js) et sa musique (musique.js). Aucune requête vers

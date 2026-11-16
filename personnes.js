@@ -30,6 +30,13 @@
   const duree = (s) => `${Math.floor(s / 60)} min ${String(Math.round(s % 60)).padStart(2, '0')} s`;
   const annee = (t) => t.match(/\b(1[89]\d\d|20\d\d)\b/)?.[0] ?? '';
   // Renvois aux sources : leur numéro dans la liste de la personne, en bas de page.
+  // L'onde du lecteur de la voix : un dessin fixe, propre à chaque personne (ce n'est pas l'analyse du son), plus haut au
+  // milieu qu'aux bords.
+  const ONDE = 44;
+  const onde = (id) => {
+    const graine = [...id].reduce((a, c) => a + c.charCodeAt(0), 0);
+    return Array.from({ length: ONDE }, (_, k) => { const x = Math.sin((k + 1) * 12.9898 + graine * 78.233) * 43758.5453; return (0.3 + 0.7 * (x - Math.floor(x))) * (0.55 + 0.45 * Math.sin(((k + 0.5) / ONDE) * Math.PI)); });
+  };
   const renvois = (p, ids) => `<p class="p-refs">Sources : ${ids.map((s) => [s, p.sources.findIndex((x) => x.id === s) + 1]).sort((a, b) => a[1] - b[1]).map(([s, n]) => `<a href="#source-${esc(s)}">${n}</a>`).join(', ')}</p>`;
 
   async function demarrer() {
@@ -126,7 +133,12 @@
 
     const voix = p.audio
       ? `<p class="p-voix-titre">${esc(p.audio.titre)}</p>
-        <audio class="p-lecteur" controls preload="none" src="${esc(p.audio.fichier)}"></audio>
+        <div class="p-ecoute">
+          <button type="button" class="p-ecoute-bouton" aria-label="Écouter l'enregistrement" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="p-ecoute-lire" d="M8.5 5.5v13l10-6.5z"/><path class="p-ecoute-pause" d="M7 5h3.5v14H7zm6.5 0H17v14h-3.5z"/></svg></button>
+          <div class="p-onde" role="slider" tabindex="0" aria-label="Position dans l'enregistrement" aria-valuemin="0" aria-valuemax="${Math.round(p.audio.duree)}" aria-valuenow="0" aria-valuetext="${duree(0)}">${onde(p.id).map((h) => `<span style="--h:${h.toFixed(2)}"></span>`).join('')}</div>
+          <span class="p-ecoule" aria-hidden="true">0:00</span>
+        </div>
+        <audio class="p-lecteur" preload="none" src="${esc(p.audio.fichier)}"></audio>
         <p class="p-voix-duree">${duree(p.audio.duree)}</p>
         <p class="p-voix-credit">${esc(p.audio.credit)}</p>`
       : `<p class="p-voix-titre">Enregistrement à venir</p>
@@ -191,10 +203,61 @@
     // Sous une voix, la musique baisse de 11 dB, comme sous les voix des salles ; sous une chanson, elle se tait tout à fait
     // (deux chansons ne se superposent jamais). Elle revient quand l'enregistrement s'arrête.
     const lecteur = $('.p-lecteur');
+    if (lecteur) ecoute(lecteur, p.audio.duree);
     if (lecteur) {
       lecteur.addEventListener('play', () => window.togoMusique?.sousLaVoix(p.audio.nature === 'chanson' ? 'chanson' : true));
       ['pause', 'ended'].forEach((t) => lecteur.addEventListener(t, () => window.togoMusique?.sousLaVoix(false)));
     }
+  }
+
+  // Le lecteur de la voix : un bouton rond. À la première lecture, il se replie et l'onde se déplie depuis lui ; tant que
+  // l'enregistrement joue, ses barres battent. L'onde est la barre de progression : elle se remplit, on la touche ou on la
+  // glisse pour aller ailleurs, flèches, Origine et Fin au clavier. transform et opacity seulement.
+  function ecoute(lecteur, prevue) {
+    const boite = $('.p-ecoute'), bouton = $('.p-ecoute-bouton'), piste = $('.p-onde'), barres = [...piste.children], ecoule = $('.p-ecoule');
+    const total = () => (Number.isFinite(lecteur.duration) && lecteur.duration > 0 ? lecteur.duration : prevue);
+    const horloge = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+    const peindre = () => {
+      const t = Math.min(lecteur.currentTime, total()), n = Math.round((t / total()) * barres.length);
+      barres.forEach((b, k) => b.classList.toggle('lu', k < n));
+      piste.setAttribute('aria-valuenow', String(Math.round(t)));
+      piste.setAttribute('aria-valuetext', duree(t));
+      ecoule.textContent = horloge(t);
+    };
+    const etat = () => {
+      const joue = !lecteur.paused && !lecteur.ended;
+      boite.classList.toggle('joue', joue);
+      if (joue) boite.classList.add('ouverte');
+      bouton.setAttribute('aria-pressed', String(joue));   // libellé fixe : l'état se dit par aria-pressed, une seule fois
+    };
+    ['play', 'pause', 'ended'].forEach((t) => lecteur.addEventListener(t, etat));
+    lecteur.addEventListener('timeupdate', peindre);
+    bouton.addEventListener('click', () => { if (lecteur.paused || lecteur.ended) lecteur.play().catch(() => {}); else lecteur.pause(); });
+    const placer = (x) => { const r = piste.getBoundingClientRect(); lecteur.currentTime = Math.min(1, Math.max(0, (x - r.left) / r.width)) * total(); peindre(); };
+    // À la souris, la lecture va où l'on appuie. Au doigt, l'onde laisse défiler la page (touch-action: pan-y) : un toucher
+    // bref déplace la lecture au lâcher, un glissé horizontal la fait suivre le doigt, un glissé vertical fait défiler.
+    let doigt = null;
+    piste.addEventListener('pointerdown', (e) => {
+      if (e.button > 0) return;
+      if (e.pointerType !== 'mouse') { doigt = { id: e.pointerId, x: e.clientX, y: e.clientY }; return; }
+      piste.setPointerCapture(e.pointerId); placer(e.clientX);
+    });
+    piste.addEventListener('pointermove', (e) => {
+      if (doigt?.id === e.pointerId) {
+        const dx = Math.abs(e.clientX - doigt.x), dy = Math.abs(e.clientY - doigt.y);
+        if (dx > 8 && dx > dy) { doigt = null; piste.setPointerCapture(e.pointerId); }
+      }
+      if (piste.hasPointerCapture(e.pointerId)) placer(e.clientX);
+    });
+    piste.addEventListener('pointerup', (e) => { if (doigt?.id === e.pointerId) placer(e.clientX); doigt = null; });
+    piste.addEventListener('pointercancel', () => { doigt = null; });
+    piste.addEventListener('keydown', (e) => {
+      const pas = { ArrowRight: 5, ArrowUp: 5, ArrowLeft: -5, ArrowDown: -5, PageUp: 30, PageDown: -30 }[e.key];
+      if (pas === undefined && e.key !== 'Home' && e.key !== 'End') return;
+      e.preventDefault();
+      lecteur.currentTime = e.key === 'Home' ? 0 : e.key === 'End' ? total() : Math.min(total(), Math.max(0, lecteur.currentTime + pas));
+      peindre();
+    });
   }
 
   demarrer();

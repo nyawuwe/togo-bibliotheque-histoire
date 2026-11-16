@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Passage d'une page du site à l'autre en fondu (style.css, ordinateur.css). L'accord est donné ici, en ligne, pour être lu
+     avant le premier affichage : placé dans une feuille externe, il arrivait parfois trop tard et la page entrait sans transition.
+     Une transition sautée (chargement trop long) ne laisse pas d'erreur dans la console. -->
+<style>@view-transition { navigation: auto; }</style>
+<script>addEventListener('pagereveal', (e) => e.viewTransition?.ready.catch(() => {}));</script>
 <!-- Signaler une image de la galerie de l'accueil pour ordinateur : le formulaire seul, lisible à toutes les tailles d'écran.
      Les crédits de la version téléphone y mènent ; ?image=<identifiant> choisit l'image d'avance. La page ne touche pas au
      mode de l'onglet (ni ?ordinateur=1, ni togo-ordinateur). Même formulaire que la galerie et la salle des personnes

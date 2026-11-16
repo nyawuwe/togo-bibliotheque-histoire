@@ -89,14 +89,14 @@
   // Transition écoute (ecoute/ecoute.js) : la première chose à l'arrivée, cinq secondes sans action demandée, avant le
   // film d'ouverture (sous mouvement réduit, fixe et sans film) ; une fois par visite (le composant tient le drapeau de
   // session, partagé avec index.html : déjà vue, il passe aussitôt à la suite). La page reste inerte dessous, pour
-  // qu'un clic ne la traverse pas.
+  // qu'un clic ne la traverse pas. En partant, les écouteurs se posent sur le bouton du son.
   let ecouteEnCours = false;
   function ecoute(suite) {
     if (!window.afficherTransitionEcoute) { suite(); return; }
     const derriere = [$('.evitement'), $('main')];
     ecouteEnCours = true;
     derriere.forEach((el) => { el.inert = true; });
-    window.afficherTransitionEcoute({ image: 'ecoute/ecouteurs-suspendus.webp', onFin() { ecouteEnCours = false; derriere.forEach((el) => { el.inert = false; }); suite(); } });
+    window.afficherTransitionEcoute({ image: 'ecoute/ecouteurs-suspendus.webp', vers: () => $('.bouton-son'), onFin() { ecouteEnCours = false; derriere.forEach((el) => { el.inert = false; }); suite(); } });
   }
 
   function ouverture(demande = false, bouton = null) {
@@ -195,10 +195,23 @@
   function index() {
     const bouton = $('#bouton-index'), panneau = $('#index');
     $('#index-liste').innerHTML = D.salles.map((s) => `<li><a href="./#/salle/${esc(s.id)}"><span class="index-num">${s.numero}</span><span class="index-nom">${esc(s.titre)}</span><span class="index-periode">${riche(s.periode)}</span></a></li>`).join('');
+    // Le bouton devient le panneau, le panneau rentre dans son bouton (View Transitions, le reste de la page immobile ;
+    // sans elles, le panneau descend comme avant ; sous mouvement réduit, un fondu court, ordinateur.css). Le morph remplace
+    // la descente : jouées ensemble, elles se doublaient. Une seconde bascule pendant la première la remplace ; seule la
+    // dernière retire la classe vt-panneau.
+    let enCours = null;
     const basculer = (ouvrir) => {
-      panneau.hidden = !ouvrir;
-      bouton.setAttribute('aria-expanded', String(ouvrir));
-      if (ouvrir) $('a', panneau).focus(); else if (panneau.contains(document.activeElement) || document.activeElement === document.body) bouton.focus();
+      const focus = () => { if (ouvrir) $('a', panneau).focus(); else if (panneau.contains(document.activeElement) || document.activeElement === document.body) bouton.focus(); };
+      const faire = () => { panneau.hidden = !ouvrir; bouton.setAttribute('aria-expanded', String(ouvrir)); };
+      if (!document.startViewTransition || reduit.matches || panneau.hidden === !ouvrir) { faire(); focus(); return; }
+      const [a, b] = ouvrir ? [bouton, panneau] : [panneau, bouton];
+      panneau.style.animation = 'none';
+      a.style.viewTransitionName = 'morph';
+      racine.classList.add('vt-panneau');
+      const t = enCours = document.startViewTransition(() => { a.style.viewTransitionName = ''; faire(); b.style.viewTransitionName = 'morph'; });
+      t.ready.catch(() => {});
+      t.updateCallbackDone.then(focus, focus);
+      t.finished.catch(() => {}).then(() => { b.style.viewTransitionName = ''; if (enCours === t) racine.classList.remove('vt-panneau'); });
     };
     bouton.addEventListener('click', () => basculer(panneau.hidden));
     $('#index-fermer').addEventListener('click', () => basculer(false));
@@ -332,8 +345,9 @@
       document.body.insertAdjacentHTML('afterbegin', `<p class="sans-script" role="alert">Les données du site n'ont pas pu être lues (${esc(e.message)}). Recharger la page.</p>`);
       return;
     }
-    // Sous la transition, le rideau du film couvre déjà la page : son fondu de sortie ne laisse pas entrevoir l'affiche.
-    if (ecouteEnCours && veutFilm() && cliches().length >= 2) $('#film').hidden = false;
+    // Sous la transition, le rideau du film couvre déjà la page : son fondu de sortie ne laisse pas entrevoir l'affiche. Le
+    // bouton du son passe déjà au-dessus du rideau (film-actif), pour que les écouteurs se posent sur un bouton visible.
+    if (ecouteEnCours && veutFilm() && cliches().length >= 2) { $('#film').hidden = false; racine.classList.add('film-actif'); }
     ecouteFinie.then(() => ouverture());
     affiche();
     index();
